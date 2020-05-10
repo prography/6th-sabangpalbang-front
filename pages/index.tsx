@@ -7,13 +7,13 @@ const dummyCardInfos = [
   {
     imageInfo: {
       src:
-        'https://lh3.googleusercontent.com/proxy/UPfo-MYtzksVp8pZKNqNPpTcUo7QtSyyJ8XPJh4axZEj0mbY9BawG7CBuqiGI8_LgGN7-2MQ0y1motb4AWnpjKkLc25RIaRz-G0IZG9V7lmMQxJ6OL7MwoozqUzGaNbUYHwi5hnrhZ_7RT94Jb4-l02fOQrpwCaJWENO_A',
+        'https://lh3.googleusercontent.com/proxy/h_MDgP2SWX9hJzeNzqsnonet03ZvKhm0ZFZ81mE_7uzje08WVOcxACEfOum0EKtTwiYiU8CoSFViT_OjAeYLYZUrXo-e6C7LZ45ak_s_6wW4Cwbmh-DgLrEHvIezJgvIN17lQcgwC7iWkRglaXTJN3tJzescMZ9ofoN3oGVzgZw5FvH19XHt9o8s84VP5i84Cvxv43fzJLnG7AYhhi7iTuPCwUsG8lI0svOc34JrdTv_60yyvZwtbJWfe-u7TtqJ4gWbRTfsFemumr_nkMIKoUO7r8EHjmNkuoKpBgBEHirTqPPzb-dtw6WqF7O9BS-2idUt-A4XLvNz_gnwOZXoicL0ihY',
       alt: '블랙 러시안',
     },
     alcoholDegree: 20,
-    cocktailName: '블랙 러시안',
+    cocktailName: '블랙 러시안 블랙 러시안',
     cocktailID: 1,
-    ingredients: ['깔루아', '보드카'],
+    ingredients: ['깔루아', '보드ffffffffffffffff ttf카'],
   },
   {
     imageInfo: {
@@ -29,7 +29,7 @@ const dummyCardInfos = [
   {
     imageInfo: {
       src:
-        'https://lh3.googleusercontent.com/proxy/UPfo-MYtzksVp8pZKNqNPpTcUo7QtSyyJ8XPJh4axZEj0mbY9BawG7CBuqiGI8_LgGN7-2MQ0y1motb4AWnpjKkLc25RIaRz-G0IZG9V7lmMQxJ6OL7MwoozqUzGaNbUYHwi5hnrhZ_7RT94Jb4-l02fOQrpwCaJWENO_A',
+        'https://lh3.googleusercontent.com/proxy/h_MDgP2SWX9hJzeNzqsnonet03ZvKhm0ZFZ81mE_7uzje08WVOcxACEfOum0EKtTwiYiU8CoSFViT_OjAeYLYZUrXo-e6C7LZ45ak_s_6wW4Cwbmh-DgLrEHvIezJgvIN17lQcgwC7iWkRglaXTJN3tJzescMZ9ofoN3oGVzgZw5FvH19XHt9o8s84VP5i84Cvxv43fzJLnG7AYhhi7iTuPCwUsG8lI0svOc34JrdTv_60yyvZwtbJWfe-u7TtqJ4gWbRTfsFemumr_nkMIKoUO7r8EHjmNkuoKpBgBEHirTqPPzb-dtw6WqF7O9BS-2idUt-A4XLvNz_gnwOZXoicL0ihY',
       alt: '블랙 러시안',
     },
     alcoholDegree: 20,
