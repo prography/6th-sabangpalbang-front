@@ -14,25 +14,26 @@ interface ICardInfo {
 }
 
 interface IProps {
-  column: number;
   cardInfos: ICardInfo[];
   CardComponent: (props: any) => JSX.Element;
 }
 
-const getGridContainer = (column: number) => styled.div`
+const CardContainer = styled.div`
   display: grid;
   grid-gap: 1em;
-  grid-template-columns: repeat(${column}, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: minmax(400px, auto);
+
+  @media screen and (min-width: 769px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
-const CardList = ({ column, cardInfos, CardComponent }: IProps) => {
-  const CardContainer = getGridContainer(column);
-
+const CardList = ({ cardInfos, CardComponent }: IProps) => {
   return (
     <CardContainer>
       {cardInfos.map((cardInfo) => (
-        <CardComponent {...cardInfo} />
+        <CardComponent key={cardInfo.cocktailID} {...cardInfo} />
       ))}
     </CardContainer>
   );
