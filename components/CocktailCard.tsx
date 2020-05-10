@@ -44,7 +44,7 @@ const InfoBlock = styled.div`
     top: 0.3em;
     font-size: 1.5rem;
     text-align: right;
-    color: #ce89f8;
+    color: #fc6593;
   }
 `;
 
