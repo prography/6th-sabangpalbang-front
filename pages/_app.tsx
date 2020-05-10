@@ -3,7 +3,9 @@ import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose, createStore, Middleware, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { createEpicMiddleware } from 'redux-observable';
 
+import rootEpic from '../epics';
 import rootReducer from '../reducers';
 
 interface IProps extends AppProps {
@@ -19,12 +21,15 @@ const App = ({ store, Component, pageProps }: IProps) => {
 };
 
 export default withRedux((initialState, options) => {
-  const middlewares: Middleware[] = [];
+  const epicMiddleware = createEpicMiddleware();
+
+  const middlewares: Middleware[] = [epicMiddleware];
   const enhancer =
     process.env.NODE_ENV !== "production"
       ? composeWithDevTools(applyMiddleware(...middlewares))
       : compose(applyMiddleware(...middlewares));
   const store = createStore(rootReducer, initialState, enhancer);
 
+  epicMiddleware.run(rootEpic);
   return store;
 })(App);
