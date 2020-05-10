@@ -14,8 +14,41 @@ interface IProps {
   ingredients: string[];
 }
 
-const StyledCard = styled.div``;
-const InfoBlock = styled.div``;
+const StyledCard = styled.div`
+  width: 300px;
+
+  img {
+    width: 100%;
+  }
+`;
+const InfoBlock = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 1em 1em;
+  box-sizing: border-box;
+  & > p {
+    font-weight: bold;
+  }
+
+  .cocktail-name {
+    font-size: 1.4rem;
+  }
+
+  .ingredients {
+    color: gray;
+    margin-top: 1em;
+    font-size: 1.2rem;
+  }
+  .alcohol-degree {
+    position: absolute;
+    right: 0;
+    top: 0.3em;
+    font-size: 2rem;
+    width: 3.5em;
+    text-align: right;
+    color: #ce89f8;
+  }
+`;
 
 const CocktailCard = ({
   imageInfo,
@@ -33,9 +66,9 @@ const CocktailCard = ({
         <a>
           <img src={imageInfo.src} alt={imageInfo.alt} />
           <InfoBlock>
-            <p>{cocktailName}</p>
-            <p>{ingredients}</p>
-            <p className="alcohol-degree">{alcoholDegree}</p>
+            <p className="cocktail-name">{cocktailName}</p>
+            <p className="ingredients">{ingredients.join(', ')}</p>
+            <p className="alcohol-degree">{alcoholDegree.toFixed(1)}도</p>
           </InfoBlock>
         </a>
       </Link>
