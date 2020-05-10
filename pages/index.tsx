@@ -34,7 +34,7 @@ const dummyCardInfos = [
     },
     alcoholDegree: 20,
     cocktailName: '블랙 러시안',
-    cocktailID: 1,
+    cocktailID: 3,
     ingredients: ['깔루아', '보드카'],
   },
   {
@@ -45,7 +45,7 @@ const dummyCardInfos = [
     },
     alcoholDegree: 20,
     cocktailName: '예거밤',
-    cocktailID: 2,
+    cocktailID: 4,
     ingredients: ['예거마이스터', '레드불'],
   },
 ];
@@ -53,11 +53,7 @@ const dummyCardInfos = [
 const IndexPage = (props: IProps) => {
   return (
     <div style={{ padding: '0 1em' }}>
-      <CardList
-        column={2}
-        CardComponent={CocktailCard}
-        cardInfos={dummyCardInfos}
-      />
+      <CardList CardComponent={CocktailCard} cardInfos={dummyCardInfos} />
     </div>
   );
 };
