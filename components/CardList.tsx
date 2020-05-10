@@ -21,8 +21,8 @@ interface IProps {
 const CardContainer = styled.div`
   display: grid;
   grid-gap: 1em;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: minmax(400px, auto);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(200px, auto);
 
   @media screen and (min-width: 769px) {
     grid-template-columns: repeat(3, 1fr);
