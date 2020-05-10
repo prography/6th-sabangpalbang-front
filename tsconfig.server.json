@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./build",
+    "isolatedModules": false,
+    "moduleResolution": "node",
+    "strict": true,
+    "noEmit": false,
+    "esModuleInterop": true
+  },
+  "include": ["index.ts"],
+  "extends": "./tsconfig.json"
+}

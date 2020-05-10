@@ -1,0 +1,5 @@
+{
+  "watch": ["./build"],
+  "exec": "node build/index.js",
+  "ext": "ts tsx js json"
+}
