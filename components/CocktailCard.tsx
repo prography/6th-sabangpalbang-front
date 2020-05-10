@@ -15,36 +15,34 @@ interface IProps {
 }
 
 const StyledCard = styled.div`
-  width: 300px;
-
   img {
     width: 100%;
+    height: 300px;
   }
 `;
 const InfoBlock = styled.div`
   position: relative;
   width: 100%;
-  padding: 1em 1em;
+  padding: 2.5em 1em;
   box-sizing: border-box;
   & > p {
     font-weight: bold;
   }
 
   .cocktail-name {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .ingredients {
     color: gray;
     margin-top: 1em;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   .alcohol-degree {
     position: absolute;
     right: 0;
     top: 0.3em;
-    font-size: 2rem;
-    width: 3.5em;
+    font-size: 1.5rem;
     text-align: right;
     color: #ce89f8;
   }
