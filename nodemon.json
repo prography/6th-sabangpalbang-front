@@ -1,5 +1,4 @@
 {
-  "watch": ["./build"],
-  "exec": "node build/index.js",
-  "ext": "ts tsx js json"
+  "watch": ["./index.ts"],
+  "exec": "tsc -p tsconfig.server.json && node build/index.js"
 }
