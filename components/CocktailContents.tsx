@@ -21,9 +21,10 @@ const Info = styled.div`
   grid-area: info;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   & > div:nth-child(1) {
-    font-size: 2em;
+    font-size: 1.6em;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -55,7 +56,7 @@ interface IImageInfo {
   src: string;
   alt: string;
 }
-interface Tag {
+interface ITag {
   tag: string;
   backgroundColor?: string;
   textColor?: string;
@@ -67,7 +68,7 @@ interface IProps {
   alcoholDegree: number;
   cocktailName: string;
   ingredients: string[];
-  tags: Tag[];
+  tags: ITag[];
   description: string;
 }
 
