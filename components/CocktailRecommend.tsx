@@ -17,13 +17,18 @@ const AbsoluteButton = styled.button`
   top: calc(50% - 15px);
   ${(props: { direction: string }) =>
     props.direction === 'left'
-      ? 'left:0;'
+      ? 'left:3px;'
       : props.direction === 'right'
-      ? 'right:0;'
+      ? 'right:3px;'
       : ''}
   border: 1px solid #ededed;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
+  &:hover {
+    background-color: #00a0c6;
+    border: 1px solid black;
+    cursor: pointer;
+  }
 `;
 
 interface IImageInfo {
