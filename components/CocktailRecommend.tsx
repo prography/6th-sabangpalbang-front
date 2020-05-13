@@ -1,11 +1,29 @@
 import styled from 'styled-components';
-import Link from 'next/link';
-import CocktailCard from './CocktailCard';
+import LeftArrow from '../res/LeftArrow';
+import RightArrow from '../res/RightArrow';
 
 const CardContainer = styled.div`
   display: flex;
-  position: relative;
   overflow: scroll;
+`;
+const RelativeDiv = styled.div`
+  position: relative;
+`;
+
+const AbsoluteButton = styled.button`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: calc(50% - 15px);
+  ${(props: { direction: string }) =>
+    props.direction === 'left'
+      ? 'left:0;'
+      : props.direction === 'right'
+      ? 'right:0;'
+      : ''}
+  border: 1px solid #ededed;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
 `;
 
 interface IImageInfo {
@@ -28,11 +46,19 @@ interface IProps {
 
 const CocktailRecommend = ({ cardInfos, CardComponent }: IProps) => {
   return (
-    <CardContainer>
-      {cardInfos.map((cardInfo) => (
-        <CardComponent key={cardInfo.cocktailID} {...cardInfo} />
-      ))}
-    </CardContainer>
+    <RelativeDiv>
+      <AbsoluteButton direction="left">
+        <LeftArrow />
+      </AbsoluteButton>
+      <CardContainer>
+        {cardInfos.map((cardInfo) => (
+          <CardComponent key={cardInfo.cocktailID} {...cardInfo} />
+        ))}
+      </CardContainer>
+      <AbsoluteButton direction="right">
+        <RightArrow />
+      </AbsoluteButton>
+    </RelativeDiv>
   );
 };
 

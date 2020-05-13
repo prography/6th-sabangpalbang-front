@@ -7,6 +7,7 @@ const GridDiv = styled.div`
     'img info'
     'des des';
   @media screen and (min-width: 768px) {
+    font-size: 20px;
     grid-template-areas:
       'img info'
       'img des';
