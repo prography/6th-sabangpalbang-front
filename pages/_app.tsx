@@ -1,10 +1,17 @@
 import withRedux from 'next-redux-wrapper';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-import { applyMiddleware, compose, createStore, Middleware, Store } from 'redux';
+import {
+  applyMiddleware,
+  compose,
+  createStore,
+  Middleware,
+  Store,
+} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import 'swiper/css/swiper.css';
 
 import rootEpic from '../epics';
 import rootReducer from '../reducers';
@@ -14,6 +21,12 @@ interface IProps extends AppProps {
 }
 
 const ResetCSS = createGlobalStyle`
+::-webkit-scrollbar{-webkit-appearance:none; display:none}
+::-webkit-scrollbar:vertical{width:0}
+::-webkit-scrollbar:horizontal{height:0}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track{background-color:transparent}
+
 html,body,div,span,h1,h2,h3,h4,h5,h6,p,blockquote,pre,
 a,abbr,address,cite,code,
 del,em,img,ins,q,strong,i
@@ -60,8 +73,21 @@ table {
     border-spacing: 0;
 }
 `;
+const theme = {
+  themeColor: '#FF306F',
+  secondThemeColor: '#FF6C26',
+  primaryTextColor: '#121212',
+  secondTextColor: '#7E7E7E',
+};
 
 const GlobalStyle = createGlobalStyle`
+* {
+  box-sizing: border-box;
+  letter-spacing: normal;
+}
+body{
+  background-color:#E0E0E0;
+}
 a {
   color: #000;
   text-decoration: none;
@@ -76,9 +102,11 @@ a:hover {
 const App = ({ store, Component, pageProps }: IProps) => {
   return (
     <Provider store={store}>
-      <ResetCSS />
-      <GlobalStyle />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <ResetCSS />
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </Provider>
   );
 };
