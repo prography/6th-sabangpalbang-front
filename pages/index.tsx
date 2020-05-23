@@ -1,59 +1,161 @@
-import CardList from '../components/CardList';
+import HeaderBox from '../components/HeaderBox';
+import BannerCarousel from '../components/BannerCarousel';
+import Banner from '../components/Banner';
+import FilterTab from '../components/FilterTab';
 import CocktailCard from '../components/CocktailCard';
+import CocktailGrid from '../components/CocktailGrid';
 
 interface IProps {}
 
-const dummyCardInfos = [
-  {
-    imageInfo: {
-      src:
-        'https://lh3.googleusercontent.com/proxy/h_MDgP2SWX9hJzeNzqsnonet03ZvKhm0ZFZ81mE_7uzje08WVOcxACEfOum0EKtTwiYiU8CoSFViT_OjAeYLYZUrXo-e6C7LZ45ak_s_6wW4Cwbmh-DgLrEHvIezJgvIN17lQcgwC7iWkRglaXTJN3tJzescMZ9ofoN3oGVzgZw5FvH19XHt9o8s84VP5i84Cvxv43fzJLnG7AYhhi7iTuPCwUsG8lI0svOc34JrdTv_60yyvZwtbJWfe-u7TtqJ4gWbRTfsFemumr_nkMIKoUO7r8EHjmNkuoKpBgBEHirTqPPzb-dtw6WqF7O9BS-2idUt-A4XLvNz_gnwOZXoicL0ihY',
-      alt: '블랙 러시안',
-    },
-    alcoholDegree: 20,
-    cocktailName: '블랙 러시안 블랙 러시안',
-    cocktailID: 1,
-    ingredients: ['깔루아', '보드ffffffffffffffff ttf카'],
-  },
-  {
-    imageInfo: {
-      src:
-        'https://dailyshotimage.s3-accelerate.amazonaws.com/media/cocktails/%25Y/%25m/%25d/b6ba923c-eaa4-4526-a8c5-649dba5afe77.jpg',
-      alt: '예거밤',
-    },
-    alcoholDegree: 20,
-    cocktailName: '예거밤',
-    cocktailID: 2,
-    ingredients: ['예거마이스터', '레드불'],
-  },
-  {
-    imageInfo: {
-      src:
-        'https://lh3.googleusercontent.com/proxy/h_MDgP2SWX9hJzeNzqsnonet03ZvKhm0ZFZ81mE_7uzje08WVOcxACEfOum0EKtTwiYiU8CoSFViT_OjAeYLYZUrXo-e6C7LZ45ak_s_6wW4Cwbmh-DgLrEHvIezJgvIN17lQcgwC7iWkRglaXTJN3tJzescMZ9ofoN3oGVzgZw5FvH19XHt9o8s84VP5i84Cvxv43fzJLnG7AYhhi7iTuPCwUsG8lI0svOc34JrdTv_60yyvZwtbJWfe-u7TtqJ4gWbRTfsFemumr_nkMIKoUO7r8EHjmNkuoKpBgBEHirTqPPzb-dtw6WqF7O9BS-2idUt-A4XLvNz_gnwOZXoicL0ihY',
-      alt: '블랙 러시안',
-    },
-    alcoholDegree: 20,
-    cocktailName: '블랙 러시안',
-    cocktailID: 3,
-    ingredients: ['깔루아', '보드카'],
-  },
-  {
-    imageInfo: {
-      src:
-        'https://dailyshotimage.s3-accelerate.amazonaws.com/media/cocktails/%25Y/%25m/%25d/b6ba923c-eaa4-4526-a8c5-649dba5afe77.jpg',
-      alt: '예거밤',
-    },
-    alcoholDegree: 20,
-    cocktailName: '예거밤',
-    cocktailID: 4,
-    ingredients: ['예거마이스터', '레드불'],
-  },
-];
-
 const IndexPage = (props: IProps) => {
   return (
-    <div style={{ padding: '0 1em' }}>
-      <CardList CardComponent={CocktailCard} cardInfos={dummyCardInfos} />
+    <div>
+      <HeaderBox display={'flex'} page={0} />
+      <div style={{ paddingTop: '88px' }}>
+        <BannerCarousel
+          BannerComponent={Banner}
+          BannerInfos={[
+            { src: 'banner_temp.jpeg', alt: '', href: '' },
+            { src: 'banner_temp2.jpg', alt: '', href: '' },
+            { src: 'banner_temp3.jpeg', alt: '', href: '' },
+          ]}
+        />
+        <FilterTab
+          filters={[
+            {
+              category: '베이스',
+              filterList: [
+                {
+                  href: '',
+                  filterName: '위스키',
+                  filterImage: { src: '위스키.png', alt: '' },
+                },
+                {
+                  href: '',
+                  filterName: '럼',
+                  filterImage: { src: '럼.jpg', alt: '' },
+                },
+                {
+                  href: '',
+                  filterName: '진',
+                  filterImage: { src: '진.jpeg', alt: '' },
+                },
+              ],
+            },
+            {
+              category: '도수',
+              filterList: [
+                {
+                  href: '',
+                  filterName: '무알콜',
+                  filterImage: { src: '위스키.png', alt: '' },
+                },
+                {
+                  href: '',
+                  filterName: '0~20%',
+                  filterImage: { src: '럼.jpg', alt: '' },
+                },
+                {
+                  href: '',
+                  filterName: '20~40%',
+                  filterImage: { src: '진.jpeg', alt: '' },
+                },
+              ],
+            },
+            {
+              category: '태그',
+              filterList: [
+                {
+                  href: '',
+                  filterName: '19',
+                  filterImage: { src: '위스키.png', alt: '' },
+                },
+                {
+                  href: '',
+                  filterName: '바나나',
+                  filterImage: { src: '럼.jpg', alt: '' },
+                },
+                {
+                  href: '',
+                  filterName: '복숭아',
+                  filterImage: { src: '진.jpeg', alt: '' },
+                },
+              ],
+            },
+          ]}
+        />
+        <CocktailGrid
+          CocktailCardComponent={CocktailCard}
+          cocktailInfos={[
+            {
+              src:
+                'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
+              alt: '',
+              href: '',
+              name: '블루 하와이',
+              tags: [
+                { text: '럼', backgroundColor: '#7CB587', href: '' },
+                { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+              ],
+            },
+            {
+              src:
+                'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
+              alt: '',
+              href: '',
+              name: '블루 하와이',
+              tags: [
+                { text: '럼', backgroundColor: '#7CB587', href: '' },
+                { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+              ],
+            },
+            {
+              src:
+                'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
+              alt: '',
+              href: '',
+              name: '블루 하와이',
+              tags: [
+                { text: '럼', backgroundColor: '#7CB587', href: '' },
+                { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+              ],
+            },
+            {
+              src:
+                'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
+              alt: '',
+              href: '',
+              name: '블루 하와이',
+              tags: [
+                { text: '럼', backgroundColor: '#7CB587', href: '' },
+                { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+              ],
+            },
+            {
+              src:
+                'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
+              alt: '',
+              href: '',
+              name: '블루 하와이',
+              tags: [
+                { text: '럼', backgroundColor: '#7CB587', href: '' },
+                { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+              ],
+            },
+            {
+              src:
+                'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
+              alt: '',
+              href: '',
+              name: '블루 하와이',
+              tags: [
+                { text: '럼', backgroundColor: '#7CB587', href: '' },
+                { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+              ],
+            },
+          ]}
+        />
+      </div>
     </div>
   );
 };
