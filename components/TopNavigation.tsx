@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styled, { useTheme } from 'styled-components';
 
-import { ITheme } from '../style';
+import { ITheme } from '../config/style';
 
 const NavContainer = styled.nav`
   .fixed_div {
@@ -9,6 +9,7 @@ const NavContainer = styled.nav`
     top: 44px;
     right: 0;
     left: 0;
+    z-index: 10;
     height: 44px;
     ${(props: ITheme) =>
       `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}

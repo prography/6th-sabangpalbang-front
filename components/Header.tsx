@@ -13,6 +13,7 @@ const HeaderContainer = styled.header`
     background-color: #fff;
     align-items: center;
     justify-content: space-between;
+    z-index: 10;
   }
 
   .logo {
