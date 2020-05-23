@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
+import Header from '../components/Header';
 import rootEpic from '../epics';
 import rootReducer from '../reducers';
 import { globalStyle, resetCSS, theme } from '../style';
@@ -25,6 +26,7 @@ const App = ({ store, Component, pageProps }: IProps) => {
       <ThemeProvider theme={theme}>
         <ResetCSS />
         <GlobalStyle />
+        <Header />
         <Component {...pageProps} />
       </ThemeProvider>
     </Provider>

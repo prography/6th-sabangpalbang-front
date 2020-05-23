@@ -1,16 +1,16 @@
-import HeaderBox from '../components/HeaderBox';
-import BannerCarousel from '../components/BannerCarousel';
 import Banner from '../components/Banner';
-import FilterTab from '../components/FilterTab';
+import BannerCarousel from '../components/BannerCarousel';
 import CocktailCard from '../components/CocktailCard';
 import CocktailGrid from '../components/CocktailGrid';
+import FilterTab from '../components/FilterTab';
+import TopNavigation from '../components/TopNavigation';
 
 interface IProps {}
 
 const IndexPage = (props: IProps) => {
   return (
-    <div>
-      <HeaderBox display={'flex'} page={0} />
+    <>
+      <TopNavigation />
       <div style={{ paddingTop: '88px' }}>
         <BannerCarousel
           BannerComponent={Banner}
@@ -156,7 +156,7 @@ const IndexPage = (props: IProps) => {
           ]}
         />
       </div>
-    </div>
+    </>
   );
 };
 
