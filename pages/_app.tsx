@@ -9,9 +9,9 @@ import { createEpicMiddleware } from 'redux-observable';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import Header from '../components/Header';
+import { globalStyle, resetCSS, theme } from '../config/style';
 import rootEpic from '../epics';
 import rootReducer from '../reducers';
-import { globalStyle, resetCSS, theme } from '../style';
 
 interface IProps extends AppProps {
   store: Store;
