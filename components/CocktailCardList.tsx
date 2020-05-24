@@ -1,46 +1,57 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
+import CocktailCard from './CocktailCard';
 
-const Head = styled.div`
-  padding: 20px 10px 10px;
-  span {
-    margin-right: 10px;
-    color: ${({
-      secondTextColor,
-    }: {
-      secondTextColor: string;
-      themeColor: string;
-    }) => secondTextColor};
-    &.active {
-      color: ${({
-        themeColor,
-      }: {
-        secondTextColor: string;
-        themeColor: string;
-      }) => themeColor};
+const CardListContainer = styled.div`
+  background: #fff;
+
+  .option_container {
+    padding: 20px 22px 10px;
+
+    .option_item {
+      float: left;
+      font-weight: bold;
+      color: ${({ secondTextColor }: ITheme) => secondTextColor};
+
+      &.active {
+        color: ${({ themeColor }: ITheme) => themeColor};
+      }
+    }
+    .option_item + .option_item {
+      margin-left: 10px;
+    }
+    .more_link {
+      float: right;
+      color: ${({ secondTextColor }: ITheme) => secondTextColor};
     }
   }
-  a {
-    float: right;
-    color: ${({
-      secondTextColor,
-    }: {
-      secondTextColor: string;
-      themeColor: string;
-    }) => secondTextColor};
+
+  .option_container::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  @media (min-width: 810px) {
+    .option_container {
+      padding: 20px 50px 10px;
+    }
+    .option_item {
+      font-size: 24px;
+    }
   }
 `;
-const FlexDiv = styled.div`
+
+const CardList = styled.div`
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 0 15px;
 `;
 
 interface IProps {
-  CocktailCardComponent: (props: any) => JSX.Element;
   cocktailInfos: {
     src: string;
     alt: string;
@@ -55,35 +66,27 @@ interface IProps {
     favorite?: boolean;
   }[];
 }
-const CocktailGrid = ({ CocktailCardComponent, cocktailInfos }: IProps) => {
-  const [sort, setSort] = useState(0);
+const CocktailCardList = ({ cocktailInfos }: IProps) => {
   const theme = useTheme() as ITheme;
 
   return (
-    <div style={{ background: 'white' }}>
-      <Head
-        themeColor={theme.themeColor}
-        secondTextColor={theme.secondTextColor}
-      >
-        <span className={sort == 0 ? 'active' : ''} onClick={() => setSort(0)}>
-          #랜덤순
-        </span>
-        <span className={sort == 1 ? 'active' : ''} onClick={() => setSort(1)}>
-          #이름순
-        </span>
-        <span className={sort == 2 ? 'active' : ''} onClick={() => setSort(2)}>
-          #인기순
-        </span>
-        <Link href={'list'}>
-          <a>더보기 ></a>
+    <CardListContainer {...theme}>
+      <div className='option_container'>
+        <span className='option_item active'>#랜덤순</span>
+        <span className='option_item'>#이름순</span>
+        <span className='option_item'>#인기순</span>
+        <Link href='/list'>
+          <a className='more_link'>더보기</a>
         </Link>
-      </Head>
-      <FlexDiv>
+      </div>
+
+      <CardList>
         {cocktailInfos.map((info, i) => (
-          <CocktailCardComponent key={i} {...info} />
+          <CocktailCard key={i} {...info} />
+          // key에 index아닌 id가 필요
         ))}
-      </FlexDiv>
-    </div>
+      </CardList>
+    </CardListContainer>
   );
 };
-export default CocktailGrid;
+export default CocktailCardList;

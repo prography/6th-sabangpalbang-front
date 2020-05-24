@@ -1,39 +1,63 @@
-import styled from 'styled-components';
 import Link from 'next/link';
+import styled from 'styled-components';
 
-const Card = styled.div`
+const CardContainer = styled.div`
+  display: inline-block;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-  width: 30vw;
-  max-width: 160px;
-  margin: 0px auto 10px;
+
+  width: 155px;
   overflow: hidden;
-  position: relative;
-  img {
-    width: min(30vw, 160px);
-    height: min(37.5vw, 200px);
+  margin: 15px 7px;
+  padding: 0 8px 10px;
+
+  .image_link {
+    display: block;
     object-fit: contain;
   }
-  & > a > p {
-    padding: 5px;
-    font-weight: 600;
+  .cocktail_image {
+    display: block;
+    width: min(30vw, 160px);
+    margin: 0 auto;
+    object-fit: contain;
   }
-`;
 
-const Tag = styled.a`
-  display: inline-block;
-  margin: 2px 0 3px 5px;
-  border-radius: 50px;
-  padding: 3px 7px;
-  font-size: 10px;
-  background-color: ${({
-    backgroundColor,
-  }: {
-    backgroundColor?: string;
-    textColor?: string;
-  }) => (backgroundColor ? backgroundColor : '#aeaeae')};
-  color: ${({ textColor }: { backgroundColor?: string; textColor?: string }) =>
-    textColor ? textColor : 'white'};
+  .cocktail_name {
+    margin: 7px 0;
+    padding: 0 5px;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .tag {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 2px 7px;
+    border-radius: 50px;
+    font-size: 10px;
+    line-height: 14px;
+    color: #fff;
+  }
+
+  @media (min-width: 810px) {
+    width: 250px;
+
+    .cocktail_name {
+      font-size: 25px;
+      line-height: 30px;
+    }
+    .tag {
+      font-size: 20px;
+      line-height: 24px;
+      padding: 4px 12px;
+    }
+  }
 `;
 
 interface IProps {
@@ -44,34 +68,29 @@ interface IProps {
   tags?: {
     text: string;
     href: string;
-    textColor?: string;
-    backgroundColor?: string;
+    bgColor?: string;
   }[];
   favorite?: boolean;
 }
 
 const CocktailCard = ({ src, alt, href, name, tags, favorite }: IProps) => {
   return (
-    <Card>
+    <CardContainer>
       <Link href={href}>
-        <a>
-          <img src={src} alt={alt} />
-          <p>{name}</p>
+        <a className='image_link'>
+          <img className='cocktail_image' src={src} alt={alt} />
+          <p className='cocktail_name'>{name}</p>
         </a>
       </Link>
-      <div>
-        {tags?.map((tag, i) => (
-          <Link href={tag.href} key={i}>
-            <Tag
-              backgroundColor={tag.backgroundColor}
-              textColor={tag.textColor}
-            >
-              {tag.text}
-            </Tag>
-          </Link>
-        ))}
-      </div>
-    </Card>
+
+      {tags?.map((tag, i) => (
+        <Link href={tag.href} key={i}>
+          <a className='tag' style={{ backgroundColor: tag.bgColor }}>
+            {tag.text}
+          </a>
+        </Link>
+      ))}
+    </CardContainer>
   );
 };
 
