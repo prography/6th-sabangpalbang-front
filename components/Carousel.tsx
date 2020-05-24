@@ -1,8 +1,10 @@
 import Swiper from 'react-id-swiper';
 
+import WithLoading from './WithLoading';
+
 interface IProps {
   ItemComponent: (props: any) => JSX.Element;
-  Infos: {
+  infos: {
     src: string;
     alt: string;
     href: string;
@@ -16,13 +18,13 @@ const params = {
   loop: true,
 };
 
-const Carousel = ({ ItemComponent, Infos }: IProps) => {
+const Carousel = ({ ItemComponent, infos }: IProps) => {
   return (
     <Swiper {...params}>
-      {Infos.map((info, i) => (
+      {infos.map((info, i) => (
         <ItemComponent key={i} {...info} />
       ))}
     </Swiper>
   );
 };
-export default Carousel;
+export default WithLoading('infos', 183)(Carousel);
