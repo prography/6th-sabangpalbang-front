@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useCallback, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
@@ -68,13 +69,35 @@ interface IProps {
 }
 const CocktailCardList = ({ cocktailInfos }: IProps) => {
   const theme = useTheme() as ITheme;
+  const [orderOption, setOrderOption] = useState('random');
+  const optionHandler = useCallback(
+    (optionName) => () => {
+      setOrderOption(optionName);
+    },
+    []
+  );
 
   return (
     <CardListContainer {...theme}>
       <div className='option_container'>
-        <span className='option_item active'>#랜덤순</span>
-        <span className='option_item'>#이름순</span>
-        <span className='option_item'>#인기순</span>
+        <span
+          className={`option_item ${orderOption === 'random' ? 'active' : ''}`}
+          onClick={optionHandler('random')}
+        >
+          #랜덤순
+        </span>
+        <span
+          className={`option_item ${orderOption === 'name' ? 'active' : ''}`}
+          onClick={optionHandler('name')}
+        >
+          #이름순
+        </span>
+        <span
+          className={`option_item ${orderOption === 'popular' ? 'active' : ''}`}
+          onClick={optionHandler('popular')}
+        >
+          #인기순
+        </span>
         <Link href='/list'>
           <a className='more_link'>더보기</a>
         </Link>
