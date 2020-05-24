@@ -1,15 +1,23 @@
+import Loading from 'react-spinners/PulseLoader';
+
+const style = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
 const WithLoading = (loadingProp: string, height: number) => (
   Component: any
 ) => (props: any) => {
-  if (props[loadingProp] === null)
+  const isLoading = props[loadingProp] === null;
+
+  if (isLoading)
     return (
-      <div style={{ height: `${height}px` }}>
-        <img
-          style={{ display: 'block', width: '100%', height: '100%' }}
-          src='loading.gif'
-        />
+      <div style={{ ...style, height: `${height}px` }}>
+        <Loading size={10} color={'#000'} loading={true} />
       </div>
     );
+
   return <Component {...props} />;
 };
 
