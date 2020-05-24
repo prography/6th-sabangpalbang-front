@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 
-const rootReducer = combineReducers({});
+import carousel from './carousel';
+
+const rootReducer = combineReducers({
+  carousel
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;
