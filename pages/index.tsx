@@ -1,7 +1,7 @@
 import Banner from '../components/Banner';
 import Carousel from '../components/Carousel';
 import CocktailCard from '../components/CocktailCard';
-import CocktailGrid from '../components/CocktailGrid';
+import CocktailCardList from '../components/CocktailCardList';
 import FilterTab from '../components/FilterTab';
 import TopNavigation from '../components/TopNavigation';
 import * as dummy from '../config/dummy';
@@ -14,7 +14,7 @@ const IndexPage = (props: IProps) => {
       <TopNavigation />
       <Carousel ItemComponent={Banner} Infos={dummy.banner} />
       <FilterTab filters={dummy.filterTab} />
-      <CocktailGrid
+      <CocktailCardList
         CocktailCardComponent={CocktailCard}
         cocktailInfos={dummy.mainCocktailListInfo}
       />
