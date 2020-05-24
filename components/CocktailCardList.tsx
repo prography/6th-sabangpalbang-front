@@ -1,9 +1,19 @@
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
+import { RootState } from '../reducers';
+import { cocktailListRequest, ICocktailInfo } from '../reducers/cocktail';
 import CocktailCard from './CocktailCard';
+import WithLoading from './WithLoading';
+
+interface ICocktailList {
+  randomList: null | ICocktailInfo[];
+  nameList: null | ICocktailInfo[];
+  popularList: null | ICocktailInfo[];
+}
 
 const CardListContainer = styled.div`
   background: #fff;
@@ -52,49 +62,70 @@ const CardList = styled.div`
   padding: 0 15px;
 `;
 
-interface IProps {
-  cocktailInfos: {
-    src: string;
-    alt: string;
-    href: string;
-    name: string;
-    tags?: {
-      text: string;
-      href: string;
-      textColor?: string;
-      backgroundColor?: string;
-    }[];
-    favorite?: boolean;
-  }[];
-}
-const CocktailCardList = ({ cocktailInfos }: IProps) => {
+const CardListWithLoading = WithLoading(
+  'cocktailList',
+  200
+)(({ cocktailList }: { cocktailList: ICocktailInfo[] }) => {
+  return (
+    <CardList>
+      {cocktailList &&
+        cocktailList!.map((info: any, i) => (
+          <CocktailCard key={i} {...info} />
+          // key에 index아닌 id가 필요
+        ))}
+    </CardList>
+  );
+});
+
+const CocktailCardList = () => {
+  const dispatch = useDispatch();
+  const { randomList, nameList, popularList } = useSelector(
+    (state: RootState) => state.cocktail
+  );
+  const cocktailList = {
+    randomList,
+    nameList,
+    popularList,
+  } as ICocktailList;
+
   const theme = useTheme() as ITheme;
-  const [orderOption, setOrderOption] = useState('random');
+  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
+    'randomList'
+  );
   const optionHandler = useCallback(
-    (optionName) => () => {
+    (optionName: keyof ICocktailList) => () => {
       setOrderOption(optionName);
+      if (cocktailList[optionName] === null) {
+        dispatch(cocktailListRequest(optionName));
+      }
     },
-    []
+    [cocktailList]
   );
 
   return (
     <CardListContainer {...theme}>
       <div className='option_container'>
         <span
-          className={`option_item ${orderOption === 'random' ? 'active' : ''}`}
-          onClick={optionHandler('random')}
+          className={`option_item ${
+            orderOption === 'randomList' ? 'active' : ''
+          }`}
+          onClick={optionHandler('randomList')}
         >
           #랜덤순
         </span>
         <span
-          className={`option_item ${orderOption === 'name' ? 'active' : ''}`}
-          onClick={optionHandler('name')}
+          className={`option_item ${
+            orderOption === 'nameList' ? 'active' : ''
+          }`}
+          onClick={optionHandler('nameList')}
         >
           #이름순
         </span>
         <span
-          className={`option_item ${orderOption === 'popular' ? 'active' : ''}`}
-          onClick={optionHandler('popular')}
+          className={`option_item ${
+            orderOption === 'popularList' ? 'active' : ''
+          }`}
+          onClick={optionHandler('popularList')}
         >
           #인기순
         </span>
@@ -102,13 +133,7 @@ const CocktailCardList = ({ cocktailInfos }: IProps) => {
           <a className='more_link'>더보기</a>
         </Link>
       </div>
-
-      <CardList>
-        {cocktailInfos.map((info, i) => (
-          <CocktailCard key={i} {...info} />
-          // key에 index아닌 id가 필요
-        ))}
-      </CardList>
+      <CardListWithLoading cocktailList={cocktailList[orderOption]} />
     </CardListContainer>
   );
 };

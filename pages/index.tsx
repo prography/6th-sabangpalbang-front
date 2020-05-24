@@ -9,6 +9,7 @@ import TopNavigation from '../components/TopNavigation';
 import * as dummy from '../config/dummy';
 import { RootState } from '../reducers';
 import { bannerRequest } from '../reducers/carousel';
+import { cocktailListRequest } from '../reducers/cocktail';
 
 interface IProps {}
 
@@ -18,6 +19,7 @@ const IndexPage = () => {
 
   useEffect(() => {
     dispatch(bannerRequest());
+    dispatch(cocktailListRequest('randomList'));
   }, []);
 
   return (
@@ -25,7 +27,7 @@ const IndexPage = () => {
       <TopNavigation />
       <Carousel ItemComponent={Banner} infos={banner} />
       <FilterTab filters={dummy.filterTab} />
-      <CocktailCardList cocktailInfos={dummy.mainCocktailListInfo} />
+      <CocktailCardList />
     </>
   );
 };
