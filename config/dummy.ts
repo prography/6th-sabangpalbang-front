@@ -73,10 +73,14 @@ export const mainCocktailListInfo = [
       'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
     alt: '',
     href: '',
-    name: '블루 하와이',
+    name: '블루 하와이 블루 하와이 하와이안하와이안',
     tags: [
-      { text: '럼', backgroundColor: '#7CB587', href: '' },
-      { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
     ],
   },
   {
@@ -86,8 +90,8 @@ export const mainCocktailListInfo = [
     href: '',
     name: '블루 하와이',
     tags: [
-      { text: '럼', backgroundColor: '#7CB587', href: '' },
-      { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
     ],
   },
   {
@@ -97,8 +101,8 @@ export const mainCocktailListInfo = [
     href: '',
     name: '블루 하와이',
     tags: [
-      { text: '럼', backgroundColor: '#7CB587', href: '' },
-      { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
     ],
   },
   {
@@ -108,8 +112,8 @@ export const mainCocktailListInfo = [
     href: '',
     name: '블루 하와이',
     tags: [
-      { text: '럼', backgroundColor: '#7CB587', href: '' },
-      { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
     ],
   },
   {
@@ -119,8 +123,8 @@ export const mainCocktailListInfo = [
     href: '',
     name: '블루 하와이',
     tags: [
-      { text: '럼', backgroundColor: '#7CB587', href: '' },
-      { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
     ],
   },
   {
@@ -130,8 +134,8 @@ export const mainCocktailListInfo = [
     href: '',
     name: '블루 하와이',
     tags: [
-      { text: '럼', backgroundColor: '#7CB587', href: '' },
-      { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+      { text: '럼', bgColor: '#7CB587', href: '' },
+      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
     ],
   },
 ];
