@@ -11,12 +11,12 @@ const Bar = styled.div`
 `;
 
 interface IProps {
-  display: string;
+  display?: string;
 }
 
 const Header = ({ display }: IProps) => {
   return (
-    <Bar style={{ display: display }}>
+    <Bar style={{ display }}>
       <img style={{ width: '40px' }} src="logo.png" alt="CocktanderLogo" />
       <img style={{ width: '24px' }} src="search.png" alt="SearchIcon" />
     </Bar>
