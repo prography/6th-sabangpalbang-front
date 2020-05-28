@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 import CocktailInfo from '../components/CocktailInfo';
 
 const DetailPage = () => {

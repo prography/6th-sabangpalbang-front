@@ -1,5 +1,5 @@
-import styled, { ThemeConsumer } from 'styled-components';
-import Link from 'next/link';
+import styled from 'styled-components';
+import Tag from './Tag';
 
 const StyledDiv = styled.div`
   background-color: white;
@@ -40,21 +40,7 @@ const Tags = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-const Tag = styled.a`
-  display: inline-block;
-  margin: 2px 0 3px 5px;
-  border-radius: 50px;
-  padding: 3px 7px;
-  font-size: 12px;
-  background-color: ${({
-    backgroundColor,
-  }: {
-    backgroundColor?: string;
-    textColor?: string;
-  }) => (backgroundColor ? backgroundColor : '#aeaeae')};
-  color: ${({ textColor }: { backgroundColor?: string; textColor?: string }) =>
-    textColor ? textColor : 'white'};
-`;
+
 const Description = styled.div`
   margin: 10px auto;
   padding: 15px;
@@ -97,14 +83,13 @@ const CocktailInfo = ({
         <span>{favoriteCount} likes</span>
         <Tags>
           {tags?.map((tag, i) => (
-            <Link key={i} href={tag.href}>
-              <Tag
-                textColor={tag.textColor}
-                backgroundColor={tag.backgroundColor}
-              >
-                {tag.text}
-              </Tag>
-            </Link>
+            <Tag
+              text={tag.text}
+              href={tag.href}
+              textColor={tag.textColor}
+              backgroundColor={tag.backgroundColor}
+              fontSize={12}
+            />
           ))}
         </Tags>
       </InfoDiv>
