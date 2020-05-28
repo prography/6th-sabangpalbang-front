@@ -25,6 +25,10 @@ const DetailPage = () => {
           tags: [
             { text: '럼', backgroundColor: '#7CB587', href: '' },
             { text: '10~15%', backgroundColor: '#7CA1B5', href: '' },
+            { text: '중간 길이 태그', href: '' },
+            { text: '이건 살짝 좀 긴 태그', href: '' },
+            { text: '짧은 태그', href: '' },
+            { text: '다시 매우 긴 태그', href: '' },
           ],
         }}
       />
