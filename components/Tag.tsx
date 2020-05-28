@@ -11,6 +11,7 @@ const StyledLink = styled.a`
   }: {
     backgroundColor?: string;
     textColor?: string;
+    borderColor?: string;
     fontSize?: number;
   }) => (fontSize ? fontSize : '10')}px;
   background-color: ${({
@@ -18,6 +19,7 @@ const StyledLink = styled.a`
   }: {
     backgroundColor?: string;
     textColor?: string;
+    borderColor?: string;
     fontSize?: number;
   }) => (backgroundColor ? backgroundColor : '#aeaeae')};
   color: ${({
@@ -25,8 +27,17 @@ const StyledLink = styled.a`
   }: {
     backgroundColor?: string;
     textColor?: string;
+    borderColor?: string;
     fontSize?: number;
   }) => (textColor ? textColor : 'white')};
+  ${({
+    borderColor,
+  }: {
+    backgroundColor?: string;
+    textColor?: string;
+    borderColor?: string;
+    fontSize?: number;
+  }) => (borderColor ? `border: 1px solid ${borderColor}` : '')}
 `;
 
 interface IProps {
@@ -35,14 +46,23 @@ interface IProps {
   textColor?: string;
   backgroundColor?: string;
   fontSize?: number;
+  borderColor?: string;
 }
 
-const Tag = ({ text, href, textColor, backgroundColor, fontSize }: IProps) => {
+const Tag = ({
+  text,
+  href,
+  textColor,
+  backgroundColor,
+  borderColor,
+  fontSize,
+}: IProps) => {
   return (
     <Link href={href}>
       <StyledLink
         textColor={textColor}
         backgroundColor={backgroundColor}
+        borderColor={borderColor}
         fontSize={fontSize}
       >
         {text}
