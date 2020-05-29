@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import CocktailInfo from '../components/CocktailInfo';
 import CocktailSummary from '../components/CocktailSummary';
+import CocktailReview from '../components/CocktailReview';
 
 const GridDiv = styled.div`
   display: grid;
@@ -45,6 +46,28 @@ const DetailPage = () => {
         ingredients={['라임', '민트', '소다', '설탕']}
         flavor={'민트향이나며 청량감 있는 칵테일'}
       />
+      <CocktailReview
+        reviews={[
+          {
+            src: '/profile.svg',
+            alt: 'user profile img',
+            name: '초코쿠키',
+            isFavorite: false,
+            text:
+              '생각보다 민트 향이 강했지만 그래도 상큼한거 좋아하시거나 민트 잘먹으시면 좋아할듯 합니다 ㅎㅎ 맛있습니다. afdafsdfalsdkjfl;akjds;fjal;sdjf;ajds;fj;alkdsjflkajdskljflkajdslfjalkdskjflkajsldkjfl',
+            day: '2020-05-12',
+          },
+          {
+            src: '/ironman.jpg',
+            alt: 'user profile img',
+            name: 'IRONMAN',
+            isFavorite: true,
+            text: '밍밍하니 민트향만 나고 다른 달콤한 술이더 맛있네요.',
+            day: '2020-05-30',
+          },
+        ]}
+      />
+      <div>추천 칵테일</div>
     </GridDiv>
   );
 };

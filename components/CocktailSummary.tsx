@@ -136,7 +136,7 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
         </Category>
         <Content>
           {ingredients.map((text, i) => (
-            <Tag text={text} href={''} fontSize={13} />
+            <Tag key={i} text={text} href={''} fontSize={13} />
           ))}
         </Content>
       </Row>
