@@ -1,17 +1,23 @@
-import { useState, createRef } from 'react';
-import styled, { ThemeConsumer } from 'styled-components';
 import Link from 'next/link';
+import { useRef, useState } from 'react';
+import styled, { useTheme } from 'styled-components';
 
-const TabList = styled.div`
+import { ITheme } from '../config/style';
+
+const TabContainer = styled.div`
+  background: #fff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+`;
+
+const TabList = styled.ul`
   display: flex;
-  flex-wrap: nowrap;
   background-color: #f0f0f0;
-  height: 44px;
-  justify-content: center;
   align-items: center;
-  text-align: center;
   overflow: hidden;
-  & > div {
+
+  .tab_list_item {
+    text-align: center;
     font-size: 18px;
     font-weight: 700;
     color: ${({
@@ -25,26 +31,22 @@ const TabList = styled.div`
     height: fit-content;
     padding: 5px 0;
   }
-  & > div:nth-last-child(1) {
+  .tab_list_item:last-child {
     border: 0;
   }
-  & > div.active {
+  .tab_list_item.active {
     background-color: white;
     border: 0;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     line-height: 34px;
-    color: ${({
-      primaryTextColor,
-    }: {
-      primaryTextColor: string;
-      secondTextColor: string;
-    }) => primaryTextColor};
+    color: ${({ primaryTextColor }: { primaryTextColor: string }) =>
+      primaryTextColor};
   }
 `;
 
-const Filter = styled.div`
+const Filter = styled.ul`
   display: inline-flex;
   width: 42vw;
   height: 25.14vw;
@@ -76,22 +78,21 @@ const Filter = styled.div`
     line-height: 25.14vw;
   }
 `;
-const FilterList = styled.div`
+const FilterList = styled.ul`
   overflow-x: auto;
   white-space: nowrap;
   padding: 15px 10px;
-  & > div:first-child {
+  & > li:first-child {
     margin: 0;
   }
 `;
 
-const StyledLink = styled.a`
+const StyledAnchor = styled.a`
   display: block;
   padding: 15px;
   margin: 0 20px;
   text-align: center;
   border-top: 1px solid #c3c3c3;
-  color: ${({ themeColor }: { themeColor: string }) => themeColor};
 `;
 
 interface IImageInfo {
@@ -111,55 +112,45 @@ interface IProps {
 }
 
 const FilterTab = ({ filters }: IProps) => {
+  const theme = useTheme() as ITheme;
   const [selectedFilter, setFilter] = useState(0);
-  const ref: React.RefObject<HTMLDivElement> = createRef();
+  const tabListRef = useRef<HTMLUListElement | null>(null);
+
   return (
-    <ThemeConsumer>
-      {(theme) => (
-        <div
-          style={{
-            background: 'white',
-            boxShadow: '1px 1px 5px rgba(0,0,0,0.3)',
-            marginBottom: '20px',
-          }}
-        >
-          <TabList
-            primaryTextColor={theme.primaryTextColor}
-            secondTextColor={theme.secondTextColor}
+    <TabContainer>
+      <TabList
+        primaryTextColor={theme.primaryTextColor}
+        secondTextColor={theme.secondTextColor}
+        ref={tabListRef}
+      >
+        {filters.map(({ category }, i) => (
+          <li
+            style={i == selectedFilter - 1 ? { border: '0' } : {}}
+            key={i}
+            className={`tab_list_item ${selectedFilter == i ? 'active' : ''}`}
+            onClick={() => {
+              i != selectedFilter ? tabListRef.current?.scrollTo(0, 0) : '';
+              setFilter(i);
+            }}
           >
-            {filters.map(({ category }, i) => (
-              <div
-                style={i == selectedFilter - 1 ? { border: '0' } : {}}
-                key={i}
-                className={selectedFilter == i ? 'active' : ''}
-                onClick={() => {
-                  i != selectedFilter ? ref.current?.scrollTo(0, 0) : '';
-                  setFilter(i);
-                }}
-              >
-                {category}
-              </div>
-            ))}
-          </TabList>
-          <FilterList ref={ref}>
-            {filters[selectedFilter].filterList.map((filter, i) => (
-              <Filter key={i}>
-                <a>{filter.filterName}</a>
-                <img
-                  src={filter.filterImage.src}
-                  alt={filter.filterImage.alt}
-                />
-              </Filter>
-            ))}
-          </FilterList>
-          <Link href="filters/">
-            <StyledLink themeColor={theme.themeColor}>
-              더 많은 필터보기
-            </StyledLink>
-          </Link>
-        </div>
-      )}
-    </ThemeConsumer>
+            {category}
+          </li>
+        ))}
+      </TabList>
+      <FilterList>
+        {filters[selectedFilter].filterList.map((filter, i) => (
+          <Filter key={i}>
+            <a>{filter.filterName}</a>
+            <img src={filter.filterImage.src} alt={filter.filterImage.alt} />
+          </Filter>
+        ))}
+      </FilterList>
+      <Link href='/filters'>
+        <StyledAnchor style={{ color: theme.themeColor }}>
+          더 많은 필터보기
+        </StyledAnchor>
+      </Link>
+    </TabContainer>
   );
 };
 

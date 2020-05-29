@@ -1,7 +1,7 @@
-import styled from 'styled-components';
 import Link from 'next/link';
+import styled from 'styled-components';
 
-const StyledLink = styled.a`
+const StyledAnchor = styled.a`
   display: block;
   width: 85vw;
   height: 34.53125vw;
@@ -32,9 +32,9 @@ interface IProps {
 const Banner = ({ src, alt, href }: IProps) => {
   return (
     <Link href={href}>
-      <StyledLink className="swiper-slide">
+      <StyledAnchor className='swiper-slide'>
         <img src={src} alt={alt} />
-      </StyledLink>
+      </StyledAnchor>
     </Link>
   );
 };
