@@ -10,7 +10,7 @@ interface IProps {}
 const IndexPage = (props: IProps) => {
   return (
     <div>
-      <HeaderBox display={'flex'} page={0} />
+      <HeaderBox page={0} />
       <div style={{ paddingTop: '88px' }}>
         <BannerCarousel
           BannerComponent={Banner}

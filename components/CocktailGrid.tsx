@@ -50,7 +50,7 @@ interface IProps {
       textColor?: string;
       backgroundColor?: string;
     }[];
-    favorite?: boolean;
+    isFavorite?: boolean;
   }[];
 }
 const CocktailGrid = ({ CocktailCardComponent, cocktailInfos }: IProps) => {

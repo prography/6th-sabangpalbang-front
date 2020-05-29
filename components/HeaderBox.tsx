@@ -10,7 +10,7 @@ const FixedDiv = styled.div`
 `;
 
 interface IProps {
-  display: string;
+  display?: string;
   page: number;
 } // scroll?값에따라 Header숨기기, 무슨 페이지인지
 

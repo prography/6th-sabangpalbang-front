@@ -47,10 +47,10 @@ interface IProps {
     textColor?: string;
     backgroundColor?: string;
   }[];
-  favorite?: boolean;
+  isFavorite?: boolean;
 }
 
-const CocktailCard = ({ src, alt, href, name, tags, favorite }: IProps) => {
+const CocktailCard = ({ src, alt, href, name, tags, isFavorite }: IProps) => {
   return (
     <Card>
       <Link href={href}>

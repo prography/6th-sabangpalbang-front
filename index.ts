@@ -31,7 +31,7 @@ app.prepare().then(() => {
     })
   );
 
-  server.get('/cocktaildetail/:id', (req, res) => {
+  server.get('/detail/:id', (req, res) => {
     return app.render(req, res, '/detail', { id: req.params.id });
   });
   server.get('*', (req, res) => {
