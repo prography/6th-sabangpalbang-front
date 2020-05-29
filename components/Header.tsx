@@ -35,9 +35,9 @@ const Header = () => {
     <HeaderContainer>
       <div className='fixed_div'>
         <Link href='/'>
-          <img className='logo' src='logo.png' alt='메인페이지로 이동' />
+          <img className='logo' src='/logo.png' alt='메인페이지로 이동' />
         </Link>
-        <img className='search_logo' src='search.png' alt='검색하기' />
+        <img className='search_logo' src='/search.png' alt='검색하기' />
       </div>
     </HeaderContainer>
   );
