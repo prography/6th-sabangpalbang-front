@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fromEvent } from 'rxjs';
+import { filter, skip, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
@@ -62,24 +64,23 @@ const CardList = styled.div`
   padding: 0 15px;
 `;
 
-const CardListWithLoading = WithLoading(
-  'cocktailList',
-  200
-)(({ cocktailList }: { cocktailList: ICocktailInfo[] }) => {
-  return (
-    <CardList>
-      {cocktailList &&
-        cocktailList!.map((info: any, i) => (
-          <CocktailCard key={i} {...info} />
-          // key에 index아닌 id가 필요
-        ))}
-    </CardList>
-  );
-});
+const CardListWithLoading = WithLoading(200)(
+  ({ cocktailList }: { cocktailList: ICocktailInfo[] }) => {
+    return (
+      <CardList>
+        {cocktailList &&
+          cocktailList!.map((info: any, i) => (
+            <CocktailCard key={i} {...info} />
+            // key에 index아닌 id가 필요
+          ))}
+      </CardList>
+    );
+  }
+);
 
 const CocktailCardList = () => {
   const dispatch = useDispatch();
-  const { randomList, nameList, popularList } = useSelector(
+  const { randomList, nameList, popularList, loading } = useSelector(
     (state: RootState) => state.cocktail
   );
   const cocktailList = {
@@ -101,6 +102,26 @@ const CocktailCardList = () => {
     },
     [cocktailList]
   );
+
+  useEffect(() => {
+    const infiniteScroll = fromEvent(window, 'scroll')
+      .pipe(
+        skip(1),
+        throttleTime(500),
+        filter(
+          (_) =>
+            document.documentElement.scrollTop +
+              document.documentElement.clientHeight +
+              600 >=
+              document.documentElement.scrollHeight && !loading
+        )
+      )
+      .subscribe((_) => dispatch(cocktailListRequest(orderOption)));
+    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
+    return () => {
+      infiniteScroll.unsubscribe();
+    };
+  }, [orderOption, loading]);
 
   return (
     <CardListContainer {...theme}>
@@ -133,7 +154,10 @@ const CocktailCardList = () => {
           <a className='more_link'>더보기</a>
         </Link>
       </div>
-      <CardListWithLoading cocktailList={cocktailList[orderOption]} />
+      <CardListWithLoading
+        cocktailList={cocktailList[orderOption]}
+        loading={loading || !cocktailList[orderOption]}
+      />
     </CardListContainer>
   );
 };
