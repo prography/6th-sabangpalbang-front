@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Banner from '../components/Banner';
@@ -9,23 +9,22 @@ import TopNavigation from '../components/TopNavigation';
 import * as dummy from '../config/dummy';
 import { RootState } from '../reducers';
 import { bannerRequest } from '../reducers/carousel';
-import { cocktailListRequest } from '../reducers/cocktail';
 
 interface IProps {}
 
 const IndexPage = () => {
   const dispatch = useDispatch();
   const { banner } = useSelector((state: RootState) => state.carousel);
+  const { loading } = useSelector((state: RootState) => state.cocktail);
 
   useEffect(() => {
     dispatch(bannerRequest());
-    dispatch(cocktailListRequest('randomList'));
   }, []);
 
   return (
     <>
       <TopNavigation />
-      <Carousel ItemComponent={Banner} infos={banner} />
+      <Carousel ItemComponent={Banner} infos={banner} loading={!banner} />
       <FilterTab filters={dummy.filterTab} />
       <CocktailCardList />
     </>
