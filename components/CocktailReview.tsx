@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const StyledDiv = styled.div`
   background-color: white;
@@ -24,10 +25,15 @@ const LockDiv = styled.div`
     display: block;
   }
 `;
-
+const Reviews = styled.div`
+  div:last-of-type > div {
+    border-bottom: 0;
+  }
+`;
 const Review = styled.div`
   display: flex;
   padding: 10px;
+  padding-bottom: 0;
   div:first-of-type {
     img {
       margin: 0 auto;
@@ -51,15 +57,39 @@ const Review = styled.div`
   div:last-of-type {
     flex: 1;
     overflow-wrap: anywhere;
-    padding: 10px 10px 0;
+    padding: 5px 10px 10px;
     font-size: 14px;
     font-weight: 500;
+    border-bottom: 1px solid #eaeaea;
     span:last-of-type {
       display: block;
       font-size: 12px;
       font-weight: 300;
     }
   }
+`;
+
+const ReviewListLink = styled.a`
+  font-size: 14px;
+  font-weight: 700;
+  display: block;
+  width: 95vw;
+  margin: 10px auto 0;
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+`;
+const WirteReviewButton = styled.div`
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: block;
+  width: 80vw;
+  margin: 0 auto;
+  padding: 10px;
+  padding-bottom: 0;
+  text-align: center;
+  border-top: 1px solid #eaeaea;
 `;
 
 interface IProps {
@@ -83,18 +113,26 @@ const CocktailSummary = ({ reviews }: IProps) => {
           로그인 후 리뷰를 볼 수 있습니다.
         </LockDiv>
       ) : (
-        reviews.map((review, i) => (
-          <Review key={i}>
-            <div>
-              <img src={review.src} alt={review.alt} />
-              <span>{review.name}</span>
-            </div>
-            <div>
-              {review.text}
-              <span>{review.day}</span>
-            </div>
-          </Review>
-        ))
+        <>
+          <Reviews>
+            {reviews.map((review, i) => (
+              <Review key={i}>
+                <div>
+                  <img src={review.src} alt={review.alt} />
+                  <span>{review.name}</span>
+                </div>
+                <div>
+                  {review.text}
+                  <span>{review.day}</span>
+                </div>
+              </Review>
+            ))}
+          </Reviews>
+          <Link href="">
+            <ReviewListLink>리뷰 더보기</ReviewListLink>
+          </Link>
+          <WirteReviewButton>리뷰 작성</WirteReviewButton>
+        </>
       )}
     </StyledDiv>
   );

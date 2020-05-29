@@ -54,7 +54,7 @@ const DetailPage = () => {
             name: '초코쿠키',
             isFavorite: false,
             text:
-              '생각보다 민트 향이 강했지만 그래도 상큼한거 좋아하시거나 민트 잘먹으시면 좋아할듯 합니다 ㅎㅎ 맛있습니다. afdafsdfalsdkjfl;akjds;fjal;sdjf;ajds;fj;alkdsjflkajdskljflkajdslfjalkdskjflkajsldkjfl',
+              '생각보다 민트 향이 강했지만 그래도 상큼한거 좋아하시거나 민트 잘먹으시면 좋아할듯 합니다 ㅎㅎ 맛있습니다. 쓸데없이 긴문장을 만들기 위해서 의식의 흐름대로 치고 있는 문장이다. 가위바위보 도레미파솔라시도 가나다라마바사 아자차카 타파하',
             day: '2020-05-12',
           },
           {
