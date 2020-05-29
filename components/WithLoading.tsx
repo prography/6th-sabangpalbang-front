@@ -6,19 +6,19 @@ const style = {
   alignItems: 'center',
 };
 
-const WithLoading = (loadingProp: string, height: number) => (
-  Component: any
-) => (props: any) => {
-  const isLoading = props[loadingProp] === null;
+const WithLoading = (height: number) => (Component: any) => (props: any) => {
+  const isLoading = !!props.loading;
 
-  if (isLoading)
-    return (
-      <div style={{ ...style, height: `${height}px` }}>
-        <Loading size={10} color={'#000'} loading={true} />
-      </div>
-    );
-
-  return <Component {...props} />;
+  return (
+    <>
+      <Component {...props} />
+      {isLoading && (
+        <div style={{ ...style, height: `${height}px` }}>
+          <Loading size={10} color={'#000'} loading={true} />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default WithLoading;
