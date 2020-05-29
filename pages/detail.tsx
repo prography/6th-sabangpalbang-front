@@ -1,11 +1,19 @@
+import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import CocktailInfo from '../components/CocktailInfo';
+import CocktailSummary from '../components/CocktailSummary';
+
+const GridDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 15px;
+`;
 
 const DetailPage = () => {
   const router = useRouter();
   console.log(router);
   return (
-    <div>
+    <GridDiv>
       <CocktailInfo
         {...{
           backgroundImg: {
@@ -31,7 +39,13 @@ const DetailPage = () => {
           ],
         }}
       />
-    </div>
+      <CocktailSummary
+        abv={3}
+        base={{ text: '럼', backgroundColor: '#7CB587', href: '' }}
+        ingredients={['라임', '민트', '소다', '설탕']}
+        flavor={'민트향이나며 청량감 있는 칵테일'}
+      />
+    </GridDiv>
   );
 };
 

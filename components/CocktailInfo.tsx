@@ -3,6 +3,7 @@ import Tag from './Tag';
 
 const StyledDiv = styled.div`
   background-color: white;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   & > img:first-of-type {
     width: 100vw;
     height: 47vw;
@@ -42,9 +43,11 @@ const Tags = styled.div`
 `;
 
 const Description = styled.div`
-  margin: 10px auto;
+  width: 95vw;
+  margin: 0 auto;
+  margin-top: 10px;
   padding: 15px;
-  border-top: 1px solid #e4e4e4;
+  border-top: 1px solid #ddd;
   font-size: 14px;
 `;
 interface IImageInfo {
@@ -84,6 +87,7 @@ const CocktailInfo = ({
         <Tags>
           {tags?.map((tag, i) => (
             <Tag
+              key={i}
               text={tag.text}
               href={tag.href}
               textColor={tag.textColor}
