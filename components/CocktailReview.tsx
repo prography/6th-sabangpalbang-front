@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
@@ -79,7 +80,7 @@ const ReviewListLink = styled.a`
   text-align: center;
   border-top: 1px solid #ddd;
 `;
-const WirteReviewButton = styled.div`
+const WriteReviewButton = styled.div`
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -90,6 +91,64 @@ const WirteReviewButton = styled.div`
   padding-bottom: 0;
   text-align: center;
   border-top: 1px solid #eaeaea;
+`;
+
+const BackgroundBlur = styled.div`
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
+
+const WriteForm = styled.form`
+  display: ${({ display }: { display: boolean }) =>
+    display ? 'flex' : 'none'};
+  flex-direction: column;
+  box-shadow: 0 0 0 800px rgba(0, 0, 0, 0.4);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  background: #fff;
+  z-index: 3;
+  height: 50vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  .textarea {
+    flex: 1;
+    border: 1px solid #e4e4e4;
+    border-top: 0;
+    resize: none;
+    width: 95vw;
+    min-height: 150px;
+    margin: 0 auto;
+    display: block;
+  }
+`;
+
+const ButtonList = styled.div`
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: space-around;
+
+  button {
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    height: 40px;
+    width: 40vw;
+    border-radius: 20px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+  }
+  .write {
+    border: 0;
+    background-color: #ff306f;
+    color: #fff;
+  }
 `;
 
 interface IProps {
@@ -104,12 +163,13 @@ interface IProps {
 }
 
 const CocktailSummary = ({ reviews }: IProps) => {
+  const [formDisplay, setFormDisplay] = useState(false);
   return (
     <StyledDiv>
       <h2>리뷰</h2>
       {reviews.length === 0 ? (
         <LockDiv>
-          <img src="/lock.svg" alt="lock icon" />
+          <img src='/lock.svg' alt='lock icon' />
           로그인 후 리뷰를 볼 수 있습니다.
         </LockDiv>
       ) : (
@@ -128,10 +188,34 @@ const CocktailSummary = ({ reviews }: IProps) => {
               </Review>
             ))}
           </Reviews>
-          <Link href="">
+          <Link href='/detail/_cocktailid/reviews'>
             <ReviewListLink>리뷰 더보기</ReviewListLink>
           </Link>
-          <WirteReviewButton>리뷰 작성</WirteReviewButton>
+          <WriteReviewButton
+            onClick={(e) => {
+              e.preventDefault();
+              setFormDisplay(true);
+            }}
+          >
+            리뷰 작성
+          </WriteReviewButton>
+          <WriteForm display={formDisplay} action=''>
+            <h2 className='title'>리뷰</h2>
+            <textarea className='textarea' />
+            <ButtonList>
+              <button className='write' type='submit'>
+                작성
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFormDisplay(false);
+                }}
+              >
+                취소
+              </button>
+            </ButtonList>
+          </WriteForm>
         </>
       )}
     </StyledDiv>
