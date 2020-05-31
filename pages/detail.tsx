@@ -49,7 +49,7 @@ const DetailPage = () => {
       <CocktailReview
         reviews={[
           {
-            src: '/profile.svg',
+            src: '/account.svg',
             alt: 'user profile img',
             name: '초코쿠키',
             isFavorite: false,

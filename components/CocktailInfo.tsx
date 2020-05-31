@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   }
   & > img:last-of-type {
     position: absolute;
-    top: 28vw;
+    top: calc(28vw + 40px);
     left: 4vw;
     width: 31vw;
     height: 48vw;
