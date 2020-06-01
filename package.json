@@ -6,7 +6,8 @@
     "tsc": "tsc --watch --p tsconfig.server.json",
     "dev": "nodemon",
     "build": "next build",
-    "start": "npm run build && env NODE_ENV=production next start"
+    "start": "env NODE_ENV=production node build/index",
+    "deploy": "npm run build && tsc --p tsconfig.server.json && env NODE_ENV=production node build/index"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
