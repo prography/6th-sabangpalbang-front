@@ -8,9 +8,8 @@ import next from 'next';
 dotenv.config();
 
 const dev = process.env.NODE_ENV !== 'production';
-const prod = !dev;
 
-const app = next({ dev });
+const app = dev ? next({ dev }) : next({ dev: false });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
