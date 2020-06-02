@@ -65,7 +65,7 @@ export const filterTab = [
       },
     ],
   },
-]
+];
 
 export const mainCocktailListInfo = [
   {

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="그룹_130" data-name="그룹 130" transform="translate(-1502.5 -102.5)">
+    <line id="선_36" data-name="선 36" x2="16" transform="translate(1502.5 104.5)" fill="none" stroke="#fc6593" stroke-width="1"/>
+    <line id="선_37" data-name="선 37" x2="16" transform="translate(1502.5 110.5)" fill="none" stroke="#fc6593" stroke-width="1"/>
+    <line id="선_38" data-name="선 38" x2="16" transform="translate(1502.5 116.5)" fill="none" stroke="#fc6593" stroke-width="1"/>
+    <g id="타원_8" data-name="타원 8" transform="translate(1504.563 102.5)" fill="#fff" stroke="#fc6593" stroke-width="1">
+      <circle cx="2" cy="2" r="2" stroke="none"/>
+      <circle cx="2" cy="2" r="1.5" fill="none"/>
+    </g>
+    <g id="타원_9" data-name="타원 9" transform="translate(1511.454 108.5)" fill="#fff" stroke="#fc6593" stroke-width="1">
+      <circle cx="2" cy="2" r="2" stroke="none"/>
+      <circle cx="2" cy="2" r="1.5" fill="none"/>
+    </g>
+    <g id="타원_10" data-name="타원 10" transform="translate(1507.861 114.5)" fill="#fff" stroke="#fc6593" stroke-width="1">
+      <circle cx="2" cy="2" r="2" stroke="none"/>
+      <circle cx="2" cy="2" r="1.5" fill="none"/>
+    </g>
+  </g>
+</svg>

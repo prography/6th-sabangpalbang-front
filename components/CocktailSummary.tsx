@@ -98,7 +98,7 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
       <h2>요약</h2>
       <Row>
         <Category>
-          <img src="/beer.svg" alt="도수" />
+          <img src='/beer.svg' alt='도수' />
           <span>도수</span>
         </Category>
         <Content flexDirection={'column'}>
@@ -116,13 +116,12 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
       </Row>
       <Row>
         <Category>
-          <img src="/wheat.svg" alt="베이스" />
+          <img src='/wheat.svg' alt='베이스' />
           <span>베이스</span>
         </Category>
         <Content>
           <Tag
             text={base.text}
-            href={base.href}
             backgroundColor={base.backgroundColor}
             textColor={base.textColor}
             fontSize={13}
@@ -131,18 +130,18 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
       </Row>
       <Row>
         <Category>
-          <img src="/chef.svg" alt="재료" />
+          <img src='/chef.svg' alt='재료' />
           <span>재료</span>
         </Category>
         <Content>
           {ingredients.map((text, i) => (
-            <Tag key={i} text={text} href={''} fontSize={13} />
+            <Tag key={i} text={text} fontSize={13} />
           ))}
         </Content>
       </Row>
       <Row>
         <Category>
-          <img src="/cutlery.svg" alt="맛" />
+          <img src='/cutlery.svg' alt='맛' />
           <span>맛</span>
         </Category>
         <Content>{flavor}</Content>

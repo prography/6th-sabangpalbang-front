@@ -89,7 +89,6 @@ const CocktailInfo = ({
             <Tag
               key={i}
               text={tag.text}
-              href={tag.href}
               textColor={tag.textColor}
               backgroundColor={tag.backgroundColor}
               fontSize={12}
