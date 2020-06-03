@@ -4,15 +4,19 @@ import styled from 'styled-components';
 const CardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-
   width: 160px;
   margin: 20px 0;
 
   .image_link {
     display: block;
   }
+  .cocktail_image_container {
+    width: 160px;
+    height: 220px;
+  }
   .cocktail_image {
     width: 100%;
+    height: 100%;
     vertical-align: top;
   }
 
@@ -21,7 +25,7 @@ const CardContainer = styled.div`
     margin: 8px 0;
     padding: 0 12px;
     font-size: 18px;
-    line-height: 26px;
+    line-height: 22px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -39,7 +43,7 @@ const CardContainer = styled.div`
     margin: 2px 2px;
     padding: 6px 8px;
     border-radius: 16px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: bold;
     color: #fff;
   }
@@ -77,7 +81,9 @@ const CocktailCard = ({ src, alt, href, name, tags, isFavorite }: IProps) => {
     <CardContainer>
       <Link href={href}>
         <a className='image_link'>
-          <img className='cocktail_image' src={src} alt={alt} />
+          <div className='cocktail_image_container'>
+            <img className='cocktail_image' src={src} alt={alt} />
+          </div>
           <strong className='cocktail_name'>{name}</strong>
         </a>
       </Link>
