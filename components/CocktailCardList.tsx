@@ -25,6 +25,8 @@ const CardListContainer = styled.div`
     .option_item {
       float: left;
       font-weight: bold;
+      font-size: 20px;
+      line-height: 30px;
       color: ${({ secondTextColor }: ITheme) => secondTextColor};
 
       &.active {
