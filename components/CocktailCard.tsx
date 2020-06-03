@@ -18,7 +18,7 @@ const CardContainer = styled.div`
 
   .cocktail_name {
     display: block;
-    margin: 15px 0;
+    margin: 8px 0;
     padding: 0 12px;
     font-size: 18px;
     line-height: 26px;
@@ -37,10 +37,10 @@ const CardContainer = styled.div`
   .tag {
     display: inline-block;
     margin: 2px 2px;
-    padding: 2px 7px;
-    border-radius: 50px;
-    font-size: 10px;
-    line-height: 14px;
+    padding: 6px 8px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: bold;
     color: #fff;
   }
 
