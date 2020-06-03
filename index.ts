@@ -8,15 +8,14 @@ import next from 'next';
 dotenv.config();
 
 const dev = process.env.NODE_ENV !== 'production';
-const prod = !dev;
 
-const app = next({ dev });
+const app = dev ? next({ dev }) : next({ dev: false });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
 
-  server.use(morgan('dev'));
+  dev && server.use(morgan('dev'));
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
   server.use(cookieParser(process.env.COOKIE_SECRET));
@@ -37,7 +36,7 @@ app.prepare().then(() => {
   server.get('*', (req, res) => {
     return handle(req, res);
   });
-  server.listen(3000, () => {
-    console.log('server running on http://localhost:3000');
+  server.listen(dev ? 3000 : 80, () => {
+    console.log(`server running on http://localhost:${dev ? 3000 : 80}`);
   });
 });
