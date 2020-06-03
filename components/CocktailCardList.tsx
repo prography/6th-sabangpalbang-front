@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromEvent } from 'rxjs';
@@ -21,7 +20,7 @@ const CardListContainer = styled.div`
   background: #fff;
 
   .option_container {
-    padding: 20px 22px 10px;
+    padding: 20px 22px 0px;
 
     .option_item {
       float: left;
@@ -34,10 +33,6 @@ const CardListContainer = styled.div`
     }
     .option_item + .option_item {
       margin-left: 10px;
-    }
-    .more_link {
-      float: right;
-      color: ${({ secondTextColor }: ITheme) => secondTextColor};
     }
   }
 
@@ -61,7 +56,7 @@ const CardList = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  padding: 0 15px;
+  padding: 0 10px;
 `;
 
 const CardListWithLoading = WithLoading(200)(
@@ -150,9 +145,6 @@ const CocktailCardList = () => {
         >
           #인기순
         </span>
-        <Link href='/list'>
-          <a className='more_link'>더보기</a>
-        </Link>
       </div>
       <CardListWithLoading
         cocktailList={cocktailList[orderOption]}

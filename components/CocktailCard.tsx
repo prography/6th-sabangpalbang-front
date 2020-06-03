@@ -2,37 +2,36 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
-  display: inline-block;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 
-  width: 155px;
-  overflow: hidden;
-  margin: 15px 7px;
-  padding: 0 8px 10px;
+  width: 176px;
+  margin: 20px 0;
 
   .image_link {
     display: block;
-    object-fit: contain;
   }
   .cocktail_image {
-    display: block;
-    width: min(30vw, 160px);
-    margin: 0 auto;
-    object-fit: contain;
+    width: 100%;
+    vertical-align: top;
   }
 
   .cocktail_name {
-    margin: 7px 0;
-    padding: 0 5px;
-    font-size: 14px;
-    line-height: 19px;
+    display: block;
+    margin: 15px 0;
+    padding: 0 12px;
+    font-size: 18px;
+    line-height: 26px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+
+  .tag_list {
+    padding: 0 12px 12px;
   }
 
   .tag {
@@ -79,17 +78,19 @@ const CocktailCard = ({ src, alt, href, name, tags, isFavorite }: IProps) => {
       <Link href={href}>
         <a className='image_link'>
           <img className='cocktail_image' src={src} alt={alt} />
-          <p className='cocktail_name'>{name}</p>
+          <strong className='cocktail_name'>{name}</strong>
         </a>
       </Link>
 
-      {tags?.map((tag, i) => (
-        <Link href={tag.href} key={i}>
-          <a className='tag' style={{ backgroundColor: tag.bgColor }}>
-            {tag.text}
-          </a>
-        </Link>
-      ))}
+      <div className='tag_list'>
+        {tags?.map((tag, i) => (
+          <Link href={tag.href} key={i}>
+            <a className='tag' style={{ backgroundColor: tag.bgColor }}>
+              {tag.text}
+            </a>
+          </Link>
+        ))}
+      </div>
     </CardContainer>
   );
 };
