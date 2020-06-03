@@ -5,7 +5,7 @@ const CardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 
-  width: 176px;
+  width: 160px;
   margin: 20px 0;
 
   .image_link {
