@@ -19,10 +19,14 @@ const params = {
 };
 
 const Carousel = ({ ItemComponent, infos }: IProps) => {
-  return (
+  return infos ? (
     <Swiper {...params}>
-      {infos && infos.map((info, i) => <ItemComponent key={i} {...info} />)}
+      {infos.map((info, i) => (
+        <ItemComponent key={i} {...info} />
+      ))}
     </Swiper>
+  ) : (
+    <div></div>
   );
 };
 export default WithLoading(183)(Carousel);

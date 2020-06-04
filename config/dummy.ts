@@ -62,10 +62,9 @@ export const filterTab = [
   },
   {
     category: '얘 뭐 넣을까?',
-    filterList: [
-    ],
+    filterList: [],
   },
-]
+];
 
 export const mainCocktailListInfo = [
   {

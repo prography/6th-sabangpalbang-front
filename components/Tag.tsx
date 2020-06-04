@@ -1,73 +1,52 @@
-import Link from 'next/link';
 import styled from 'styled-components';
 
-const StyledLink = styled.a`
+interface StyleProps {
+  backgroundColor?: string;
+  textColor?: string;
+  borderColor?: string;
+  fontSize?: number;
+}
+
+const StyledSpan = styled.span`
   display: inline-block;
   margin: 2px 0 3px 5px;
   border-radius: 50px;
   padding: 4px 8px;
-  font-size: ${({
-    fontSize,
-  }: {
-    backgroundColor?: string;
-    textColor?: string;
-    borderColor?: string;
-    fontSize?: number;
-  }) => (fontSize ? fontSize : '10')}px;
-  background-color: ${({
-    backgroundColor,
-  }: {
-    backgroundColor?: string;
-    textColor?: string;
-    borderColor?: string;
-    fontSize?: number;
-  }) => (backgroundColor ? backgroundColor : '#aeaeae')};
-  color: ${({
-    textColor,
-  }: {
-    backgroundColor?: string;
-    textColor?: string;
-    borderColor?: string;
-    fontSize?: number;
-  }) => (textColor ? textColor : 'white')};
-  ${({
-    borderColor,
-  }: {
-    backgroundColor?: string;
-    textColor?: string;
-    borderColor?: string;
-    fontSize?: number;
-  }) => (borderColor ? `border: 1px solid ${borderColor}` : '')}
+  font-size: ${({ fontSize }: StyleProps) => (fontSize ? fontSize : '10')}px;
+  background-color: ${({ backgroundColor }: StyleProps) =>
+    backgroundColor ? backgroundColor : '#aeaeae'};
+  color: ${({ textColor }: StyleProps) => (textColor ? textColor : '#fff')};
+  ${({ borderColor }: StyleProps) =>
+    borderColor ? `border: 1px solid ${borderColor}` : ''}
 `;
 
 interface IProps {
   text: string;
-  href: string;
   textColor?: string;
   backgroundColor?: string;
   fontSize?: number;
   borderColor?: string;
+  onClickHandler?: (e: any) => any;
 }
 
 const Tag = ({
   text,
-  href,
   textColor,
   backgroundColor,
   borderColor,
   fontSize,
+  onClickHandler,
 }: IProps) => {
   return (
-    <Link href={href}>
-      <StyledLink
-        textColor={textColor}
-        backgroundColor={backgroundColor}
-        borderColor={borderColor}
-        fontSize={fontSize}
-      >
-        {text}
-      </StyledLink>
-    </Link>
+    <StyledSpan
+      onClick={onClickHandler}
+      textColor={textColor}
+      backgroundColor={backgroundColor}
+      borderColor={borderColor}
+      fontSize={fontSize}
+    >
+      {text}
+    </StyledSpan>
   );
 };
 
