@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "build": "next build",
     "start": "env NODE_ENV=production node build/index",
-    "deploy": "npm run build && tsc --p tsconfig.server.json && env NODE_ENV=production node build/index"
+    "deploy": "npm run build && tsc --p tsconfig.server.json && env NODE_ENV=production nodemon build/index"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
