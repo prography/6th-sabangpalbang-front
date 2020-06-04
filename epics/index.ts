@@ -1,10 +1,9 @@
 import { ActionsObservable, combineEpics, Epic, StateObservable } from 'redux-observable';
 import { catchError } from 'rxjs/operators';
 
-import carousel from './carousel';
 import cocktail from './cocktail';
 
-const epics: Epic[] = [carousel, cocktail];
+const epics: Epic[] = [cocktail];
 
 const rootEpic = (action$: ActionsObservable<any>, store$: StateObservable<any>, dependencies: any) =>
   combineEpics(...epics)(action$, store$, dependencies).pipe(

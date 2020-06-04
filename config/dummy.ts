@@ -11,17 +11,17 @@ export const filterTab = [
       {
         href: '',
         filterName: '위스키',
-        filterImage: { src: '위스키.png', alt: '' },
+        filterImage: { src: 'whisky.jpg', alt: '' },
       },
       {
         href: '',
         filterName: '럼',
-        filterImage: { src: '럼.jpg', alt: '' },
+        filterImage: { src: 'rum.jpg', alt: '' },
       },
       {
         href: '',
         filterName: '진',
-        filterImage: { src: '진.jpeg', alt: '' },
+        filterImage: { src: 'gin.jpg', alt: '' },
       },
     ],
   },
@@ -30,40 +30,39 @@ export const filterTab = [
     filterList: [
       {
         href: '',
-        filterName: '무알콜',
-        filterImage: { src: '위스키.png', alt: '' },
+        filterName: '0%',
+        filterImage: { src: 'non_alcohol.png', alt: '' },
       },
       {
         href: '',
-        filterName: '0~20%',
-        filterImage: { src: '럼.jpg', alt: '' },
+        filterName: '1~5%',
+        filterImage: { src: 'one_to_five.jpg', alt: '' },
       },
       {
         href: '',
-        filterName: '20~40%',
-        filterImage: { src: '진.jpeg', alt: '' },
+        filterName: '6~10%',
+        filterImage: { src: 'six_to_ten.jpg', alt: '' },
+      },
+      {
+        href: '',
+        filterName: '11~15%',
+        filterImage: { src: 'eleven_to_fifteen.jpg', alt: '' },
+      },
+      {
+        href: '',
+        filterName: '16~20%',
+        filterImage: { src: 'sixteen_to_twelve.jpg', alt: '' },
+      },
+      {
+        href: '',
+        filterName: '21%~',
+        filterImage: { src: 'twelve_one.jpg', alt: '' },
       },
     ],
   },
   {
-    category: '태그',
-    filterList: [
-      {
-        href: '',
-        filterName: '19',
-        filterImage: { src: '위스키.png', alt: '' },
-      },
-      {
-        href: '',
-        filterName: '바나나',
-        filterImage: { src: '럼.jpg', alt: '' },
-      },
-      {
-        href: '',
-        filterName: '복숭아',
-        filterImage: { src: '진.jpeg', alt: '' },
-      },
-    ],
+    category: '얘 뭐 넣을까?',
+    filterList: [],
   },
 ];
 

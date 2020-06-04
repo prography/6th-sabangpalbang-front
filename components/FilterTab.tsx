@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 
@@ -87,14 +86,6 @@ const FilterList = styled.ul`
   }
 `;
 
-const StyledAnchor = styled.a`
-  display: block;
-  padding: 15px;
-  margin: 0 20px;
-  text-align: center;
-  border-top: 1px solid #c3c3c3;
-`;
-
 interface IImageInfo {
   src: string;
   alt: string;
@@ -145,11 +136,6 @@ const FilterTab = ({ filters }: IProps) => {
           </Filter>
         ))}
       </FilterList>
-      <Link href='/filters'>
-        <StyledAnchor style={{ color: theme.themeColor }}>
-          더 많은 필터보기
-        </StyledAnchor>
-      </Link>
     </TabContainer>
   );
 };
