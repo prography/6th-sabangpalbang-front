@@ -1,14 +1,12 @@
-import { useState, createRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, FormEvent, useEffect } from 'react';
 import Link from 'next/link';
 import styled, { useTheme } from 'styled-components';
 import { Slider } from 'primereact/slider';
 import { ITheme, baseTagStyleList } from '../config/style';
 import Tag from './Tag';
-
-interface IStyleProps extends ITheme {
-  fixedDivHeight: string;
-  boxShadow: boolean;
-}
+import { RootState } from '../reducers';
+import { tagListRequest } from '../reducers/tag';
 
 const HeaderContainer = styled.header`
   .fixed_div {
@@ -80,7 +78,7 @@ const HeaderContainer = styled.header`
   &::after {
     content: '';
     display: block;
-    height: ${({ fixedDivHeight }: IStyleProps) => fixedDivHeight};
+    height: 44px;
   }
   .p-slider-horizontal {
     flex: 1;
@@ -90,7 +88,7 @@ const HeaderContainer = styled.header`
     height: 0.286em;
   }
   .p-slider-range {
-    background-color: ${({ themeColor }: IStyleProps) => themeColor} !important;
+    background-color: ${({ themeColor }: ITheme) => themeColor} !important;
     top: 0;
     height: 100%;
     position: absolute;
@@ -114,7 +112,7 @@ const HeaderContainer = styled.header`
     z-index: 1;
     box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.3);
     border: 3px solid white !important;
-    background-color: ${({ themeColor }: IStyleProps) => themeColor} !important;
+    background-color: ${({ themeColor }: ITheme) => themeColor} !important;
   }
   .range-value {
     width: 38px;
@@ -123,7 +121,7 @@ const HeaderContainer = styled.header`
     color: inherit;
   }
   .row {
-    color: ${({ secondTextColor }: IStyleProps) => secondTextColor};
+    color: ${({ secondTextColor }: ITheme) => secondTextColor};
     font-size: 14px;
     display: flex;
     flex-wrap: wrap;
@@ -146,11 +144,10 @@ const HeaderContainer = styled.header`
     overflow-x: auto;
     white-space: nowrap;
   }
-  .row .all-tag {
+  .all-tag {
     width: 100%;
     padding: 5px 0;
-    padding-left: 52px;
-    border-top: 1px solid #ddd;
+    padding-left: 67px;
   }
   .row .arrow {
     float: right;
@@ -158,73 +155,65 @@ const HeaderContainer = styled.header`
   }
 `;
 
-const tagList = [
-  { text: '태그', idx: 0 },
-  { text: '여섯글자 태그', idx: 1 },
-  { text: '태애그', idx: 2 },
-  { text: '논알콜', idx: 3 },
-  { text: '태애애애그', idx: 4 },
-  { text: '태그태그', idx: 5 },
-  { text: '비오고잇다', idx: 6 },
-  { text: '파랑색', idx: 7 },
-  { text: '열대', idx: 8 },
-  { text: '복숭아향', idx: 9 },
-  { text: '레몬맛', idx: 10 },
-  { text: '태그', idx: 11 },
-  { text: '여섯글자 태그', idx: 12 },
-  { text: '태애그', idx: 13 },
-  { text: '논알콜', idx: 14 },
-  { text: '태애애애그', idx: 15 },
-  { text: '태그태그', idx: 16 },
-  { text: '비오고잇다', idx: 17 },
-  { text: '파랑색', idx: 18 },
-  { text: '열대과일처럼긴', idx: 19 },
-];
-
 const Header = () => {
   const theme = useTheme() as ITheme;
-  const formRef = createRef<HTMLFormElement>();
-  const [searchDisplay, setSearchDisplay] = useState<'block' | 'none'>('none');
-  const [filterDisplay, setFilterDisplay] = useState<'block' | 'none'>('none');
+  const [inputValue, setInputValue] = useState('');
+  const [searchDisplay, setSearchDisplay] = useState(false);
+  const [filterDisplay, setFilterDisplay] = useState(false);
+  const [tagDisplay, setTagDisplay] = useState(false);
   const [rangeValues, setRangeValues] = useState<[number, number]>([0, 40]);
   const [selectedBaseTag, selectBaseTag] = useState<number[]>([]);
   const [selectedTag, selectTag] = useState<number[]>([]);
-  const [tagDisplay, setTagDisplay] = useState<'block' | 'none'>('none');
 
-  const handleSubmit = () => {
-    if (searchDisplay === 'none') {
-      setSearchDisplay('block');
+  const dispatch = useDispatch();
+  const { tagList } = useSelector((state: RootState) => state.tag);
+
+  const handleSubmit = (e: MouseEvent | FormEvent) => {
+    e.preventDefault();
+    if (!searchDisplay) {
+      setSearchDisplay(true);
       return;
     }
-    if (formRef.current?.cocktail.value !== '') {
-      formRef.current?.submit();
-    }
+    // tag + text로 정보 요청해야하는곳
+    const query = `?abvMin=${rangeValues[0]}&abvMax=${rangeValues[1]}${
+      inputValue === '' ? '' : `&name=${inputValue}`
+    }${selectedBaseTag.length ? `&base=${selectedBaseTag.join()}` : ''}${
+      selectedTag.length ? `&tag=${selectedTag.join()}` : ''
+    }`;
+    console.log(query);
   };
+
+  useEffect(() => {
+    dispatch(tagListRequest());
+  }, []);
+
   return (
-    <HeaderContainer boxShadow={false} fixedDivHeight={'44px'} {...theme}>
+    <HeaderContainer {...theme}>
       <div className='fixed_div'>
         <Link href='/'>
           <img className='logo' src='/logo.png' alt='메인페이지로 이동' />
         </Link>
-        <form ref={formRef} className={`input_form ${searchDisplay}`} action=''>
+        <form
+          onSubmit={handleSubmit}
+          className={`input_form ${searchDisplay ? 'block' : 'none'}`}
+          action=''
+        >
           <input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             placeholder='칵테일명...'
             name='cocktail'
             className='input_text'
             type='text'
           />
           <img
-            onClick={() =>
-              setFilterDisplay(filterDisplay === 'none' ? 'block' : 'none')
-            }
+            onClick={() => setFilterDisplay(!filterDisplay)}
             className='filter_img'
-            src={
-              filterDisplay === 'none' ? '/filter.svg' : '/selected_filter.svg'
-            }
+            src={filterDisplay ? '/selected_filter.svg' : '/filter.svg'}
             alt='필터설정'
           />
         </form>
-        <div className={`title ${searchDisplay === 'none' ? 'block' : 'none'}`}>
+        <div className={`title ${searchDisplay ? 'none' : 'block'}`}>
           칵텐더
         </div>
         <img
@@ -234,7 +223,7 @@ const Header = () => {
           alt='검색하기'
         />
       </div>
-      <div className={`filter_div ${filterDisplay}`}>
+      <div className={`filter_div ${filterDisplay ? 'block' : 'none'}`}>
         <div className='row'>
           <span className='type'>도수%</span>
           <span className='range-value'>{rangeValues[0]}</span>
@@ -257,12 +246,12 @@ const Header = () => {
               const params = {
                 textColor: selectedBaseTag.includes(i) ? undefined : '#aeaeae',
                 borderColor: selectedBaseTag.includes(i)
-                  ? undefined
+                  ? tag.borderColor
                   : '#aeaeae',
                 backgroundColor: selectedBaseTag.includes(i)
                   ? tag.backgroundColor
                   : '#fff',
-                text: tag.text,
+                text: tag.name,
               };
               return (
                 <Tag
@@ -291,22 +280,22 @@ const Header = () => {
                   e.preventDefault();
                   selectTag([...selectedTag.filter((idx) => idx !== tagIdx)]);
                 }}
-                text={tagList[tagIdx].text}
+                text={tagList[tagIdx].name}
                 fontSize={12}
                 key={tagIdx}
               />
             ))}
           </div>
           <img
-            onClick={() =>
-              setTagDisplay(tagDisplay === 'none' ? 'block' : 'none')
-            }
+            onClick={() => setTagDisplay(!tagDisplay)}
             className='arrow'
-            src={tagDisplay === 'none' ? '/down-arrow.svg' : '/up-arrow.svg'}
+            src={tagDisplay ? '/up-arrow.svg' : '/down-arrow.svg'}
             alt='전체태그 접기/펴기'
           />
-          <div className={`all-tag ${tagDisplay}`}>
-            {tagList.map((tag, i) => (
+        </div>
+        <div className={`all-tag ${tagDisplay ? 'block' : 'none'}`}>
+          {tagList &&
+            tagList.map((tag, i) => (
               <Tag
                 onClickHandler={(e) => {
                   e.preventDefault();
@@ -316,7 +305,7 @@ const Header = () => {
                       : [...selectedTag, tag.idx]
                   );
                 }}
-                text={tag.text}
+                text={tag.name}
                 fontSize={12}
                 backgroundColor={selectedTag.includes(i) ? undefined : '#fff'}
                 textColor={selectedTag.includes(i) ? undefined : '#aeaeae'}
@@ -324,7 +313,6 @@ const Header = () => {
                 key={i}
               />
             ))}
-          </div>
         </div>
       </div>
     </HeaderContainer>

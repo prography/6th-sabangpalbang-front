@@ -138,3 +138,26 @@ export const mainCocktailListInfo = [
     ],
   },
 ];
+
+export const tagList = [
+  { name: '태그', idx: 0 },
+  { name: '여섯글자 태그', idx: 1 },
+  { name: '태애그', idx: 2 },
+  { name: '논알콜', idx: 3 },
+  { name: '태애애애그', idx: 4 },
+  { name: '태그태그', idx: 5 },
+  { name: '비오고잇다', idx: 6 },
+  { name: '열대', idx: 7 },
+  { name: '파랑색', idx: 8 },
+  { name: '복숭아향', idx: 9 },
+  { name: '레몬맛', idx: 10 },
+  { name: '태그', idx: 11 },
+  { name: '여섯글자 태그', idx: 12 },
+  { name: '태애그', idx: 13 },
+  { name: '논알콜', idx: 14 },
+  { name: '태애애애그', idx: 15 },
+  { name: '태그태그', idx: 16 },
+  { name: '비오고잇다', idx: 17 },
+  { name: '파랑색', idx: 18 },
+  { name: '열대과일처럼긴', idx: 19 },
+];
