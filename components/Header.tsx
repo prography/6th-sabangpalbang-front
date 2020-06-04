@@ -285,21 +285,17 @@ const Header = () => {
         <div className='row'>
           <span className='type'>태그</span>
           <div className='tag-list'>
-            {tagList
-              .filter((_, i) => selectedTag.includes(i))
-              .map((tag, i) => (
-                <Tag
-                  onClickHandler={(e) => {
-                    e.preventDefault();
-                    selectTag([
-                      ...selectedTag.filter((idx) => idx !== tag.idx),
-                    ]);
-                  }}
-                  text={tag.text}
-                  fontSize={12}
-                  key={i}
-                />
-              ))}
+            {selectedTag.map((tagIdx) => (
+              <Tag
+                onClickHandler={(e) => {
+                  e.preventDefault();
+                  selectTag([...selectedTag.filter((idx) => idx !== tagIdx)]);
+                }}
+                text={tagList[tagIdx].text}
+                fontSize={12}
+                key={tagIdx}
+              />
+            ))}
           </div>
           <img
             onClick={() =>

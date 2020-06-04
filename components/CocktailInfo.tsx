@@ -4,12 +4,12 @@ import Tag from './Tag';
 const StyledDiv = styled.div`
   background-color: white;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-  & > img:first-of-type {
+  .background-img {
     width: 100vw;
     height: 47vw;
     filter: blur(1px);
   }
-  & > img:last-of-type {
+  .cocktail-img {
     position: absolute;
     top: calc(28vw + 40px);
     left: 4vw;
@@ -19,37 +19,33 @@ const StyledDiv = styled.div`
     border-radius: 5%;
     box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
   }
-`;
-
-const InfoDiv = styled.div`
-  padding-left: 40vw;
-  min-height: 31vw;
-  padding-top: 5vw;
-  h3 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 3px;
+  .cocktail-info {
+    padding-left: 40vw;
+    min-height: 31vw;
+    padding-top: 5vw;
+    .cocktail-name {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .favorite-count {
+      font-size: 14px;
+      font-weight: 300;
+    }
+    .tags {
+      margin-top: 5px;
+    }
   }
-  & > span {
+  .description {
+    width: 95vw;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 15px;
+    border-top: 1px solid #ddd;
     font-size: 14px;
-    font-weight: 300;
   }
 `;
 
-const Tags = styled.div`
-  margin-top: 5px;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Description = styled.div`
-  width: 95vw;
-  margin: 0 auto;
-  margin-top: 10px;
-  padding: 15px;
-  border-top: 1px solid #ddd;
-  font-size: 14px;
-`;
 interface IImageInfo {
   src: string;
   alt: string;
@@ -79,12 +75,20 @@ const CocktailInfo = ({
 }: IProps) => {
   return (
     <StyledDiv>
-      <img src={backgroundImg.src} alt={backgroundImg.alt} />
-      <img src={cocktailImg.src} alt={cocktailImg.alt} />
-      <InfoDiv>
-        <h3>{cocktailName}</h3>
-        <span>{favoriteCount} likes</span>
-        <Tags>
+      <img
+        className='background-img'
+        src={backgroundImg.src}
+        alt={backgroundImg.alt}
+      />
+      <img
+        className='cocktail-img'
+        src={cocktailImg.src}
+        alt={cocktailImg.alt}
+      />
+      <div className='cocktail-info'>
+        <h3 className='cocktail-name'>{cocktailName}</h3>
+        <span className='favorite-count'>{favoriteCount} likes</span>
+        <div className='tags'>
           {tags?.map((tag, i) => (
             <Tag
               key={i}
@@ -94,12 +98,9 @@ const CocktailInfo = ({
               fontSize={12}
             />
           ))}
-        </Tags>
-      </InfoDiv>
-      <Description>
-        <b>개발자 한마디 : </b>
-        {description}
-      </Description>
+        </div>
+      </div>
+      <div className='description'>{description}</div>
     </StyledDiv>
   );
 };

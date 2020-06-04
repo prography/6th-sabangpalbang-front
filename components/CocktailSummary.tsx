@@ -3,7 +3,9 @@ import Tag from './Tag';
 
 const StyledDiv = styled.div`
   background-color: white;
-  h2 {
+  padding-bottom: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  .title {
     width: 95vw;
     margin: 0 auto;
     font-size: 28px;
@@ -11,27 +13,23 @@ const StyledDiv = styled.div`
     padding: 14px 10px 10px;
     border-bottom: 1px solid #ddd;
   }
-  & > div:last-of-type div {
+  .row:last-of-type > div:last-of-type {
     border-bottom: 0;
   }
-  padding-bottom: 10px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-`;
-
-const Row = styled.div`
-  padding: 10px 0 0 4vw;
-  display: flex;
-`;
-
-const Category = styled.div`
-  img {
-    width: 36px;
+  .row {
+    padding: 10px 0 0 4vw;
+    display: flex;
   }
-  span {
-    font-size: 13px;
-    color: #7e7e7e;
-    display: block;
-    text-align: center;
+  .category {
+    img {
+      width: 36px;
+    }
+    span {
+      font-size: 13px;
+      color: #7e7e7e;
+      display: block;
+      text-align: center;
+    }
   }
 `;
 
@@ -55,7 +53,6 @@ const MeasuerList = styled.div`
   margin: 3px 0;
   span {
     flex: 1;
-
     font-size: 13px;
     font-weight: 200;
   }
@@ -95,12 +92,12 @@ interface IProps {
 const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
   return (
     <StyledDiv>
-      <h2>요약</h2>
-      <Row>
-        <Category>
+      <h2 className='title'>요약</h2>
+      <div className='row'>
+        <div className='category'>
           <img src='/beer.svg' alt='도수' />
           <span>도수</span>
-        </Category>
+        </div>
         <Content flexDirection={'column'}>
           <MeasuerList>
             <span>None</span>
@@ -113,12 +110,12 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
             <div></div>
           </LineContainer>
         </Content>
-      </Row>
-      <Row>
-        <Category>
+      </div>
+      <div className='row'>
+        <div className='category'>
           <img src='/wheat.svg' alt='베이스' />
           <span>베이스</span>
-        </Category>
+        </div>
         <Content>
           <Tag
             text={base.text}
@@ -127,25 +124,25 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
             fontSize={13}
           />
         </Content>
-      </Row>
-      <Row>
-        <Category>
+      </div>
+      <div className='row'>
+        <div className='category'>
           <img src='/chef.svg' alt='재료' />
           <span>재료</span>
-        </Category>
+        </div>
         <Content>
           {ingredients.map((text, i) => (
             <Tag key={i} text={text} fontSize={13} />
           ))}
         </Content>
-      </Row>
-      <Row>
-        <Category>
+      </div>
+      <div className='row'>
+        <div className='category'>
           <img src='/cutlery.svg' alt='맛' />
           <span>맛</span>
-        </Category>
+        </div>
         <Content>{flavor}</Content>
-      </Row>
+      </div>
     </StyledDiv>
   );
 };
