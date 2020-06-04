@@ -40,8 +40,12 @@ const TabList = styled.ul`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     line-height: 34px;
-    color: ${({ primaryTextColor }: { primaryTextColor: string }) =>
-      primaryTextColor};
+    color: ${({
+      primaryTextColor,
+    }: {
+      primaryTextColor: string;
+      secondTextColor: string;
+    }) => primaryTextColor};
   }
 `;
 
