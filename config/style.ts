@@ -22,12 +22,17 @@ export const resetCSS = css`
       vertical-align: baseline;
   }
 
-  body {
-      line-height: 1;
-  }
-
   ol,ul {
       list-style: none;
+  }
+  @font-face {
+    font-family: 'BMHANNAAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  body, input, button, textarea {
+    font-family: 'BMHANNAAir', sans-serif;
   }
 `;
 
