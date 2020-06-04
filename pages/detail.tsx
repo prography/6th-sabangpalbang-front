@@ -1,8 +1,12 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import CocktailInfo from '../components/CocktailInfo';
 import CocktailSummary from '../components/CocktailSummary';
 import CocktailReview from '../components/CocktailReview';
+import { RootState } from '../reducers';
+import { cocktailDetailRequest } from '../reducers/cocktailDetail';
 
 const GridDiv = styled.div`
   display: grid;
@@ -12,7 +16,16 @@ const GridDiv = styled.div`
 
 const DetailPage = () => {
   const router = useRouter();
-  console.log(router);
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.cocktailDetail);
+  useEffect(() => {
+    dispatch(
+      cocktailDetailRequest(
+        Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
+      )
+    );
+  }, []);
+  console.log(data);
   return (
     <GridDiv>
       <CocktailInfo

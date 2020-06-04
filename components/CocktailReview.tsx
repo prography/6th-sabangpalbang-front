@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const StyledDiv = styled.div`
-  backgroundㄹcolor: white;
+  background-color: #fff;
   padding-bottom: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   h2 {

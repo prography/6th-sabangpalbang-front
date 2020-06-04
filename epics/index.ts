@@ -8,8 +8,9 @@ import { catchError } from 'rxjs/operators';
 
 import cocktail from './cocktail';
 import tag from './tag';
+import cocktailDetail from './cocktailDetail';
 
-const epics: Epic[] = [cocktail, tag];
+const epics: Epic[] = [cocktail, tag, cocktailDetail];
 
 const rootEpic = (
   action$: ActionsObservable<any>,
