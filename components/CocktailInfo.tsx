@@ -59,9 +59,7 @@ interface IProps {
   description: string;
   tags?: {
     text: string;
-    href: string;
-    textColor?: string;
-    backgroundColor?: string;
+    idx: number;
   }[];
 }
 
@@ -89,14 +87,8 @@ const CocktailInfo = ({
         <h3 className='cocktail-name'>{cocktailName}</h3>
         <span className='favorite-count'>{favoriteCount} likes</span>
         <div className='tags'>
-          {tags?.map((tag, i) => (
-            <Tag
-              key={i}
-              text={tag.text}
-              textColor={tag.textColor}
-              backgroundColor={tag.backgroundColor}
-              fontSize={12}
-            />
+          {tags?.map((tag) => (
+            <Tag key={tag.idx} text={tag.text} fontSize={12} />
           ))}
         </div>
       </div>

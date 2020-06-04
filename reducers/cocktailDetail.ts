@@ -38,7 +38,7 @@ export interface IState {
   cocktailImg: null | IImgInfo;
   favoriteCount: null | number;
   description: null | string;
-  tags: null | ITagInfo;
+  tags: null | ITagInfo[];
   abv: null | number;
   abvMin: null | number;
   abvMax: null | number;

@@ -28,6 +28,7 @@
     "primeicons": "^4.0.0-rc.2",
     "primereact": "^4.2.1",
     "react": "16.13.1",
+    "react-content-loader": "^5.0.4",
     "react-dom": "16.13.1",
     "react-id-swiper": "^3.0.0",
     "react-redux": "^7.2.0",
