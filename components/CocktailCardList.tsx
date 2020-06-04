@@ -103,8 +103,8 @@ const CocktailCardList = () => {
   useEffect(() => {
     const infiniteScroll = fromEvent(window, 'scroll')
       .pipe(
-        skip(1),
         throttleTime(500),
+        skip(1),
         filter(
           (_) =>
             document.documentElement.scrollTop +
@@ -114,11 +114,14 @@ const CocktailCardList = () => {
         )
       )
       .subscribe((_) => dispatch(cocktailListRequest(orderOption)));
-    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
     return () => {
       infiniteScroll.unsubscribe();
     };
   }, [orderOption, loading]);
+
+  useEffect(() => {
+    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
+  }, []);
 
   return (
     <CardListContainer {...theme}>
