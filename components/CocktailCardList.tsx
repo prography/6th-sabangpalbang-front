@@ -88,10 +88,14 @@ const CocktailCardList = () => {
 
   const theme = useTheme() as ITheme;
   const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
-    'randomList'
+    'nameList'
   );
   const optionHandler = useCallback(
     (optionName: keyof ICocktailList) => () => {
+      if (optionName !== 'nameList') {
+        alert('아직 준비중이지렁');
+        return;
+      }
       setOrderOption(optionName);
       if (cocktailList[optionName] === null) {
         dispatch(cocktailListRequest(optionName));
