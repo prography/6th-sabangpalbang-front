@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import { ICocktail } from '../src/interfaces/cocktail';
+
 const CardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
@@ -64,35 +66,29 @@ const CardContainer = styled.div`
 `;
 
 interface IProps {
-  src: string;
-  alt: string;
-  href: string;
-  name: string;
-  tags?: {
-    text: string;
-    href: string;
-    bgColor?: string;
-  }[];
-  isFavorite?: boolean;
+  info: ICocktail;
 }
 
-const CocktailCard = ({ src, alt, href, name, tags, isFavorite }: IProps) => {
+const CocktailCard = ({ info }: IProps) => {
   return (
     <CardContainer>
-      <Link href={href}>
+      <Link
+        href={{ pathname: '/detail', query: { id: info.idx } }}
+        as={`/detail/${info.idx}`}
+      >
         <a className='image_link'>
           <div className='cocktail_image_container'>
-            <img className='cocktail_image' src={src} alt={alt} />
+            <img className='cocktail_image' src={info.imgUrl} alt='' />
           </div>
-          <strong className='cocktail_name'>{name}</strong>
+          <strong className='cocktail_name'>{info.name}</strong>
         </a>
       </Link>
 
       <div className='tag_list'>
-        {tags?.map((tag, i) => (
-          <Link href={tag.href} key={i}>
-            <a className='tag' style={{ backgroundColor: tag.bgColor }}>
-              {tag.text}
+        {info.tags?.map((tag, i) => (
+          <Link href='#' key={tag.idx}>
+            <a className='tag' style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
+              {tag.name}
             </a>
           </Link>
         ))}

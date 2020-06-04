@@ -5,15 +5,16 @@ import { filter, skip, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
+import { ICocktail } from '../src/interfaces/cocktail';
 import { RootState } from '../src/reducers';
-import { cocktailListRequest, ICocktailInfo } from '../src/reducers/cocktail';
+import { cocktailListRequest } from '../src/reducers/cocktail';
 import CocktailCard from './CocktailCard';
 import WithLoading from './WithLoading';
 
 interface ICocktailList {
-  randomList: null | ICocktailInfo[];
-  nameList: null | ICocktailInfo[];
-  popularList: null | ICocktailInfo[];
+  randomList: null | ICocktail[];
+  nameList: null | ICocktail[];
+  popularList: null | ICocktail[];
 }
 
 const CardListContainer = styled.div`
@@ -62,13 +63,12 @@ const CardList = styled.div`
 `;
 
 const CardListWithLoading = WithLoading(200)(
-  ({ cocktailList }: { cocktailList: ICocktailInfo[] }) => {
+  ({ cocktailList }: { cocktailList: ICocktail[] }) => {
     return (
       <CardList>
         {cocktailList &&
-          cocktailList!.map((info: any, i) => (
-            <CocktailCard key={i} {...info} />
-            // key에 index아닌 id가 필요
+          cocktailList!.map((info) => (
+            <CocktailCard key={info.idx} info={info} />
           ))}
       </CardList>
     );
