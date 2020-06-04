@@ -5,8 +5,8 @@ import { filter, skip, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
-import { RootState } from '../reducers';
-import { cocktailListRequest, ICocktailInfo } from '../reducers/cocktail';
+import { RootState } from '../src/reducers';
+import { cocktailListRequest, ICocktailInfo } from '../src/reducers/cocktail';
 import CocktailCard from './CocktailCard';
 import WithLoading from './WithLoading';
 
