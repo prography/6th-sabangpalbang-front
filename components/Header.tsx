@@ -5,8 +5,8 @@ import styled, { useTheme } from 'styled-components';
 import { Slider } from 'primereact/slider';
 import { ITheme, baseTagStyleList } from '../config/style';
 import Tag from './Tag';
-import { RootState } from '../reducers';
-import { tagListRequest } from '../reducers/tag';
+import { RootState } from '../src/reducers';
+import { tagListRequest } from '../src/reducers/tag';
 import { useRouter } from 'next/router';
 
 const HeaderContainer = styled.header`
@@ -168,14 +168,14 @@ const parseQuery = (query: { [name: string]: any }) => {
   name = String(name ? name : '');
   tag = String(tag)
     .replace(/\s/g, '')
-    .replace(/[^1-9,]/g, '')
+    .replace(/[^0-9,]/g, '')
     .split(',')
     .filter((s) => s !== '')
     .map((s) => Number(s));
 
   base = String(base)
     .replace(/\s/g, '')
-    .replace(/[^1-9,]/g, '')
+    .replace(/[^0-9,]/g, '')
     .split(',')
     .filter((s) => s !== '')
     .map((s) => Number(s));
@@ -187,11 +187,14 @@ const Header = () => {
   const router = useRouter();
   const theme = useTheme() as ITheme;
   const [displayFlag, setDisplayFlag] = useState({
-    search: false,
-    filter: false,
+    search: router.pathname === '/list',
+    filter: router.pathname === '/list',
     tag: false,
   });
-  const { abvMin, abvMax, name, tag, base } = parseQuery(router.query);
+  const { abvMin, abvMax, name, tag, base } = parseQuery(
+    router.pathname === '/list' ? router.query : {}
+  );
+
   const [inputValue, setInputValue] = useState(name);
   const [abvValues, setAbvValues] = useState<[number, number]>([
     abvMin,
@@ -202,7 +205,6 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const { tagList } = useSelector((state: RootState) => state.tag);
-  console.log(tagList, router.query, parseQuery(router.query));
 
   const handleSubmit = (e: MouseEvent | FormEvent) => {
     e.preventDefault();
@@ -216,6 +218,7 @@ const Header = () => {
     }${selectedBaseTag.length ? `&base=${selectedBaseTag.join()}` : ''}${
       selectedTag.length ? `&tag=${selectedTag.join()}` : ''
     }`;
+    router.push('/list' + query);
   };
 
   useEffect(() => {
@@ -265,6 +268,7 @@ const Header = () => {
           <span className='type'>도수%</span>
           <span className='range-value'>{abvValues[0]}</span>
           <Slider
+            step={5}
             max={40}
             value={abvValues}
             onChange={(e) =>
@@ -311,17 +315,18 @@ const Header = () => {
         <div className='row'>
           <span className='type'>태그</span>
           <div className='tag-list'>
-            {tagList && selectedTag.map((tagIdx) => (
-              <Tag
-                onClickHandler={(e) => {
-                  e.preventDefault();
-                  selectTag([...selectedTag.filter((idx) => idx !== tagIdx)]);
-                }}
-                text={tagList[tagIdx].text}
-                fontSize={12}
-                key={tagIdx}
-              />
-            ))}
+            {tagList &&
+              selectedTag.map((tagIdx) => (
+                <Tag
+                  onClickHandler={(e) => {
+                    e.preventDefault();
+                    selectTag([...selectedTag.filter((idx) => idx !== tagIdx)]);
+                  }}
+                  text={tagList[tagIdx].text}
+                  fontSize={12}
+                  key={tagIdx}
+                />
+              ))}
           </div>
           <img
             onClick={() =>

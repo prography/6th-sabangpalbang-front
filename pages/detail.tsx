@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import CocktailInfo from '../components/CocktailInfo';
 import CocktailSummary from '../components/CocktailSummary';
 import CocktailReview from '../components/CocktailReview';
-import { RootState } from '../reducers';
-import { cocktailDetailRequest } from '../reducers/cocktailDetail';
+import { RootState } from '../src/reducers';
+import { cocktailDetailRequest } from '../src/reducers/cocktailDetail';
 import ContentLoader from 'react-content-loader';
 
 const GridDiv = styled.div`
