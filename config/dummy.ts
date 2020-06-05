@@ -107,191 +107,191 @@ export const filterTab = [
 
 export const tagList = [
   {
-    idx: 1,
+    idx: 0,
     name: '그레나딘 시럽',
   },
   {
-    idx: 2,
+    idx: 1,
     name: '레몬 주스',
   },
   {
-    idx: 3,
+    idx: 2,
     name: '도수가 쎈',
   },
   {
-    idx: 4,
+    idx: 3,
     name: '깔루아',
   },
   {
-    idx: 5,
+    idx: 4,
     name: '딸기',
   },
   {
-    idx: 6,
+    idx: 5,
     name: '라임',
   },
   {
-    idx: 7,
+    idx: 6,
     name: '럼',
   },
   {
-    idx: 8,
+    idx: 7,
     name: '꼬냑',
   },
   {
-    idx: 9,
+    idx: 8,
     name: '데킬라',
   },
   {
-    idx: 10,
+    idx: 9,
     name: '라임 주스',
   },
   {
-    idx: 11,
+    idx: 10,
     name: '레몬',
   },
   {
-    idx: 12,
+    idx: 11,
     name: '메론',
   },
   {
-    idx: 13,
+    idx: 12,
     name: '바나나 리큐르',
   },
   {
-    idx: 14,
+    idx: 13,
     name: '베르무트',
   },
   {
-    idx: 15,
+    idx: 14,
     name: '리큐어,',
   },
   {
-    idx: 16,
+    idx: 15,
     name: '말리부',
   },
   {
-    idx: 17,
+    idx: 16,
     name: '리큐어',
   },
   {
-    idx: 18,
+    idx: 17,
     name: '바나나',
   },
   {
-    idx: 19,
+    idx: 18,
     name: '바카디 151',
   },
   {
-    idx: 20,
+    idx: 19,
     name: '베네딕틴 D.O.M.',
   },
   {
-    idx: 21,
+    idx: 20,
     name: '베리',
   },
   {
-    idx: 22,
+    idx: 21,
     name: '보드카',
   },
   {
-    idx: 23,
+    idx: 22,
     name: '복숭아',
   },
   {
-    idx: 24,
+    idx: 23,
     name: '브랜디',
   },
   {
-    idx: 25,
+    idx: 24,
     name: '블루 큐라소',
   },
   {
-    idx: 26,
+    idx: 25,
     name: '사과',
   },
   {
-    idx: 27,
+    idx: 26,
     name: '설탕 시럽',
   },
   {
-    idx: 28,
+    idx: 27,
     name: '오렌지',
   },
   {
-    idx: 29,
+    idx: 28,
     name: '우유',
   },
   {
-    idx: 30,
+    idx: 29,
     name: '적당한',
   },
   {
-    idx: 31,
+    idx: 30,
     name: '조금 쎈',
   },
   {
-    idx: 32,
+    idx: 31,
     name: '진저 에일',
   },
   {
-    idx: 33,
+    idx: 32,
     name: '진',
   },
   {
-    idx: 34,
+    idx: 33,
     name: '코코넛',
   },
   {
-    idx: 35,
+    idx: 34,
     name: '카시스 리큐르',
   },
   {
-    idx: 36,
+    idx: 35,
     name: '콜라다 믹서',
   },
   {
-    idx: 37,
+    idx: 36,
     name: '퀴라소',
   },
   {
-    idx: 38,
+    idx: 37,
     name: '크렘 드 카시스',
   },
   {
-    idx: 39,
+    idx: 38,
     name: '크랜베리',
   },
   {
-    idx: 40,
+    idx: 39,
     name: '크랜베리 주스',
   },
   {
-    idx: 41,
+    idx: 40,
     name: '트리플 섹',
   },
   {
-    idx: 42,
+    idx: 41,
     name: '파인애플',
   },
   {
-    idx: 43,
+    idx: 42,
     name: '피치',
   },
   {
-    idx: 44,
+    idx: 43,
     name: '피치 브랜디',
   },
   {
-    idx: 45,
+    idx: 44,
     name: '피치 시냅스',
   },
   {
-    idx: 46,
+    idx: 45,
     name: '피치 트리',
   },
   {
-    idx: 47,
+    idx: 46,
     name: '화이트 럼',
   },
 ];

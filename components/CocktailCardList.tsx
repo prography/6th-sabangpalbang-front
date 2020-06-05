@@ -132,19 +132,19 @@ const CocktailCardList = () => {
       <div className='option_container'>
         <span
           className={`option_item ${
-            orderOption === 'randomList' ? 'active' : ''
-          }`}
-          onClick={optionHandler('randomList')}
-        >
-          #랜덤순
-        </span>
-        <span
-          className={`option_item ${
             orderOption === 'nameList' ? 'active' : ''
           }`}
           onClick={optionHandler('nameList')}
         >
           #이름순
+        </span>
+        <span
+          className={`option_item ${
+            orderOption === 'randomList' ? 'active' : ''
+          }`}
+          onClick={optionHandler('randomList')}
+        >
+          #랜덤순
         </span>
         <span
           className={`option_item ${

@@ -216,6 +216,9 @@ const Header = () => {
 
   useEffect(() => {
     !tagList && dispatch(tagListRequest());
+  }, []);
+
+  useEffect(() => {
     const { abvMin, abvMax, name, tag, base } = parseQuery(
       router.pathname === '/list' ? router.query : {}
     );

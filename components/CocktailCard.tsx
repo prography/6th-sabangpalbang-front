@@ -9,6 +9,7 @@ const CardContainer = styled.div`
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   width: 160px;
   margin: 20px 0;
+  overflow: hidden;
 
   .image_link {
     display: block;
