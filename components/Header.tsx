@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { useState, FormEvent, useEffect } from 'react';
 import Link from 'next/link';
 import styled, { useTheme } from 'styled-components';
@@ -156,11 +157,14 @@ const HeaderContainer = styled.header`
 `;
 
 const Header = () => {
+  const router = useRouter();
   const theme = useTheme() as ITheme;
   const [inputValue, setInputValue] = useState('');
-  const [searchDisplay, setSearchDisplay] = useState(false);
-  const [filterDisplay, setFilterDisplay] = useState(false);
-  const [tagDisplay, setTagDisplay] = useState(false);
+  const [displayFlag, setDisplayFlag] = useState({
+    search: false,
+    filter: false,
+    tag: false,
+  });
   const [rangeValues, setRangeValues] = useState<[number, number]>([0, 40]);
   const [selectedBaseTag, selectBaseTag] = useState<number[]>([]);
   const [selectedTag, selectTag] = useState<number[]>([]);
@@ -170,8 +174,8 @@ const Header = () => {
 
   const handleSubmit = (e: MouseEvent | FormEvent) => {
     e.preventDefault();
-    if (!searchDisplay) {
-      setSearchDisplay(true);
+    if (!displayFlag.search) {
+      setDisplayFlag({ ...displayFlag, search: true });
       return;
     }
     // tag + text로 정보 요청해야하는곳
@@ -180,7 +184,6 @@ const Header = () => {
     }${selectedBaseTag.length ? `&base=${selectedBaseTag.join()}` : ''}${
       selectedTag.length ? `&tag=${selectedTag.join()}` : ''
     }`;
-    console.log(query);
   };
 
   useEffect(() => {
@@ -195,7 +198,7 @@ const Header = () => {
         </Link>
         <form
           onSubmit={handleSubmit}
-          className={`input_form ${searchDisplay ? 'block' : 'none'}`}
+          className={`input_form ${displayFlag.search ? 'block' : 'none'}`}
           action=''
         >
           <input
@@ -207,13 +210,15 @@ const Header = () => {
             type='text'
           />
           <img
-            onClick={() => setFilterDisplay(!filterDisplay)}
+            onClick={() =>
+              setDisplayFlag({ ...displayFlag, filter: !displayFlag.filter })
+            }
             className='filter_img'
-            src={filterDisplay ? '/selected_filter.svg' : '/filter.svg'}
+            src={displayFlag.filter ? '/selected_filter.svg' : '/filter.svg'}
             alt='필터설정'
           />
         </form>
-        <div className={`title ${searchDisplay ? 'none' : 'block'}`}>
+        <div className={`title ${displayFlag.search ? 'none' : 'block'}`}>
           칵텐더
         </div>
         <img
@@ -223,7 +228,7 @@ const Header = () => {
           alt='검색하기'
         />
       </div>
-      <div className={`filter_div ${filterDisplay ? 'block' : 'none'}`}>
+      <div className={`filter_div ${displayFlag.filter ? 'block' : 'none'}`}>
         <div className='row'>
           <span className='type'>도수%</span>
           <span className='range-value'>{rangeValues[0]}</span>
@@ -287,13 +292,15 @@ const Header = () => {
             ))}
           </div>
           <img
-            onClick={() => setTagDisplay(!tagDisplay)}
+            onClick={() =>
+              setDisplayFlag({ ...displayFlag, tag: !displayFlag.tag })
+            }
             className='arrow'
-            src={tagDisplay ? '/up-arrow.svg' : '/down-arrow.svg'}
+            src={displayFlag.tag ? '/up-arrow.svg' : '/down-arrow.svg'}
             alt='전체태그 접기/펴기'
           />
         </div>
-        <div className={`all-tag ${tagDisplay ? 'block' : 'none'}`}>
+        <div className={`all-tag ${displayFlag.tag ? 'block' : 'none'}`}>
           {tagList &&
             tagList.map((tag, i) => (
               <Tag
