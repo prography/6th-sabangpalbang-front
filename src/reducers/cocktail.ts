@@ -1,3 +1,5 @@
+import { ICocktail } from '../interfaces/cocktail';
+
 export const COCKTAIL_LIST_REQUEST = 'cocktail/COCKTAIL_LIST_REQUEST' as const;
 export const COCKTAIL_LIST_SUCCESS = 'cocktail/COCKTAIL_LIST_SUCCESS' as const;
 export const COCKTAIL_LIST_FAILURE = 'cocktail/COCKTAIL_LIST_FAILURE' as const;
@@ -5,20 +7,6 @@ export const COCKTAIL_LIST_FAILURE = 'cocktail/COCKTAIL_LIST_FAILURE' as const;
 export const cocktailListRequest = (orderOption: 'randomList' | 'nameList' | 'popularList') => ({ type: COCKTAIL_LIST_REQUEST, orderOption });
 export const cocktailListSuccess = (payload: { listName: 'randomList' | 'nameList' | 'popularList', listData: any }) => ({ type: COCKTAIL_LIST_SUCCESS, payload });
 export const cocktailListFailure = (error: Error) => ({ type: COCKTAIL_LIST_FAILURE, error });
-
-export interface ICocktailInfo {
-  src: string;
-  alt: string;
-  href: string;
-  name: string;
-  tags?: {
-    text: string;
-    href: string;
-    textColor?: string;
-    backgroundColor?: string;
-  };
-  favorite?: string;
-}
 
 export type IAction =
   | ReturnType<typeof cocktailListRequest>
@@ -39,9 +27,9 @@ const initialState = {
 };
 
 export interface IState {
-  randomList: null | ICocktailInfo[];
-  nameList: null | ICocktailInfo[];
-  popularList: null | ICocktailInfo[];
+  randomList: null | ICocktail[];
+  nameList: null | ICocktail[];
+  popularList: null | ICocktail[];
   loading: boolean;
   offset: {
     randomList: number;

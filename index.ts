@@ -5,7 +5,7 @@ import expressSession from 'express-session';
 import morgan from 'morgan';
 import next from 'next';
 
-dotenv.config();
+dotenv.config({ path: "./config/.env" });
 
 const dev = process.env.NODE_ENV !== 'production';
 

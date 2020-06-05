@@ -5,15 +5,16 @@ import { filter, skip, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
-import { RootState } from '../reducers';
-import { cocktailListRequest, ICocktailInfo } from '../reducers/cocktail';
+import { ICocktail } from '../src/interfaces/cocktail';
+import { RootState } from '../src/reducers';
+import { cocktailListRequest } from '../src/reducers/cocktail';
 import CocktailCard from './CocktailCard';
 import WithLoading from './WithLoading';
 
 interface ICocktailList {
-  randomList: null | ICocktailInfo[];
-  nameList: null | ICocktailInfo[];
-  popularList: null | ICocktailInfo[];
+  randomList: null | ICocktail[];
+  nameList: null | ICocktail[];
+  popularList: null | ICocktail[];
 }
 
 const CardListContainer = styled.div`
@@ -62,13 +63,12 @@ const CardList = styled.div`
 `;
 
 const CardListWithLoading = WithLoading(200)(
-  ({ cocktailList }: { cocktailList: ICocktailInfo[] }) => {
+  ({ cocktailList }: { cocktailList: ICocktail[] }) => {
     return (
       <CardList>
         {cocktailList &&
-          cocktailList!.map((info: any, i) => (
-            <CocktailCard key={i} {...info} />
-            // key에 index아닌 id가 필요
+          cocktailList!.map((info) => (
+            <CocktailCard key={info.idx} info={info} />
           ))}
       </CardList>
     );
@@ -88,10 +88,14 @@ const CocktailCardList = () => {
 
   const theme = useTheme() as ITheme;
   const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
-    'randomList'
+    'nameList'
   );
   const optionHandler = useCallback(
     (optionName: keyof ICocktailList) => () => {
+      if (optionName !== 'nameList') {
+        alert('아직 준비중이지렁');
+        return;
+      }
       setOrderOption(optionName);
       if (cocktailList[optionName] === null) {
         dispatch(cocktailListRequest(optionName));
@@ -103,8 +107,8 @@ const CocktailCardList = () => {
   useEffect(() => {
     const infiniteScroll = fromEvent(window, 'scroll')
       .pipe(
-        skip(1),
         throttleTime(500),
+        skip(1),
         filter(
           (_) =>
             document.documentElement.scrollTop +
@@ -114,11 +118,14 @@ const CocktailCardList = () => {
         )
       )
       .subscribe((_) => dispatch(cocktailListRequest(orderOption)));
-    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
     return () => {
       infiniteScroll.unsubscribe();
     };
   }, [orderOption, loading]);
+
+  useEffect(() => {
+    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
+  }, []);
 
   return (
     <CardListContainer {...theme}>

@@ -2,7 +2,7 @@ import { ActionsObservable, combineEpics, ofType } from 'redux-observable';
 import { of } from 'rxjs';
 import { delay, map, mergeMap } from 'rxjs/operators';
 
-import * as dummy from '../config/dummy';
+import * as dummy from '../../config/dummy';
 import { TAG_LIST_REQUEST, tagListSuccess, IAction } from '../reducers/tag';
 
 const cocktailListEpic = (action$: ActionsObservable<IAction>) =>
