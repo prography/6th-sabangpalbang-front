@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import { useState, FormEvent, useEffect } from 'react';
 import Link from 'next/link';
 import styled, { useTheme } from 'styled-components';
@@ -8,6 +7,7 @@ import { ITheme, baseTagStyleList } from '../config/style';
 import Tag from './Tag';
 import { RootState } from '../reducers';
 import { tagListRequest } from '../reducers/tag';
+import { useRouter } from 'next/router';
 
 const HeaderContainer = styled.header`
   .fixed_div {
@@ -156,21 +156,53 @@ const HeaderContainer = styled.header`
   }
 `;
 
+const parseQuery = (query: { [name: string]: any }) => {
+  let { abvMin, abvMax, name, tag, base } = query;
+
+  abvMin = isNaN(Number(abvMin)) ? 0 : Number(abvMin);
+  abvMax = isNaN(Number(abvMax)) ? 40 : Number(abvMax);
+  [abvMin, abvMax] = [Math.min(abvMin, abvMax), Math.max(abvMin, abvMax)];
+  abvMin = abvMin < 0 ? 0 : abvMin;
+  abvMax = abvMax > 40 ? 40 : abvMax;
+
+  name = String(name ? name : '');
+  tag = String(tag)
+    .replace(/\s/g, '')
+    .replace(/[^1-9,]/g, '')
+    .split(',')
+    .filter((s) => s !== '')
+    .map((s) => Number(s));
+
+  base = String(base)
+    .replace(/\s/g, '')
+    .replace(/[^1-9,]/g, '')
+    .split(',')
+    .filter((s) => s !== '')
+    .map((s) => Number(s));
+
+  return { abvMin, abvMax, name, tag, base };
+};
+
 const Header = () => {
   const router = useRouter();
   const theme = useTheme() as ITheme;
-  const [inputValue, setInputValue] = useState('');
   const [displayFlag, setDisplayFlag] = useState({
     search: false,
     filter: false,
     tag: false,
   });
-  const [rangeValues, setRangeValues] = useState<[number, number]>([0, 40]);
-  const [selectedBaseTag, selectBaseTag] = useState<number[]>([]);
-  const [selectedTag, selectTag] = useState<number[]>([]);
+  const { abvMin, abvMax, name, tag, base } = parseQuery(router.query);
+  const [inputValue, setInputValue] = useState(name);
+  const [abvValues, setAbvValues] = useState<[number, number]>([
+    abvMin,
+    abvMax,
+  ]);
+  const [selectedBaseTag, selectBaseTag] = useState<number[]>(base);
+  const [selectedTag, selectTag] = useState<number[]>(tag);
 
   const dispatch = useDispatch();
   const { tagList } = useSelector((state: RootState) => state.tag);
+  console.log(tagList, router.query, parseQuery(router.query));
 
   const handleSubmit = (e: MouseEvent | FormEvent) => {
     e.preventDefault();
@@ -179,7 +211,7 @@ const Header = () => {
       return;
     }
     // tag + text로 정보 요청해야하는곳
-    const query = `?abvMin=${rangeValues[0]}&abvMax=${rangeValues[1]}${
+    const query = `?abvMin=${abvValues[0]}&abvMax=${abvValues[1]}${
       inputValue === '' ? '' : `&name=${inputValue}`
     }${selectedBaseTag.length ? `&base=${selectedBaseTag.join()}` : ''}${
       selectedTag.length ? `&tag=${selectedTag.join()}` : ''
@@ -231,17 +263,17 @@ const Header = () => {
       <div className={`filter_div ${displayFlag.filter ? 'block' : 'none'}`}>
         <div className='row'>
           <span className='type'>도수%</span>
-          <span className='range-value'>{rangeValues[0]}</span>
+          <span className='range-value'>{abvValues[0]}</span>
           <Slider
             max={40}
-            value={rangeValues}
+            value={abvValues}
             onChange={(e) =>
-              setRangeValues(typeof e.value === 'number' ? [0, 40] : e.value)
+              setAbvValues(typeof e.value === 'number' ? [0, 40] : e.value)
             }
             range={true}
           />
           <span className='range-value'>
-            {rangeValues[1] === 40 ? '40+' : rangeValues[1]}
+            {abvValues[1] === 40 ? '40+' : abvValues[1]}
           </span>
         </div>
         <div className='row'>
@@ -279,7 +311,7 @@ const Header = () => {
         <div className='row'>
           <span className='type'>태그</span>
           <div className='tag-list'>
-            {selectedTag.map((tagIdx) => (
+            {tagList && selectedTag.map((tagIdx) => (
               <Tag
                 onClickHandler={(e) => {
                   e.preventDefault();

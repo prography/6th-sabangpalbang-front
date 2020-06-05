@@ -7,7 +7,7 @@ import CocktailSummary from '../components/CocktailSummary';
 import CocktailReview from '../components/CocktailReview';
 import { RootState } from '../reducers';
 import { cocktailDetailRequest } from '../reducers/cocktailDetail';
-import ContentLoader, { BulletList } from 'react-content-loader';
+import ContentLoader from 'react-content-loader';
 
 const GridDiv = styled.div`
   display: grid;
