@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
-
 import { ITheme } from '../config/style';
+import Link from 'next/link';
 
 const TabContainer = styled.div`
   background: #fff;
@@ -99,6 +99,8 @@ interface IProps {
   filters: {
     category: string;
     filterList: {
+      pathname: string;
+      query: { [name: string]: any };
       href: string;
       filterName: string;
       filterImage: IImageInfo;
@@ -135,7 +137,12 @@ const FilterTab = ({ filters }: IProps) => {
       <FilterList>
         {filters[selectedFilter].filterList.map((filter, i) => (
           <Filter key={i}>
-            <a>{filter.filterName}</a>
+            <Link
+              href={{ pathname: filter.pathname, query: filter.query }}
+              as={filter.href}
+            >
+              <a>{filter.filterName}</a>
+            </Link>
             <img src={filter.filterImage.src} alt={filter.filterImage.alt} />
           </Filter>
         ))}

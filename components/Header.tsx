@@ -187,21 +187,14 @@ const Header = () => {
   const router = useRouter();
   const theme = useTheme() as ITheme;
   const [displayFlag, setDisplayFlag] = useState({
-    search: router.pathname === '/list',
-    filter: router.pathname === '/list',
+    search: false,
+    filter: false,
     tag: false,
   });
-  const { abvMin, abvMax, name, tag, base } = parseQuery(
-    router.pathname === '/list' ? router.query : {}
-  );
-
-  const [inputValue, setInputValue] = useState(name);
-  const [abvValues, setAbvValues] = useState<[number, number]>([
-    abvMin,
-    abvMax,
-  ]);
-  const [selectedBaseTag, selectBaseTag] = useState<number[]>(base);
-  const [selectedTag, selectTag] = useState<number[]>(tag);
+  const [inputValue, setInputValue] = useState('');
+  const [abvValues, setAbvValues] = useState<[number, number]>([0, 40]);
+  const [selectedBaseTag, selectBaseTag] = useState<number[]>([]);
+  const [selectedTag, selectTag] = useState<number[]>([]);
 
   const dispatch = useDispatch();
   const { tagList } = useSelector((state: RootState) => state.tag);
@@ -222,8 +215,20 @@ const Header = () => {
   };
 
   useEffect(() => {
-    dispatch(tagListRequest());
-  }, []);
+    !tagList && dispatch(tagListRequest());
+    const { abvMin, abvMax, name, tag, base } = parseQuery(
+      router.pathname === '/list' ? router.query : {}
+    );
+    setDisplayFlag({
+      tag: false,
+      search: router.pathname === '/list',
+      filter: router.pathname === '/list',
+    });
+    setAbvValues([abvMin, abvMax]);
+    setInputValue(name);
+    selectTag(tag);
+    selectBaseTag(base);
+  }, [router.pathname, router.query]);
 
   return (
     <HeaderContainer {...theme}>
@@ -268,7 +273,7 @@ const Header = () => {
           <span className='type'>도수%</span>
           <span className='range-value'>{abvValues[0]}</span>
           <Slider
-            step={5}
+            step={1}
             max={40}
             value={abvValues}
             onChange={(e) =>
