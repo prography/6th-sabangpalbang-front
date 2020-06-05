@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { baseTagStyleList } from '../config/style';
 import Tag from './Tag';
 
 const StyledDiv = styled.div`
@@ -69,30 +70,44 @@ const LineContainer = styled.div`
   div {
     border-radius: 15px;
     position: absolute;
-    width: 14%;
+    width: ${({
+      min,
+      max,
+      total,
+    }: {
+      min: number;
+      max: number;
+      total: number;
+    }) => ((max + 1 - min) / total) * 100}%;
     height: 100%;
     top: 0;
-    left: calc(50% - 13px);
+
+    left: ${({ min, total }: { min: number; max: number; total: number }) =>
+      (min / total) * 100}%;
     background-color: #ff306f;
   }
 `;
 
 interface IProps {
   abv: number;
-  base: {
-    text: string;
-    href: string;
-    textColor?: string;
-    backgroundColor?: string;
-  };
+  abvMin: number;
+  abvMax: number;
+  base: number;
   ingredients: string[];
   flavor: string;
 }
 
-const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
+const CocktailSummary = ({
+  abv,
+  abvMin,
+  abvMax,
+  base,
+  ingredients,
+  flavor,
+}: IProps) => {
   return (
     <StyledDiv>
-      <h2 className='title'>요약</h2>
+      <h2 className='title'>정보</h2>
       <div className='row'>
         <div className='category'>
           <img src='/beer.svg' alt='도수' />
@@ -100,13 +115,13 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
         </div>
         <Content flexDirection={'column'}>
           <MeasuerList>
-            <span>None</span>
             <span>0</span>
             <span>10</span>
             <span>20</span>
+            <span>30</span>
             <span>40+</span>
           </MeasuerList>
-          <LineContainer>
+          <LineContainer min={abvMin} max={abvMax} total={40}>
             <div></div>
           </LineContainer>
         </Content>
@@ -118,9 +133,8 @@ const CocktailSummary = ({ abv, base, ingredients, flavor }: IProps) => {
         </div>
         <Content>
           <Tag
-            text={base.text}
-            backgroundColor={base.backgroundColor}
-            textColor={base.textColor}
+            text={baseTagStyleList[base].text}
+            backgroundColor={baseTagStyleList[base].backgroundColor}
             fontSize={13}
           />
         </Content>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const StyledDiv = styled.div`
-  backgroundㄹcolor: white;
+  background-color: #fff;
   padding-bottom: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   h2 {
@@ -24,11 +24,11 @@ const StyledDiv = styled.div`
       display: block;
     }
   }
-  .reviews {
-    div:last-of-type > div {
-      border-bottom: 0;
-    }
+
+  .reviews .review:last-of-type .review-text {
+    border-bottom: 0;
   }
+
   .reviews .review {
     display: flex;
     padding: 10px;
@@ -143,8 +143,7 @@ const WriteForm = styled.form`
 
 interface IProps {
   reviews: {
-    src: string;
-    alt: string;
+    profile: { src: string; alt: string };
     name: string;
     isFavorite: boolean;
     text: string;
@@ -168,7 +167,7 @@ const CocktailSummary = ({ reviews }: IProps) => {
             {reviews.map((review, i) => (
               <div className='review' key={i}>
                 <div className='profile'>
-                  <img src={review.src} alt={review.alt} />
+                  <img src={review.profile.src} alt={review.profile.alt} />
                   <span>{review.name}</span>
                 </div>
                 <div className='review-text'>
