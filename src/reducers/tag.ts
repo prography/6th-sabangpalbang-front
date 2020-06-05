@@ -15,7 +15,7 @@ export const tagListFailure = (error: Error) => ({
 });
 
 export interface ITagInfo {
-  text: string;
+  name: string;
   idx: number;
 }
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import Tag from './Tag';
 
 import { ICocktail } from '../src/interfaces/cocktail';
 
@@ -40,16 +41,6 @@ const CardContainer = styled.div`
     padding: 0 12px 12px;
   }
 
-  .tag {
-    display: inline-block;
-    margin: 2px 2px;
-    padding: 6px 8px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-  }
-
   @media (min-width: 810px) {
     width: 250px;
 
@@ -85,12 +76,8 @@ const CocktailCard = ({ info }: IProps) => {
       </Link>
 
       <div className='tag_list'>
-        {info.tags?.map((tag, i) => (
-          <Link href='#' key={tag.idx}>
-            <a className='tag' style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}>
-              {tag.name}
-            </a>
-          </Link>
+        {info.tags?.map((tag) => (
+          <Tag key={tag.idx} href='#' name={tag.name} fontSize={12} />
         ))}
       </div>
     </CardContainer>
