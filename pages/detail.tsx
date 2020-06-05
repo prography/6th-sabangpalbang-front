@@ -97,7 +97,7 @@ const DetailPage = () => {
             flavor={data.flavor}
           />
           <CocktailReview reviews={data.reviews} />
-          <div>추천 칵테일</div>
+          {/* <div>추천 칵테일</div> */}
         </>
       )}
     </GridDiv>
