@@ -14,6 +14,7 @@ const StyledAnchor = styled.a`
   margin: 2px 0 3px 5px;
   border-radius: 50px;
   padding: 4px 8px;
+  font-weight: bold;
   font-size: ${({ fontSize }: StyleProps) => fontSize}px;
   background-color: ${({ backgroundColor }: StyleProps) => backgroundColor};
   color: ${({ textColor }: StyleProps) => textColor};
@@ -24,7 +25,7 @@ const StyledAnchor = styled.a`
 `;
 
 interface IProps {
-  text: string;
+  name: string;
   textColor?: string;
   backgroundColor?: string;
   fontSize?: number;
@@ -34,7 +35,7 @@ interface IProps {
 }
 
 const Tag = ({
-  text,
+  name,
   textColor = '#fff',
   backgroundColor = '#aeaeae',
   borderColor,
@@ -52,7 +53,7 @@ const Tag = ({
         borderColor={borderColor}
         fontSize={fontSize}
       >
-        {text}
+        {name}
       </StyledAnchor>
     </Link>
   );

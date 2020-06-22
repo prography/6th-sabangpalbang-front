@@ -4,14 +4,6 @@ export const banner = [
   { src: 'banner_temp3.jpeg', alt: '', href: '' },
 ];
 
-//   { idx: 0, text: '데킬라', backgroundColor: '#499399', borderColor: '#fff' },
-//   { idx: 1, text: '럼', backgroundColor: '#DCCA00', borderColor: '#fff' },
-//   { idx: 2, text: '진', backgroundColor: '#AF8C60', borderColor: '#fff' },
-//   { idx: 3, text: '리큐어', backgroundColor: '#D452D9', borderColor: '#fff' },
-//   { idx: 4, text: '보드카', backgroundColor: '#2E82F7', borderColor: '#fff' },
-//   { idx: 5, text: '브랜디', backgroundColor: '#FF7900', borderColor: '#fff' },
-//   { idx: 6, text: '기타' },
-
 export const filterTab = [
   {
     category: '베이스',
@@ -109,100 +101,195 @@ export const filterTab = [
   }
 ];
 
-export const mainCocktailListInfo = [
-  {
-    src:
-      'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
-    alt: '',
-    href: '',
-    name: '블루 하와이 블루 하와이 하와이안하와이안',
-    tags: [
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-    ],
-  },
-  {
-    src:
-      'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
-    alt: '',
-    href: '',
-    name: '블루 하와이',
-    tags: [
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-    ],
-  },
-  {
-    src:
-      'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
-    alt: '',
-    href: '',
-    name: '블루 하와이',
-    tags: [
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-    ],
-  },
-  {
-    src:
-      'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
-    alt: '',
-    href: '',
-    name: '블루 하와이',
-    tags: [
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-    ],
-  },
-  {
-    src:
-      'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
-    alt: '',
-    href: '',
-    name: '블루 하와이',
-    tags: [
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-    ],
-  },
-  {
-    src:
-      'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_blue_hawaiian-1.png',
-    alt: '',
-    href: '',
-    name: '블루 하와이',
-    tags: [
-      { text: '럼', bgColor: '#7CB587', href: '' },
-      { text: '10~15%', bgColor: '#7CA1B5', href: '' },
-    ],
-  },
-];
-
 export const tagList = [
-  { text: '태그', idx: 0 },
-  { text: '여섯글자 태그', idx: 1 },
-  { text: '태애그', idx: 2 },
-  { text: '논알콜', idx: 3 },
-  { text: '태애애애그', idx: 4 },
-  { text: '태그태그', idx: 5 },
-  { text: '비오고잇다', idx: 6 },
-  { text: '열대', idx: 7 },
-  { text: '파랑색', idx: 8 },
-  { text: '복숭아향', idx: 9 },
-  { text: '레몬맛', idx: 10 },
-  { text: '태그', idx: 11 },
-  { text: '여섯글자 태그', idx: 12 },
-  { text: '태애그', idx: 13 },
-  { text: '논알콜', idx: 14 },
-  { text: '태애애애그', idx: 15 },
-  { text: '태그태그', idx: 16 },
-  { text: '비오고잇다', idx: 17 },
-  { text: '파랑색', idx: 18 },
-  { text: '열대과일처럼긴', idx: 19 },
+  {
+    idx: 0,
+    name: '그레나딘 시럽',
+  },
+  {
+    idx: 1,
+    name: '레몬 주스',
+  },
+  {
+    idx: 2,
+    name: '도수가 쎈',
+  },
+  {
+    idx: 3,
+    name: '깔루아',
+  },
+  {
+    idx: 4,
+    name: '딸기',
+  },
+  {
+    idx: 5,
+    name: '라임',
+  },
+  {
+    idx: 6,
+    name: '럼',
+  },
+  {
+    idx: 7,
+    name: '꼬냑',
+  },
+  {
+    idx: 8,
+    name: '데킬라',
+  },
+  {
+    idx: 9,
+    name: '라임 주스',
+  },
+  {
+    idx: 10,
+    name: '레몬',
+  },
+  {
+    idx: 11,
+    name: '메론',
+  },
+  {
+    idx: 12,
+    name: '바나나 리큐르',
+  },
+  {
+    idx: 13,
+    name: '베르무트',
+  },
+  {
+    idx: 14,
+    name: '리큐어,',
+  },
+  {
+    idx: 15,
+    name: '말리부',
+  },
+  {
+    idx: 16,
+    name: '리큐어',
+  },
+  {
+    idx: 17,
+    name: '바나나',
+  },
+  {
+    idx: 18,
+    name: '바카디 151',
+  },
+  {
+    idx: 19,
+    name: '베네딕틴 D.O.M.',
+  },
+  {
+    idx: 20,
+    name: '베리',
+  },
+  {
+    idx: 21,
+    name: '보드카',
+  },
+  {
+    idx: 22,
+    name: '복숭아',
+  },
+  {
+    idx: 23,
+    name: '브랜디',
+  },
+  {
+    idx: 24,
+    name: '블루 큐라소',
+  },
+  {
+    idx: 25,
+    name: '사과',
+  },
+  {
+    idx: 26,
+    name: '설탕 시럽',
+  },
+  {
+    idx: 27,
+    name: '오렌지',
+  },
+  {
+    idx: 28,
+    name: '우유',
+  },
+  {
+    idx: 29,
+    name: '적당한',
+  },
+  {
+    idx: 30,
+    name: '조금 쎈',
+  },
+  {
+    idx: 31,
+    name: '진저 에일',
+  },
+  {
+    idx: 32,
+    name: '진',
+  },
+  {
+    idx: 33,
+    name: '코코넛',
+  },
+  {
+    idx: 34,
+    name: '카시스 리큐르',
+  },
+  {
+    idx: 35,
+    name: '콜라다 믹서',
+  },
+  {
+    idx: 36,
+    name: '퀴라소',
+  },
+  {
+    idx: 37,
+    name: '크렘 드 카시스',
+  },
+  {
+    idx: 38,
+    name: '크랜베리',
+  },
+  {
+    idx: 39,
+    name: '크랜베리 주스',
+  },
+  {
+    idx: 40,
+    name: '트리플 섹',
+  },
+  {
+    idx: 41,
+    name: '파인애플',
+  },
+  {
+    idx: 42,
+    name: '피치',
+  },
+  {
+    idx: 43,
+    name: '피치 브랜디',
+  },
+  {
+    idx: 44,
+    name: '피치 시냅스',
+  },
+  {
+    idx: 45,
+    name: '피치 트리',
+  },
+  {
+    idx: 46,
+    name: '화이트 럼',
+  },
 ];
 
 export const cocktailDetailData = {
@@ -221,12 +308,12 @@ export const cocktailDetailData = {
   favoriteCount: 12,
   description: '음료수 블루하와이랑 다르게 달지않다.',
   tags: [
-    { text: '럼', backgroundColor: '#7CB587', idx: 0 },
-    { text: '10~14%', backgroundColor: '#7CA1B5', idx: 1 },
-    { text: '중간 길이 태그', idx: 2 },
-    { text: '이건 살짝 좀 긴 태그', idx: 3 },
-    { text: '짧은 태그', idx: 4 },
-    { text: '다시 매우 긴 태그', idx: 5 },
+    { name: '럼', backgroundColor: '#7CB587', idx: 0 },
+    { name: '10~14%', backgroundColor: '#7CA1B5', idx: 1 },
+    { name: '중간 길이 태그', idx: 2 },
+    { name: '이건 살짝 좀 긴 태그', idx: 3 },
+    { name: '짧은 태그', idx: 4 },
+    { name: '다시 매우 긴 태그', idx: 5 },
   ],
   abv: 13,
   abvMin: 10,

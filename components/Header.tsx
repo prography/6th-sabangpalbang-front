@@ -216,6 +216,9 @@ const Header = () => {
 
   useEffect(() => {
     !tagList && dispatch(tagListRequest());
+  }, []);
+
+  useEffect(() => {
     const { abvMin, abvMax, name, tag, base } = parseQuery(
       router.pathname === '/list' ? router.query : {}
     );
@@ -297,7 +300,7 @@ const Header = () => {
                 backgroundColor: selectedBaseTag.includes(i)
                   ? tag.backgroundColor
                   : '#fff',
-                text: tag.text,
+                name: tag.name,
               };
               return (
                 <Tag
@@ -327,7 +330,7 @@ const Header = () => {
                     e.preventDefault();
                     selectTag([...selectedTag.filter((idx) => idx !== tagIdx)]);
                   }}
-                  text={tagList[tagIdx].text}
+                  name={tagList[tagIdx].name}
                   fontSize={12}
                   key={tagIdx}
                 />
@@ -354,7 +357,7 @@ const Header = () => {
                       : [...selectedTag, tag.idx]
                   );
                 }}
-                text={tag.text}
+                name={tag.name}
                 fontSize={12}
                 backgroundColor={selectedTag.includes(i) ? undefined : '#fff'}
                 textColor={selectedTag.includes(i) ? undefined : '#aeaeae'}

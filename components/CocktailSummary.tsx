@@ -133,7 +133,7 @@ const CocktailSummary = ({
         </div>
         <Content>
           <Tag
-            text={baseTagStyleList[base].text}
+            name={baseTagStyleList[base].name}
             backgroundColor={baseTagStyleList[base].backgroundColor}
             fontSize={13}
           />
@@ -145,8 +145,8 @@ const CocktailSummary = ({
           <span>재료</span>
         </div>
         <Content>
-          {ingredients.map((text, i) => (
-            <Tag key={i} text={text} fontSize={13} />
+          {ingredients.map((name, i) => (
+            <Tag key={i} name={name} fontSize={13} />
           ))}
         </Content>
       </div>

@@ -58,7 +58,7 @@ interface IProps {
   favoriteCount: number | string;
   description: string;
   tags?: {
-    text: string;
+    name: string;
     idx: number;
   }[];
 }
@@ -88,7 +88,7 @@ const CocktailInfo = ({
         <span className='favorite-count'>{favoriteCount} likes</span>
         <div className='tags'>
           {tags?.map((tag) => (
-            <Tag key={tag.idx} text={tag.text} fontSize={12} />
+            <Tag key={tag.idx} name={tag.name} fontSize={12} />
           ))}
         </div>
       </div>

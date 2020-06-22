@@ -20,7 +20,7 @@ export interface IImgInfo {
   alt: string;
 }
 export interface ITagInfo {
-  text: string;
+  name: string;
   idx: number;
 }
 export interface IReviewInfo {
