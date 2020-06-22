@@ -106,11 +106,7 @@ export const filterTab = [
         filterImage: { src: 'twelve_one.jpg', alt: '' },
       },
     ],
-  },
-  {
-    category: '얘 뭐 넣을까?',
-    filterList: [],
-  },
+  }
 ];
 
 export const mainCocktailListInfo = [

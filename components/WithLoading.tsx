@@ -1,22 +1,22 @@
 import Loading from 'react-spinners/PulseLoader';
+import styled from 'styled-components';
 
-const style = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+`;
 
-const WithLoading = (height: number) => (Component: any) => (props: any) => {
+const WithLoading = (Component: any) => (props: any) => {
   const isLoading = !!props.loading;
 
   return (
     <>
       <Component {...props} />
-      {isLoading && (
-        <div style={{ ...style, height: `${height}px` }}>
-          <Loading size={10} color={'#000'} loading={true} />
-        </div>
-      )}
+      {isLoading && <LoadingWrapper>
+        <Loading size={10} color={'#000'} loading={isLoading} />
+      </LoadingWrapper>}
     </>
   );
 };

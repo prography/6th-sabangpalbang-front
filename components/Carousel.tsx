@@ -25,8 +25,6 @@ const Carousel = ({ ItemComponent, infos }: IProps) => {
         <ItemComponent key={i} {...info} />
       ))}
     </Swiper>
-  ) : (
-    <div></div>
-  );
+  ) : null;
 };
-export default WithLoading(183)(Carousel);
+export default WithLoading(Carousel);
