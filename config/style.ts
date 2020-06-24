@@ -9,52 +9,6 @@ export const theme = {
 export type ITheme = typeof theme;
 
 export const resetCSS = css`
-  html,
-  body,
-  div,
-  span,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  a,
-  abbr,
-  address del,
-  em,
-  img,
-  ins,
-  q,
-  strong,
-  i dl,
-  dt,
-  dd,
-  ol,
-  ul,
-  li,
-  fieldset,
-  form,
-  label,
-  legend,
-  article,
-  aside,
-  footer,
-  header,
-  nav,
-  section {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 16px;
-    vertical-align: baseline;
-  }
-
-  ol,
-  ul {
-    list-style: none;
-  }
   @font-face {
     font-family: 'BMHANNAAir';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff')
@@ -62,10 +16,24 @@ export const resetCSS = css`
     font-weight: normal;
     font-style: normal;
   }
-  body,
-  input,
-  button,
-  textarea {
+  html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, abbr, address del, em, img, ins, q, strong, i dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, aside, footer, header, nav, section, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 16px;
+    vertical-align: baseline;
+  }
+
+  button {
+    color: #000;
+    background-color: transparent;
+  }
+
+  ol, ul {
+    list-style: none;
+  }
+
+  body, input, button, textarea {
     font-family: 'BMHANNAAir', sans-serif;
   }
 `;
