@@ -7,29 +7,25 @@ import { ICocktail } from '../src/interfaces/cocktail';
 const CardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-  width: 160px;
-  margin: 20px 0;
-  overflow: hidden;
+  margin: 14px 0;
 
   .image_link {
     display: block;
-  }
-  .cocktail_image_container {
-    width: 160px;
-    height: 220px;
+    width: 140px;
   }
   .cocktail_image {
     width: 100%;
-    height: 100%;
+    height: 175px;
     vertical-align: top;
+    border-radius: 5px;
   }
 
   .cocktail_name {
     display: block;
     margin: 8px 0;
     padding: 0 12px;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 17px;
+    line-height: 20px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -41,10 +37,24 @@ const CardContainer = styled.div`
   .tag_list {
     padding: 0 12px 12px;
   }
+  .tag {
+    display: inline-block;
+    margin: 2px 2px;
+    padding: 6px 8px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+  }
 
-  @media (min-width: 810px) {
-    width: 250px;
-
+  @media (min-width: 768px) {
+    .cocktail_link {
+      width: 144px;
+    }
+    .cocktail_image {
+      width: 200px;
+      height: 250px;
+    }
     .cocktail_name {
       font-size: 25px;
       line-height: 30px;
@@ -69,9 +79,7 @@ const CocktailCard = ({ info }: IProps) => {
         as={`/detail/${info.idx}`}
       >
         <a className='image_link'>
-          <div className='cocktail_image_container'>
-            <img className='cocktail_image' src={info.imgUrl} alt='' />
-          </div>
+          <img className='cocktail_image' src={info.imgUrl} alt='' />
           <strong className='cocktail_name'>{info.name}</strong>
         </a>
       </Link>
