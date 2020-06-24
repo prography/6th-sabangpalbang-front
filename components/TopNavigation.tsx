@@ -10,26 +10,37 @@ const NavContainer = styled.nav`
     right: 0;
     left: 0;
     z-index: 10;
-    height: 44px;
     ${(props: ITheme) =>
       `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
     display: flex;
-    justify-content: space-around;
-    align-items: center;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   .nav_item {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
     padding: 0 5px;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 44px;
 
-    &.active {
-      border-bottom: 3px solid white;
-      line-height: 40px;
+    .text {
+      position: relative;
+      text-align: center;
+      padding: 11px 0;
+      font-size: 18px;
+      line-height: 22px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    &.active .text::after {
+      position: absolute;
+      right: -2px;
+      bottom: 0;
+      left: -2px;
+      height: 2px;
+      background: #fff;
+      content: '';
     }
   }
 
@@ -47,13 +58,13 @@ const TopNavigation = () => {
     <NavContainer {...theme}>
       <div className='fixed_div'>
         <Link href='/'>
-          <a className='nav_item active'>홈</a>
+          <a className='nav_item active'><span className="text">홈</span></a>
         </Link>
         <Link href='/ranking'>
-          <a className='nav_item'>랭킹</a>
+          <a className='nav_item'><span className="text">랭킹</span></a>
         </Link>
         <Link href='/mypage'>
-          <a className='nav_item'>마이페이지</a>
+          <a className='nav_item'><span className="text">마이페이지</span></a>
         </Link>
       </div>
     </NavContainer>
