@@ -1,12 +1,22 @@
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
+
 import { ITheme } from '../config/style';
-import Link from 'next/link';
 
 const TabContainer = styled.div`
   background: #fff;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
+
+  @media screen and (min-width: 768px) {
+    box-shadow: none;
+
+    .tab_list_wrapper {
+      border-top: 1px solid #d6d6d6;
+      border-bottom: 1px solid #d6d6d6;
+    }
+  }
 `;
 
 const TabList = styled.ul`
@@ -17,35 +27,71 @@ const TabList = styled.ul`
 
   .tab_list_item {
     text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    color: ${({
-      secondTextColor,
-    }: {
-      primaryTextColor: string;
-      secondTextColor: string;
-    }) => secondTextColor};
     flex: 1;
-    border-right: 1px solid #c3c3c3;
-    height: fit-content;
-    padding: 5px 0;
+
+    .tab_btn {
+      display: block;
+      box-sizing: content-box;
+      width: 100%;
+      height: 38px;
+      padding: 2px 0;
+      border-right: 1px solid #c3c3c3;
+      outline: transparent;
+      background: transparent;
+      font-size: 18px;
+      font-weight: bold;
+      color: ${({
+        secondTextColor,
+      }: {
+        primaryTextColor: string;
+        secondTextColor: string;
+      }) => secondTextColor};
+    }
   }
-  .tab_list_item:last-child {
+  .tab_list_item:last-child .tab_btn {
     border: 0;
   }
-  .tab_list_item.active {
-    background-color: white;
+  .tab_list_item.active .tab_btn {
+    background-color: #fff;
     border: 0;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    line-height: 34px;
     color: ${({
       primaryTextColor,
     }: {
       primaryTextColor: string;
       secondTextColor: string;
     }) => primaryTextColor};
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 968px;
+    margin: 0 auto;
+    padding: 0 20px;
+    background-color: #fff;
+
+    .tab_list_item {
+      flex: 0 0 auto;
+    }
+    .tab_list_item + .tab_list_item {
+      margin-left: 40px;
+    }
+    .tab_list_item .tab_btn {
+      padding: 12px 0;
+      border: 0;
+      font-size: 24px;
+      line-height: 30px;
+      cursor: pointer;
+    }
+    .tab_list_item .tab_btn:hover {
+      color: #fc6593;
+    }
+    .tab_list_item.active .tab_btn {
+      border-radius: 0;
+      box-shadow: none;
+      color: #fc6593;
+    }
   }
 `;
 
@@ -115,25 +161,27 @@ const FilterTab = ({ filters }: IProps) => {
 
   return (
     <TabContainer>
-      <TabList
-        primaryTextColor={theme.primaryTextColor}
-        secondTextColor={theme.secondTextColor}
-        ref={tabListRef}
-      >
-        {filters.map(({ category }, i) => (
-          <li
-            style={i == selectedFilter - 1 ? { border: '0' } : {}}
-            key={i}
-            className={`tab_list_item ${selectedFilter == i ? 'active' : ''}`}
-            onClick={() => {
-              i != selectedFilter ? tabListRef.current?.scrollTo(0, 0) : '';
-              setFilter(i);
-            }}
-          >
-            {category}
-          </li>
-        ))}
-      </TabList>
+      <div className="tab_list_wrapper">
+        <TabList
+          primaryTextColor={theme.primaryTextColor}
+          secondTextColor={theme.secondTextColor}
+          ref={tabListRef}
+        >
+          {filters.map(({ category }, i) => (
+            <li
+              style={i == selectedFilter - 1 ? { border: '0' } : {}}
+              key={i}
+              className={`tab_list_item ${selectedFilter == i ? 'active' : ''}`}
+              onClick={() => {
+                i != selectedFilter ? tabListRef.current?.scrollTo(0, 0) : '';
+                setFilter(i);
+              }}
+            >
+              <button type="button" className="tab_btn">{category}</button>
+            </li>
+          ))}
+        </TabList>
+      </div>
       <FilterList>
         {filters[selectedFilter].filterList.map((filter, i) => (
           <Filter key={i}>
