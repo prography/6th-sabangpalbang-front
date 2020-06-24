@@ -4,16 +4,18 @@ import styled, { useTheme } from 'styled-components';
 import { ITheme } from '../config/style';
 
 const NavContainer = styled.nav`
-  .fixed_div {
+  ${(props: ITheme) =>
+    `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    
+  .inner_container {
+    display: flex;
     position: fixed;
     top: 44px;
     right: 0;
     left: 0;
+    height: 44px;
     z-index: 10;
-    ${(props: ITheme) =>
-      `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
-    display: flex;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   .nav_item {
@@ -29,7 +31,6 @@ const NavContainer = styled.nav`
       padding: 11px 0;
       font-size: 18px;
       line-height: 22px;
-      font-weight: bold;
       color: #fff;
     }
 
@@ -49,6 +50,42 @@ const NavContainer = styled.nav`
     display: block;
     height: 44px;
   }
+
+  @media screen and (min-width: 768px) {
+    .inner_container {
+      position: static;
+      align-items: center;
+      max-width: 968px;
+      height: 64px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav_item {
+      flex: 0 0 auto;
+
+      .text {
+        padding: 0;
+        font-size: 24px;
+        line-height: 30px;
+      }
+      &.active .text::after {
+        content: none;
+      }
+
+      & + .nav_item {
+        margin-left: 30px;
+      }
+      &.active .text,
+      &:hover .text {
+        font-weight: bold;
+        color: #F8BD1D;
+      }
+    }
+
+    &::after {
+      content: none;
+    }
+  }
 `;
 
 const TopNavigation = () => {
@@ -56,7 +93,7 @@ const TopNavigation = () => {
 
   return (
     <NavContainer {...theme}>
-      <div className='fixed_div'>
+      <div className='inner_container'>
         <Link href='/'>
           <a className='nav_item active'><span className="text">홈</span></a>
         </Link>
