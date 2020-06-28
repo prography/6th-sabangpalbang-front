@@ -4,8 +4,6 @@ import styled, { useTheme } from 'styled-components';
 import { ITheme } from '../config/style';
 
 const NavContainer = styled.nav`
-  ${(props: ITheme) =>
-    `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     
   .inner_container {
@@ -16,6 +14,8 @@ const NavContainer = styled.nav`
     left: 0;
     height: 44px;
     z-index: 10;
+  ${(props: ITheme) =>
+    `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
   }
 
   .nav_item {
@@ -52,6 +52,8 @@ const NavContainer = styled.nav`
   }
 
   @media screen and (min-width: 768px) {
+      ${(props: ITheme) =>
+    `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
     .inner_container {
       position: static;
       align-items: center;

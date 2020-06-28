@@ -21,7 +21,6 @@ const HeaderContainer = styled.header`
     height: 44px;
     margin: 0 auto;
     padding: 0 20px;
-    border-bottom: 1px solid #ddd;
     background-color: #fff;
     z-index: 10;
   }
