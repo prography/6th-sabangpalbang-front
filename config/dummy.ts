@@ -1,7 +1,8 @@
 export const banner = [
-  { src: 'banner_temp.jpeg', alt: '', href: '' },
-  { src: 'banner_temp2.jpg', alt: '', href: '' },
-  { src: 'banner_temp3.jpeg', alt: '', href: '' },
+  { logoUrl: 'pink_cocktail.png' , text: '오늘은 이런 \n칵테일 어때요?', color: '#fc6593', href: '#'},
+  { logoUrl: 'red_cocktail.png' , text: '더운 여름날엔 \n진 베이스를 추천!', color: '#fc7a63', href: '#'},
+  { logoUrl: 'orange_cocktail.png', text: '사람들이 많이 \n찾는 칵테일은?', color: '#fd960a', href: '#'},
+  { logoUrl: 'yellow_cocktail.png', text: '이 칵테일 정보도 \n요청합니다!', color: '#f8bd1d', href: '#'}
 ];
 
 export const filterTab = [
