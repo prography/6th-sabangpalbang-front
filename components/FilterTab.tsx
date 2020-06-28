@@ -97,8 +97,8 @@ const TabList = styled.ul`
 
 const Filter = styled.ul`
   display: inline-flex;
-  width: 42vw;
-  height: 25.14vw;
+  width: 160px;
+  height: 100px;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -116,15 +116,25 @@ const Filter = styled.ul`
     min-width: 100%;
   }
   a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 2;
-    position: absolute;
     width: 100%;
     height: 100%;
     background: rgba(99, 99, 99, 0.5);
-    color: white;
+    color: #fff;
     font-size: 24px;
     font-weight: 700;
-    line-height: 25.14vw;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 240px;
+    height: 150px;
+
+    a {
+      font-size: 30px;
+    }
   }
 `;
 const FilterList = styled.ul`
@@ -133,6 +143,12 @@ const FilterList = styled.ul`
   padding: 15px 10px;
   & > li:first-child {
     margin: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 968px;
+    margin: 0 auto;
+    padding: 30px 20px;
   }
 `;
 
