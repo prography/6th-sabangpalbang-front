@@ -1,39 +1,52 @@
 import Link from 'next/link';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledAnchor = styled.a`
   display: block;
-  width: 85vw;
-  height: 34.53125vw;
-  border-radius: 15px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  margin: 20px 0px;
-  overflow: hidden;
   position: relative;
-  img {
-    width: 100%;
-    position: absolute;
-    left: -100%;
-    right: -100%;
-    top: -100%;
-    bottom: -100%;
-    margin: auto;
-    min-height: 100%;
-    min-width: 100%;
+  width: 280px;
+  height: 140px;
+  border: 1px solid ${(props: any) => props.color};
+  border-radius: 4px;
+  background: ${(props: any) => props.bgUrl ? `url(${props.bgUrl})` : "transparent"};
+  
+  .text {
+    margin: 17px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: ${(props: any) => props.color};
+    white-space: pre-line;
   }
+
+  ${(props: any) => props.logoUrl ?
+    css`
+      &::after {
+        position: absolute;
+        right: 4px;
+        bottom: 4px;
+        width: 54px;
+        height: 54px;
+        background: url(${props.logoUrl});
+        content: '';
+      }
+    `
+    : null}
 `;
 
 interface IProps {
-  alt: string;
-  src: string;
+  bgUrl?: string;
   href: string;
+  logoUrl?: string;
+  text?: string;
+  color: string;
 }
 
-const Banner = ({ src, alt, href }: IProps) => {
+const Banner = (props: IProps) => {
   return (
-    <Link href={href}>
-      <StyledAnchor className='swiper-slide'>
-        <img src={src} alt={alt} />
+    <Link href={props.href}>
+      <StyledAnchor {...props} className='banner swiper-slide'>
+        <p className="text">{props.text}</p>
       </StyledAnchor>
     </Link>
   );

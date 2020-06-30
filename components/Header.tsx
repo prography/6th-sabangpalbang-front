@@ -1,36 +1,38 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, FormEvent, useEffect } from 'react';
 import Link from 'next/link';
-import styled, { useTheme } from 'styled-components';
+import { useRouter } from 'next/router';
 import { Slider } from 'primereact/slider';
-import { ITheme, baseTagStyleList } from '../config/style';
-import Tag from './Tag';
+import { FormEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled, { useTheme } from 'styled-components';
+
+import { baseTagStyleList, ITheme } from '../config/style';
 import { RootState } from '../src/reducers';
 import { tagListRequest } from '../src/reducers/tag';
-import { useRouter } from 'next/router';
+import Tag from './Tag';
 
 const HeaderContainer = styled.header`
-  .fixed_div {
+  .inner_container {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     display: flex;
-    min-height: 44px;
+    align-items: center;
+    height: 44px;
+    margin: 0 auto;
     padding: 0 20px;
     background-color: #fff;
-    align-items: center;
-    justify-content: space-between;
     z-index: 10;
-    border-bottom: 1px solid #ddd;
   }
   .title {
+    margin: 0 auto;
     font-size: 22px;
     font-weight: 700;
     color: #fc834d;
   }
   .logo {
     width: 40px;
+    cursor: pointer;
   }
   .search_logo {
     width: 24px;
@@ -154,6 +156,27 @@ const HeaderContainer = styled.header`
     float: right;
     width: 16px;
   }
+
+  @media screen and (min-width: 768px) {
+    background-color: #fff;
+
+    .inner_container {
+      position: static;
+      max-width: 968px;
+      height: 64px;
+      padding: 0 20px;
+    }
+    .title {
+      margin: 0 15px;
+    }
+    .search_logo {
+      margin-left: auto;
+    }
+
+    &::after {
+      content: none;
+    }
+  }
 `;
 
 const parseQuery = (query: { [name: string]: any }) => {
@@ -235,10 +258,11 @@ const Header = () => {
 
   return (
     <HeaderContainer {...theme}>
-      <div className='fixed_div'>
+      <div className='inner_container'>
         <Link href='/'>
           <img className='logo' src='/logo.png' alt='메인페이지로 이동' />
         </Link>
+        <h1 className={`title ${displayFlag.search ? 'none' : 'block'}`}>칵텐더</h1>
         <form
           onSubmit={handleSubmit}
           className={`input_form ${displayFlag.search ? 'block' : 'none'}`}
@@ -261,9 +285,6 @@ const Header = () => {
             alt='필터설정'
           />
         </form>
-        <div className={`title ${displayFlag.search ? 'none' : 'block'}`}>
-          칵텐더
-        </div>
         <img
           onClick={handleSubmit}
           className='search_logo'

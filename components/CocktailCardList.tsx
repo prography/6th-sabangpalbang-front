@@ -17,10 +17,21 @@ interface ICocktailList {
 }
 
 const CardList = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  background: #fff;
+  background-color: #fff;
+  
+  .card_list {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    background: #fff;
+  }
+
+  @media screen and (min-width: 768px) {
+    .card_list {
+      max-width: 968px;
+      margin: 0 auto;
+    }
+  }
 `;
 
 const CocktailCardList = ({ orderOption } : { orderOption: keyof ICocktailList}) => {
@@ -59,10 +70,12 @@ const CocktailCardList = ({ orderOption } : { orderOption: keyof ICocktailList})
 
   return (
     <CardList>
-      {cocktailList[orderOption] &&
-        cocktailList[orderOption]!.map((info) => (
-          <CocktailCard key={info.idx} info={info} />
-        ))}
+      <ul className="card_list">
+        {cocktailList[orderOption] &&
+          cocktailList[orderOption]!.map((info) => (
+            <CocktailCard key={info.idx} info={info} />
+          ))}
+      </ul>
     </CardList>
   );
 };

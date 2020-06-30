@@ -15,10 +15,17 @@ import { cocktailListRequest } from '../src/reducers/cocktail';
 
 interface IProps {}
 
-const ListOption = styled.ul`
+const ListOptionWrapper = styled.div`
   background: #fff;
-  padding: 20px 20px 0px;
+  .list_option {
+    padding: 20px 20px 0px;
 
+    &::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
   .option_item {
     float: left;
     font-weight: bold;
@@ -34,14 +41,14 @@ const ListOption = styled.ul`
     margin-left: 10px;
   }
 
-  &::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
+
 
   @media (min-width: 768px) {
-    padding: 20px 50px 10px;
+    .list_option {
+      max-width: 968px;
+      margin: 0 auto;
+      padding: 20px 50px 10px;
+    }
 
     .option_item {
       font-size: 24px;
@@ -84,20 +91,22 @@ const IndexPage = () => {
       <TopNavigation />
       <Carousel ItemComponent={Banner} infos={dummy.banner} />
       <FilterTab filters={dummy.filterTab} />
-      <ListOption {...theme}>
-        <li className={`option_item ${orderOption === 'randomList' ? 'active' : ''}`}
-          onClick={optionHandler('randomList')}>
-          #랜덤순
-        </li>
-        <li className={`option_item ${orderOption === 'nameList' ? 'active' : ''}`}
-          onClick={optionHandler('nameList')}>
-          #이름순
-        </li>
-        <li className={`option_item ${orderOption === 'popularList' ? 'active' : ''}`}
-          onClick={optionHandler('popularList')}>
-          #인기순
-        </li>
-      </ListOption>
+      <ListOptionWrapper {...theme}>
+        <ul className="list_option">
+          <li className={`option_item ${orderOption === 'randomList' ? 'active' : ''}`}
+            onClick={optionHandler('randomList')}>
+            #랜덤순
+          </li>
+          <li className={`option_item ${orderOption === 'nameList' ? 'active' : ''}`}
+            onClick={optionHandler('nameList')}>
+            #이름순
+          </li>
+          <li className={`option_item ${orderOption === 'popularList' ? 'active' : ''}`}
+            onClick={optionHandler('popularList')}>
+            #인기순
+          </li>
+        </ul>
+      </ListOptionWrapper>
       <CocktailCardList orderOption={orderOption} loading={loading || !cocktailList[orderOption]} />
     </>
   );

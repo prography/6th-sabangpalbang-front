@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-import Tag from './Tag';
 
 import { ICocktail } from '../src/interfaces/cocktail';
+import Tag from './Tag';
 
-const CardContainer = styled.div`
+const CardContainer = styled.li`
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   margin: 14px 0;
@@ -48,11 +48,10 @@ const CardContainer = styled.div`
   }
 
   @media (min-width: 768px) {
-    .cocktail_link {
-      width: 144px;
+    .image_link {
+      width: 200px;
     }
     .cocktail_image {
-      width: 200px;
       height: 250px;
     }
     .cocktail_name {

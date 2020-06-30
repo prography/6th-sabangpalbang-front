@@ -4,32 +4,44 @@ import styled, { useTheme } from 'styled-components';
 import { ITheme } from '../config/style';
 
 const NavContainer = styled.nav`
-  .fixed_div {
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    
+  .inner_container {
+    display: flex;
     position: fixed;
     top: 44px;
     right: 0;
     left: 0;
-    z-index: 10;
     height: 44px;
-    ${(props: ITheme) =>
-      `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  ${(props: ITheme) =>
+    `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
   }
 
   .nav_item {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
     padding: 0 5px;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 44px;
 
-    &.active {
-      border-bottom: 3px solid white;
-      line-height: 40px;
+    .text {
+      position: relative;
+      text-align: center;
+      padding: 11px 0;
+      font-size: 18px;
+      line-height: 22px;
+      color: #fff;
+    }
+
+    &.active .text::after {
+      position: absolute;
+      right: -2px;
+      bottom: 0;
+      left: -2px;
+      height: 2px;
+      background: #fff;
+      content: '';
     }
   }
 
@@ -38,6 +50,44 @@ const NavContainer = styled.nav`
     display: block;
     height: 44px;
   }
+
+  @media screen and (min-width: 768px) {
+      ${(props: ITheme) =>
+    `background: linear-gradient(to right, ${props.themeColor}, ${props.secondThemeColor});`}
+    .inner_container {
+      position: static;
+      align-items: center;
+      max-width: 968px;
+      height: 64px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav_item {
+      flex: 0 0 auto;
+
+      .text {
+        padding: 0;
+        font-size: 24px;
+        line-height: 30px;
+      }
+      &.active .text::after {
+        content: none;
+      }
+
+      & + .nav_item {
+        margin-left: 30px;
+      }
+      &.active .text,
+      &:hover .text {
+        font-weight: bold;
+        color: #F8BD1D;
+      }
+    }
+
+    &::after {
+      content: none;
+    }
+  }
 `;
 
 const TopNavigation = () => {
@@ -45,15 +95,15 @@ const TopNavigation = () => {
 
   return (
     <NavContainer {...theme}>
-      <div className='fixed_div'>
+      <div className='inner_container'>
         <Link href='/'>
-          <a className='nav_item active'>홈</a>
+          <a className='nav_item active'><span className="text">홈</span></a>
         </Link>
         <Link href='/ranking'>
-          <a className='nav_item'>랭킹</a>
+          <a className='nav_item'><span className="text">랭킹</span></a>
         </Link>
         <Link href='/mypage'>
-          <a className='nav_item'>마이페이지</a>
+          <a className='nav_item'><span className="text">마이페이지</span></a>
         </Link>
       </div>
     </NavContainer>
