@@ -8,6 +8,7 @@ import WithLoading from './WithLoading';
 interface IProps {
   cocktailList: ICocktail[];
   tag: boolean;
+  number: boolean;
 }
 
 const CardList = styled.div`
@@ -28,13 +29,13 @@ const CardList = styled.div`
   }
 `;
 
-const CocktailCardList = ({ cocktailList, tag = true }: IProps) => {
+const CocktailCardList = ({ cocktailList, tag = true, number = false }: IProps) => {
   return (
     <CardList>
       <ul className="card_list">
-        {cocktailList && cocktailList.map((info) => (
-            <CocktailCard key={info.idx} info={info} tag={tag} />
-        ))}
+        {cocktailList && cocktailList.map((info, i) => {
+            return <CocktailCard key={info.idx} info={info} tag={tag} number={number} order={i+1} />
+        })}
       </ul>
     </CardList>
   );
