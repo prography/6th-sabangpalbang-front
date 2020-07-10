@@ -68,9 +68,10 @@ const CardContainer = styled.li`
 
 interface IProps {
   info: ICocktail;
+  tag: boolean;
 }
 
-const CocktailCard = ({ info }: IProps) => {
+const CocktailCard = ({ info, tag }: IProps) => {
   return (
     <CardContainer>
       <Link
@@ -83,11 +84,11 @@ const CocktailCard = ({ info }: IProps) => {
         </a>
       </Link>
 
-      <div className='tag_list'>
+      {tag && <div className='tag_list'>
         {info.tags?.map((tag) => (
           <Tag key={tag.idx} href='#' name={tag.name} fontSize={12} />
         ))}
-      </div>
+      </div>}
     </CardContainer>
   );
 };

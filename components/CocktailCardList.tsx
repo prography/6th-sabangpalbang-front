@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { ICocktail } from '../src/interfaces/cocktail';
-import { RootState } from '../src/reducers';
 import CocktailCard from './CocktailCard';
 import WithLoading from './WithLoading';
 
-interface ICocktailList {
-  randomList: null | ICocktail[];
-  nameList: null | ICocktail[];
-  popularList: null | ICocktail[];
+interface IProps {
+  cocktailList: ICocktail[];
+  tag: boolean;
 }
 
 const CardList = styled.div`
@@ -31,25 +28,13 @@ const CardList = styled.div`
   }
 `;
 
-const CocktailCardList = ({ orderOption } : { orderOption: keyof ICocktailList}) => {
-  const { randomList, nameList, popularList, loading } = useSelector(
-    (state: RootState) => state.cocktail
-  );
-  const cocktailList = {
-    randomList,
-    nameList,
-    popularList,
-  } as ICocktailList;
-
- 
-
+const CocktailCardList = ({ cocktailList, tag = true }: IProps) => {
   return (
     <CardList>
       <ul className="card_list">
-        {cocktailList[orderOption] &&
-          cocktailList[orderOption]!.map((info) => (
-            <CocktailCard key={info.idx} info={info} />
-          ))}
+        {cocktailList && cocktailList.map((info) => (
+            <CocktailCard key={info.idx} info={info} tag={tag} />
+        ))}
       </ul>
     </CardList>
   );
