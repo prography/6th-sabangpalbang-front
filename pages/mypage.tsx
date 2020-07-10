@@ -82,6 +82,15 @@ const Container = styled.div`
     }
     .like_list_area {
         margin-top: 20px;
+        background: #fff;
+
+        .like_title {
+            margin: 0 20px;
+            padding: 20px 10px 5px;
+            border-bottom: 1px solid #e4e4e4;
+            font-size: 20px;
+            line-height: 30px;
+        }
     }
     
     @media screen and (max-width: 320px) {
@@ -123,6 +132,7 @@ const MyPage = () => {
                 </div>
             </div>
             <div className="like_list_area">
+                <h2 className="like_title">즐겨찾기</h2>
                 <CocktailCardList cocktailList={dummy.mypage} tag={false} />
             </div>
         </Container>
