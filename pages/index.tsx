@@ -1,5 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fromEvent } from 'rxjs';
+import { filter, skip, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import Banner from '../components/Banner';
@@ -12,8 +14,6 @@ import { ITheme } from '../config/style';
 import { ICocktailList } from '../src/interfaces/cocktailList';
 import { RootState } from '../src/reducers';
 import { cocktailListRequest } from '../src/reducers/cocktail';
-
-interface IProps {}
 
 const ListOptionWrapper = styled.div`
   background: #fff;
@@ -41,8 +41,6 @@ const ListOptionWrapper = styled.div`
     margin-left: 10px;
   }
 
-
-
   @media (min-width: 768px) {
     .list_option {
       max-width: 968px;
@@ -63,15 +61,37 @@ const IndexPage = () => {
   const { randomList, nameList, popularList, loading } = useSelector(
     (state: RootState) => state.cocktail
   );
+  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
+    'nameList'
+  );
   const cocktailList = {
     randomList,
     nameList,
     popularList,
   } as ICocktailList;
 
-  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
-    'nameList'
-  );
+  useEffect(() => {
+    const infiniteScroll = fromEvent(window, 'scroll')
+      .pipe(
+        throttleTime(500),
+        skip(1),
+        filter(
+          (_) =>
+            document.documentElement.scrollTop +
+              document.documentElement.clientHeight +
+              600 >=
+              document.documentElement.scrollHeight && !loading
+        )
+      )
+      .subscribe((_) => dispatch(cocktailListRequest(orderOption)));
+    return () => {
+      infiniteScroll.unsubscribe();
+    };
+  }, [orderOption, loading]);
+
+  useEffect(() => {
+    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
+  }, []);
   
   const optionHandler = useCallback(
     (optionName: keyof ICocktailList) => () => {
@@ -107,7 +127,7 @@ const IndexPage = () => {
           </li>
         </ul>
       </ListOptionWrapper>
-      <CocktailCardList orderOption={orderOption} loading={loading || !cocktailList[orderOption]} />
+      <CocktailCardList cocktailList={cocktailList[orderOption]} loading={loading || !cocktailList[orderOption]} />
     </>
   );
 };
