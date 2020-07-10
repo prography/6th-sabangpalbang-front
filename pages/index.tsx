@@ -15,8 +15,6 @@ import { ICocktailList } from '../src/interfaces/cocktailList';
 import { RootState } from '../src/reducers';
 import { cocktailListRequest } from '../src/reducers/cocktail';
 
-interface IProps {}
-
 const ListOptionWrapper = styled.div`
   background: #fff;
   .list_option {
@@ -129,7 +127,7 @@ const IndexPage = () => {
           </li>
         </ul>
       </ListOptionWrapper>
-      <CocktailCardList orderOption={orderOption} loading={loading || !cocktailList[orderOption]} />
+      <CocktailCardList cocktailList={cocktailList[orderOption]} loading={loading || !cocktailList[orderOption]} />
     </>
   );
 };

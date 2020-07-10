@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+import CocktailCardList from '../components/CocktailCardList';
+import * as dummy from '../config/dummy';
+
 const Container = styled.div`
-    
     .profile_area {
         display: flex;
         justify-content: space-around;
@@ -78,6 +80,10 @@ const Container = styled.div`
             line-height: 18px;
         }
     }
+    .like_list_area {
+        margin-top: 20px;
+    }
+    
     @media screen and (max-width: 320px) {
         .profile_area {
             .num_cnt_area {
@@ -115,6 +121,9 @@ const MyPage = () => {
                 <div className="update_btn_area">
                     <button type="button" className="update_btn">수정</button>
                 </div>
+            </div>
+            <div className="like_list_area">
+                <CocktailCardList cocktailList={dummy.mypage} tag={false} />
             </div>
         </Container>
     )
