@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled, { useTheme } from 'styled-components';
 
 import { ITheme } from '../config/style';
@@ -92,18 +93,20 @@ const NavContainer = styled.nav`
 
 const TopNavigation = () => {
   const theme = useTheme() as ITheme;
+  const router = useRouter();
+  const curPage = router.pathname;
 
   return (
     <NavContainer {...theme}>
       <div className='inner_container'>
         <Link href='/'>
-          <a className='nav_item active'><span className="text">홈</span></a>
+          <a className={`nav_item ${curPage === '/' ? 'active' : ''}`}><span className="text">홈</span></a>
         </Link>
         <Link href='/ranking'>
-          <a className='nav_item'><span className="text">랭킹</span></a>
+          <a className={`nav_item ${curPage === '/ranking' ? 'active' : ''}`}><span className="text">랭킹</span></a>
         </Link>
         <Link href='/mypage'>
-          <a className='nav_item'><span className="text">마이페이지</span></a>
+          <a className={`nav_item ${curPage === '/mypage' ? 'active' : ''}`}><span className="text">마이페이지</span></a>
         </Link>
       </div>
     </NavContainer>
