@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 
 import CocktailCardList from '../components/CocktailCardList';
+import Navigation from '../components/TopNavigation';
 import * as dummy from '../config/dummy';
 
 const Container = styled.div`
     .profile_area {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 30px 0;
         background: #fff;
+        
+        .inner {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 968px;
+            margin: 0 auto;
+            padding: 30px 0;
+
+        }
 
         .profile {
             width: 80px;
@@ -56,6 +63,9 @@ const Container = styled.div`
                 font-weight: 500;
                 font-size: 18px;
             }
+            .cnt {
+                margin-bottom: 5px;
+            }
         }
 
         .update_btn_area {
@@ -83,6 +93,10 @@ const Container = styled.div`
     .like_list_area {
         margin-top: 20px;
         background: #fff;
+        .inner {
+            max-width: 968px;
+            margin: 0 auto;
+        }
 
         .like_title {
             margin: 0 20px;
@@ -92,7 +106,36 @@ const Container = styled.div`
             line-height: 30px;
         }
     }
-    
+    @media screen and (min-width: 768px) {
+        .profile_area {
+            .profile {
+                width: 160px;
+                .user_name {
+                    max-height: 40px;
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+            }
+            .num_cnt_area {
+                .review, .like {
+                    font-size: 20px;
+                    line-height: 26px;
+                }
+            }
+        }
+
+        .like_list_area {
+            .like_title {
+                padding: 40px 20px 10px;
+                font-size: 26px;
+                line-height: 32px;
+            }
+        }
+        .update_btn_area {
+            width: 160px;
+            text-align: center;
+        }
+    }
     @media screen and (max-width: 320px) {
         .profile_area {
             .num_cnt_area {
@@ -110,32 +153,39 @@ const Container = styled.div`
 
 const MyPage = () => {
     return (
-        <Container>
-            <div className="profile_area">
-                <div className="profile">
-                    <div className="img_wrapper">
-                        <img src="" alt="" className="img" />
-                    </div>
-                    <span className="user_name">IRONMAN</span>
-                </div>
+        <>
+            <Navigation />
+            <Container>
+                <div className="profile_area">
+                    <div className="inner">
+                        <div className="profile">
+                            <div className="img_wrapper">
+                                <img src="" alt="" className="img" />
+                            </div>
+                            <span className="user_name">IRONMAN</span>
+                        </div>
 
-                <div className="num_cnt_area">
-                    <div className="review">
-                        <div className="cnt">0</div>리뷰
-                    </div>
-                    <div className="like">
-                        <div className="cnt">3</div>즐겨찾기
+                        <div className="num_cnt_area">
+                            <div className="review">
+                                <div className="cnt">0</div>리뷰
+                            </div>
+                            <div className="like">
+                                <div className="cnt">3</div>즐겨찾기
+                            </div>
+                        </div>
+                        <div className="update_btn_area">
+                            <button type="button" className="update_btn">수정</button>
+                        </div>
                     </div>
                 </div>
-                <div className="update_btn_area">
-                    <button type="button" className="update_btn">수정</button>
+                <div className="like_list_area">
+                    <div className="inner">
+                        <h2 className="like_title">즐겨찾기</h2>
+                        <CocktailCardList cocktailList={dummy.mypage} tag={false} number={true} />
+                    </div>
                 </div>
-            </div>
-            <div className="like_list_area">
-                <h2 className="like_title">즐겨찾기</h2>
-                <CocktailCardList cocktailList={dummy.mypage} tag={false} />
-            </div>
-        </Container>
+            </Container>
+        </>
     )
 };
 
