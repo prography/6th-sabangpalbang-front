@@ -95,7 +95,7 @@ const TabList = styled.ul`
   }
 `;
 
-const Filter = styled.ul`
+const Filter = styled.li`
   display: inline-flex;
   width: 160px;
   height: 100px;
@@ -131,7 +131,7 @@ const Filter = styled.ul`
   @media screen and (min-width: 768px) {
     width: 240px;
     height: 150px;
-
+    margin: 8px 0;
     a {
       font-size: 30px;
     }
@@ -146,9 +146,12 @@ const FilterList = styled.ul`
   }
 
   @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
     max-width: 968px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 30px 10px;
   }
 `;
 
