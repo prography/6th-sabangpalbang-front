@@ -5,6 +5,12 @@ export const banner = [
   { logoUrl: 'yellow_cocktail.png', text: '이 칵테일 정보도 \n요청합니다!', color: '#f8bd1d', href: '/request-cocktail'}
 ];
 
+export const user = {
+  email: "dlatns0201@naver.com",
+  userName: "임태현",
+  imgUrl: "https://i.pinimg.com/474x/2c/2c/60/2c2c60b20cb817a80afd381ae23dab05.jpg"
+}
+
 export const filterTab = [
   {
     category: '베이스',

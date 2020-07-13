@@ -1,5 +1,8 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
+import { loginRequest } from '../src/reducers/user';
 
 const LoginContainer = styled.div`
     position: absolute;
@@ -54,8 +57,10 @@ const LoginContainer = styled.div`
 `;
 
 const Login = () => {
-    const onNaverLogin = useCallback(() => {
+    const dispatch = useDispatch();
 
+    const onNaverLogin = useCallback(() => {
+        dispatch(loginRequest());
     }, []);
     const onKakaoLogin = useCallback(() => {
 
