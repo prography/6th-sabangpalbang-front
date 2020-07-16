@@ -90,7 +90,8 @@ export default function reducer(state: IState = initialState, action: IAction): 
         }
         case CHECK_SESSION_FAILURE: {
           return {
-            ...state
+            ...state,
+            error: action.error
           }
         }
         case LOGIN_SUCCESS: {
