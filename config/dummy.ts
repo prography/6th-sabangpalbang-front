@@ -7,8 +7,8 @@ export const banner = [
 
 export const user = {
   email: "dlatns0201@naver.com",
-  userName: "임태현",
-  imgUrl: "https://i.pinimg.com/474x/2c/2c/60/2c2c60b20cb817a80afd381ae23dab05.jpg"
+  username: "임태현",
+  profileImage: "https://i.pinimg.com/474x/2c/2c/60/2c2c60b20cb817a80afd381ae23dab05.jpg"
 }
 
 export const filterTab = [
