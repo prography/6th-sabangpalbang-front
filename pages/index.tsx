@@ -17,7 +17,7 @@ import { cocktailListRequest } from '../src/reducers/cocktail';
 
 const ListOptionWrapper = styled.div`
   background: #fff;
-  .list_option {
+  .order_btns {
     padding: 20px 20px 0px;
 
     &::after {
@@ -26,29 +26,30 @@ const ListOptionWrapper = styled.div`
       clear: both;
     }
   }
-  .option_item {
+  .order_btn {
     float: left;
     font-weight: bold;
     font-size: 20px;
     line-height: 30px;
     color: ${({ secondTextColor }: ITheme) => secondTextColor};
+    cursor: pointer;
 
     &.active {
       color: ${({ themeColor }: ITheme) => themeColor};
     }
   }
-  .option_item + .option_item {
+  .order_btn + .order_btn {
     margin-left: 10px;
   }
 
   @media (min-width: 768px) {
-    .list_option {
+    .order_btns {
       max-width: 968px;
       margin: 0 auto;
       padding: 20px 50px 10px;
     }
 
-    .option_item {
+    .order_btn {
       font-size: 24px;
     }
   }
@@ -58,14 +59,14 @@ const IndexPage = () => {
   const dispatch = useDispatch();
   const theme = useTheme() as ITheme;
   
-  const { randomList, nameList, popularList, loading } = useSelector(
+  const { alcoholList, nameList, popularList, loading } = useSelector(
     (state: RootState) => state.cocktail
   );
   const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
     'nameList'
   );
   const cocktailList = {
-    randomList,
+    alcoholList,
     nameList,
     popularList,
   } as ICocktailList;
@@ -112,20 +113,20 @@ const IndexPage = () => {
       <Carousel ItemComponent={Banner} infos={dummy.banner} />
       <FilterTab filters={dummy.filterTab} />
       <ListOptionWrapper {...theme}>
-        <ul className="list_option">
-          <li className={`option_item ${orderOption === 'randomList' ? 'active' : ''}`}
-            onClick={optionHandler('randomList')}>
-            #랜덤순
-          </li>
-          <li className={`option_item ${orderOption === 'nameList' ? 'active' : ''}`}
+        <div className="order_btns">
+          <button className={`order_btn ${orderOption === 'nameList' ? 'active' : ''}`}
             onClick={optionHandler('nameList')}>
             #이름순
-          </li>
-          <li className={`option_item ${orderOption === 'popularList' ? 'active' : ''}`}
+          </button>
+          <button className={`order_btn ${orderOption === 'alcoholList' ? 'active' : ''}`}
+            onClick={optionHandler('alcoholList')}>
+            #도수순
+          </button>
+          <button className={`order_btn ${orderOption === 'popularList' ? 'active' : ''}`}
             onClick={optionHandler('popularList')}>
             #인기순
-          </li>
-        </ul>
+          </button>
+        </div>
       </ListOptionWrapper>
       <CocktailCardList cocktailList={cocktailList[orderOption]} loading={loading || !cocktailList[orderOption]} />
     </>
