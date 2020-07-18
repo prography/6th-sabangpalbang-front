@@ -2,7 +2,7 @@ import 'swiper/css/swiper.css';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { AppProps } from 'next/app';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import {
   applyMiddleware,
   compose,
@@ -18,6 +18,8 @@ import Header from '../components/Header';
 import { globalStyle, resetCSS, theme } from '../config/style';
 import rootEpic from '../src/epics';
 import rootReducer from '../src/reducers';
+import { useEffect } from 'react';
+import { checkSessionRequest } from '../src/reducers/user';
 
 interface IProps extends AppProps {
   store: Store;
@@ -27,6 +29,12 @@ const ResetCSS = createGlobalStyle`${resetCSS}`;
 const GlobalStyle = createGlobalStyle`${globalStyle}`;
 
 const App = ({ store, Component, pageProps }: IProps) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkSessionRequest());
+  }, []);
+
   return (
     <Provider store={store}>
       <Head>

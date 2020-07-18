@@ -1,8 +1,12 @@
 import styled from 'styled-components';
+import router from 'next/router';
 
 import CocktailCardList from '../components/CocktailCardList';
 import Navigation from '../components/TopNavigation';
 import * as dummy from '../config/dummy';
+import { useSelector } from 'react-redux';
+import { RootState } from '../src/reducers';
+import { useEffect } from 'react';
 
 const Container = styled.div`
     .profile_area {
@@ -23,12 +27,17 @@ const Container = styled.div`
             margin-left: 10%;
             
             .img_wrapper {
+                overflow: hidden;
                 width: 50px;
                 height: 50px;
                 margin: 0 auto;
                 border-radius: 50%;
                 background: url(./mask.png) no-repeat;
                 background-size: 50px;
+            }
+            .img {
+                width: 100%;
+                height: 100%;
             }
             .user_name {
                 text-align: center;
@@ -152,6 +161,12 @@ const Container = styled.div`
 `;
 
 const MyPage = () => {
+    const { userInfo } = useSelector((state: RootState) => state.user);
+
+    useEffect(() => {
+        if(userInfo.email === null) router.push('/');
+    }, [userInfo.email]);
+
     return (
         <>
             <Navigation />
@@ -160,9 +175,9 @@ const MyPage = () => {
                     <div className="inner">
                         <div className="profile">
                             <div className="img_wrapper">
-                                <img src="" alt="" className="img" />
+                                <img src={userInfo.profileImage} alt="프로필 이미지" className="img" />
                             </div>
-                            <span className="user_name">IRONMAN</span>
+                            <span className="user_name">{userInfo.username}</span>
                         </div>
 
                         <div className="num_cnt_area">
@@ -170,7 +185,7 @@ const MyPage = () => {
                                 <div className="cnt">0</div>리뷰
                             </div>
                             <div className="like">
-                                <div className="cnt">3</div>즐겨찾기
+                                <div className="cnt">5</div>즐겨찾기
                             </div>
                         </div>
                         <div className="update_btn_area">

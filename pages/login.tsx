@@ -1,5 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import router from "next/router";
+
+import { loginRequest } from '../src/reducers/user';
+import { RootState } from '../src/reducers';
 
 const LoginContainer = styled.div`
     position: absolute;
@@ -54,8 +59,15 @@ const LoginContainer = styled.div`
 `;
 
 const Login = () => {
-    const onNaverLogin = useCallback(() => {
+    const dispatch = useDispatch();
+    const { userInfo } = useSelector((state: RootState) => state.user);
 
+    useEffect(() => {
+        if(userInfo.email !== null) router.back();
+    }, [userInfo.email]);
+
+    const onNaverLogin = useCallback(() => {
+        dispatch(loginRequest());
     }, []);
     const onKakaoLogin = useCallback(() => {
 

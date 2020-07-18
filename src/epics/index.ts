@@ -1,16 +1,12 @@
-import {
-  ActionsObservable,
-  combineEpics,
-  Epic,
-  StateObservable,
-} from 'redux-observable';
+import { ActionsObservable, combineEpics, Epic, StateObservable } from 'redux-observable';
 import { catchError } from 'rxjs/operators';
 
 import cocktail from './cocktail';
-import tag from './tag';
 import cocktailDetail from './cocktailDetail';
+import tag from './tag';
+import user from './user';
 
-const epics: Epic[] = [cocktail, tag, cocktailDetail];
+const epics: Epic[] = [cocktail, tag, cocktailDetail, user];
 
 const rootEpic = (
   action$: ActionsObservable<any>,
