@@ -1,4 +1,5 @@
 import { ICocktail } from '../interfaces/cocktail';
+import { LIST_LIMIT } from '../../config/constants';
 
 export type IOrderOption = 'alcoholList' | 'nameList' | 'popularList';
 
@@ -13,8 +14,6 @@ export const cocktailListSuccess = (payload: { listName: IOrderOption, listData:
 export const cocktailListFailure = (error: Error) => ({ type: COCKTAIL_LIST_FAILURE, error });
 
 export const removeOffset = (orderOption: IOrderOption) => ({type: REMOVE_OFFSET, payload: { orderOption }}); 
-
-export const LIMIT = 6;
 
 export type IAction =
   | ReturnType<typeof cocktailListRequest>
@@ -61,7 +60,7 @@ export default function reducer(state: IState = initialState, action: IAction): 
     }
     case COCKTAIL_LIST_SUCCESS: {
       let isOffsetEnd = false;
-      if(action.payload.listData.length < LIMIT || action.payload.listData.length === 0) {
+      if(action.payload.listData.length < LIST_LIMIT || action.payload.listData.length === 0) {
         isOffsetEnd = true;
       }
       return {
@@ -88,7 +87,8 @@ export default function reducer(state: IState = initialState, action: IAction): 
         offset: {
           ...state.offset,
           [action.payload.orderOption]: 0
-        }
+        },
+        isOffsetEnd: false
       }
     }
     default: return { ...state };
