@@ -164,7 +164,7 @@ const MyPage = () => {
     const { userInfo } = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
-        if(userInfo.email === null) router.push('/');
+        if(userInfo.email === null) router.push('/login');
     }, [userInfo.email]);
 
     return (

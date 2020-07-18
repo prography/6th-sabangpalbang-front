@@ -29,12 +29,6 @@ const ResetCSS = createGlobalStyle`${resetCSS}`;
 const GlobalStyle = createGlobalStyle`${globalStyle}`;
 
 const App = ({ store, Component, pageProps }: IProps) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(checkSessionRequest());
-  }, []);
-
   return (
     <Provider store={store}>
       <Head>
