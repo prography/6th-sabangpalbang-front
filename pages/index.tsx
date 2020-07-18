@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromEvent } from 'rxjs';
-import { filter, skip } from 'rxjs/operators';
+import { filter, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import Banner from '../components/Banner';
@@ -60,31 +60,36 @@ const IndexPage = () => {
   const dispatch = useDispatch();
   const theme = useTheme() as ITheme;
   
-  const { alcoholList, nameList, popularList, loading, offset, isOffsetEnd } = useSelector((state: RootState) => state.cocktail);
+  const { alcoholList, nameList, popularList, loading, offset, isOffsetEnd } = useSelector(
+    (state: RootState) => state.cocktail
+  );
   const [orderOption, setOrderOption] = useState<keyof ICocktailList>(NAME_LIST);
-  const cocktailList = { alcoholList, nameList, popularList } as ICocktailList;
+	const cocktailList = { alcoholList, nameList, popularList } as ICocktailList;
+
+	const isScrollEnd = useCallback(() => (
+			!isOffsetEnd && 
+			document.documentElement.scrollTop + document.documentElement.clientHeight + 400 >= document.documentElement.scrollHeight &&
+			!loading 
+		), [isOffsetEnd, loading]);
+	
+	useEffect(() => {
+		!cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption, offset[orderOption]));
+	}, []);
 
   useEffect(() => {
     const infiniteScroll = fromEvent(window, 'scroll')
       .pipe(
-        skip(1),
-        filter(
-          (_) => !isOffsetEnd && 
-            document.documentElement.scrollTop +
-              document.documentElement.clientHeight +
-              600 >=
-              document.documentElement.scrollHeight && !loading
-        )
+        throttleTime(100),
+        filter(isScrollEnd)
       )
-      .subscribe((_) => dispatch(cocktailListRequest(orderOption, offset[orderOption])));
+			.subscribe((_) => dispatch(cocktailListRequest(orderOption, offset[orderOption])));
+			
     return () => {
       infiniteScroll.unsubscribe();
     };
-  }, [orderOption, loading, offset]);
+  }, [orderOption, loading, offset[orderOption]]);
 
-  useEffect(() => {
-    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption, offset[orderOption]));
-  }, []);
+
   
   const optionHandler = useCallback(
     (optionName: keyof ICocktailList) => () => {

@@ -88,6 +88,7 @@ export default function reducer(state: IState = initialState, action: IAction): 
           ...state.offset,
           [action.payload.orderOption]: 0
         },
+        [action.payload.orderOption]: [],
         isOffsetEnd: false
       }
     }
