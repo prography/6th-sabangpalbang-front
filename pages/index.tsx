@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromEvent } from 'rxjs';
-import { filter, skip, throttleTime } from 'rxjs/operators';
+import { filter, skip } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import Banner from '../components/Banner';
@@ -14,6 +14,7 @@ import { ITheme } from '../config/style';
 import { ICocktailList } from '../src/interfaces/cocktailList';
 import { RootState } from '../src/reducers';
 import { cocktailListRequest, removeOffset } from '../src/reducers/cocktail';
+import { POPULAR_LIST, NAME_LIST, ALCOHOL_LIST } from '../config/constants';
 
 const ListOptionWrapper = styled.div`
   background: #fff;
@@ -59,22 +60,13 @@ const IndexPage = () => {
   const dispatch = useDispatch();
   const theme = useTheme() as ITheme;
   
-  const { alcoholList, nameList, popularList, loading, offset, isOffsetEnd } = useSelector(
-    (state: RootState) => state.cocktail
-  );
-  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
-    'nameList'
-  );
-  const cocktailList = {
-    alcoholList,
-    nameList,
-    popularList,
-  } as ICocktailList;
+  const { alcoholList, nameList, popularList, loading, offset, isOffsetEnd } = useSelector((state: RootState) => state.cocktail);
+  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(NAME_LIST);
+  const cocktailList = { alcoholList, nameList, popularList } as ICocktailList;
 
   useEffect(() => {
     const infiniteScroll = fromEvent(window, 'scroll')
       .pipe(
-        throttleTime(500),
         skip(1),
         filter(
           (_) => !isOffsetEnd && 
@@ -96,10 +88,7 @@ const IndexPage = () => {
   
   const optionHandler = useCallback(
     (optionName: keyof ICocktailList) => () => {
-      if (optionName !== 'nameList') {
-        alert('아직 준비중이지렁');
-        return;
-      }
+      if(optionName === POPULAR_LIST) return alert('아직 준비 중이지렁');
       setOrderOption(optionName);
       dispatch(removeOffset(optionName));
       if (cocktailList[optionName] === null) {
@@ -115,16 +104,16 @@ const IndexPage = () => {
       <FilterTab filters={dummy.filterTab} />
       <ListOptionWrapper {...theme}>
         <div className="order_btns">
-          <button className={`order_btn ${orderOption === 'nameList' ? 'active' : ''}`}
-            onClick={optionHandler('nameList')}>
+          <button className={`order_btn ${orderOption === NAME_LIST ? 'active' : ''}`}
+            onClick={optionHandler(NAME_LIST)}>
             #이름순
           </button>
-          <button className={`order_btn ${orderOption === 'alcoholList' ? 'active' : ''}`}
-            onClick={optionHandler('alcoholList')}>
+          <button className={`order_btn ${orderOption === ALCOHOL_LIST ? 'active' : ''}`}
+            onClick={optionHandler(ALCOHOL_LIST)}>
             #도수순
           </button>
-          <button className={`order_btn ${orderOption === 'popularList' ? 'active' : ''}`}
-            onClick={optionHandler('popularList')}>
+          <button className={`order_btn ${orderOption === POPULAR_LIST ? 'active' : ''}`}
+            onClick={optionHandler(POPULAR_LIST)}>
             #인기순
           </button>
         </div>
