@@ -13,7 +13,7 @@ import * as dummy from '../config/dummy';
 import { ITheme } from '../config/style';
 import { ICocktailList } from '../src/interfaces/cocktailList';
 import { RootState } from '../src/reducers';
-import { cocktailListRequest } from '../src/reducers/cocktail';
+import { cocktailListRequest, removeOffset } from '../src/reducers/cocktail';
 
 const ListOptionWrapper = styled.div`
   background: #fff;
@@ -59,7 +59,7 @@ const IndexPage = () => {
   const dispatch = useDispatch();
   const theme = useTheme() as ITheme;
   
-  const { alcoholList, nameList, popularList, loading } = useSelector(
+  const { alcoholList, nameList, popularList, loading, offset, isOffsetEnd } = useSelector(
     (state: RootState) => state.cocktail
   );
   const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
@@ -77,21 +77,21 @@ const IndexPage = () => {
         throttleTime(500),
         skip(1),
         filter(
-          (_) =>
+          (_) => !isOffsetEnd && 
             document.documentElement.scrollTop +
               document.documentElement.clientHeight +
               600 >=
               document.documentElement.scrollHeight && !loading
         )
       )
-      .subscribe((_) => dispatch(cocktailListRequest(orderOption)));
+      .subscribe((_) => dispatch(cocktailListRequest(orderOption, offset[orderOption])));
     return () => {
       infiniteScroll.unsubscribe();
     };
-  }, [orderOption, loading]);
+  }, [orderOption, loading, offset]);
 
   useEffect(() => {
-    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
+    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption, offset[orderOption]));
   }, []);
   
   const optionHandler = useCallback(
@@ -101,8 +101,9 @@ const IndexPage = () => {
         return;
       }
       setOrderOption(optionName);
+      dispatch(removeOffset(optionName));
       if (cocktailList[optionName] === null) {
-        dispatch(cocktailListRequest(optionName));
+        dispatch(cocktailListRequest(optionName, offset[optionName]));
       }
     },
     [cocktailList]
