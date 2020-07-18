@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fromEvent } from 'rxjs';
-import { filter, skip, throttleTime } from 'rxjs/operators';
+import { filter, throttleTime } from 'rxjs/operators';
 import styled, { useTheme } from 'styled-components';
 
 import Banner from '../components/Banner';
@@ -13,11 +13,12 @@ import * as dummy from '../config/dummy';
 import { ITheme } from '../config/style';
 import { ICocktailList } from '../src/interfaces/cocktailList';
 import { RootState } from '../src/reducers';
-import { cocktailListRequest } from '../src/reducers/cocktail';
+import { cocktailListRequest, removeOffset } from '../src/reducers/cocktail';
+import { POPULAR_LIST, NAME_LIST, ALCOHOL_LIST } from '../config/constants';
 
 const ListOptionWrapper = styled.div`
   background: #fff;
-  .list_option {
+  .order_btns {
     padding: 20px 20px 0px;
 
     &::after {
@@ -26,29 +27,30 @@ const ListOptionWrapper = styled.div`
       clear: both;
     }
   }
-  .option_item {
+  .order_btn {
     float: left;
     font-weight: bold;
     font-size: 20px;
     line-height: 30px;
     color: ${({ secondTextColor }: ITheme) => secondTextColor};
+    cursor: pointer;
 
     &.active {
       color: ${({ themeColor }: ITheme) => themeColor};
     }
   }
-  .option_item + .option_item {
+  .order_btn + .order_btn {
     margin-left: 10px;
   }
 
   @media (min-width: 768px) {
-    .list_option {
+    .order_btns {
       max-width: 968px;
       margin: 0 auto;
       padding: 20px 50px 10px;
     }
 
-    .option_item {
+    .order_btn {
       font-size: 24px;
     }
   }
@@ -58,50 +60,44 @@ const IndexPage = () => {
   const dispatch = useDispatch();
   const theme = useTheme() as ITheme;
   
-  const { randomList, nameList, popularList, loading } = useSelector(
+  const { alcoholList, nameList, popularList, loading, offset, isOffsetEnd } = useSelector(
     (state: RootState) => state.cocktail
   );
-  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(
-    'nameList'
-  );
-  const cocktailList = {
-    randomList,
-    nameList,
-    popularList,
-  } as ICocktailList;
+  const [orderOption, setOrderOption] = useState<keyof ICocktailList>(NAME_LIST);
+	const cocktailList = { alcoholList, nameList, popularList } as ICocktailList;
+
+	const isScrollEnd = useCallback(() => (
+			!isOffsetEnd && 
+			document.documentElement.scrollTop + document.documentElement.clientHeight + 400 >= document.documentElement.scrollHeight &&
+			!loading 
+		), [isOffsetEnd, loading]);
+	
+	useEffect(() => {
+		!cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption, offset[orderOption]));
+	}, []);
 
   useEffect(() => {
     const infiniteScroll = fromEvent(window, 'scroll')
       .pipe(
-        throttleTime(500),
-        skip(1),
-        filter(
-          (_) =>
-            document.documentElement.scrollTop +
-              document.documentElement.clientHeight +
-              600 >=
-              document.documentElement.scrollHeight && !loading
-        )
+        throttleTime(100),
+        filter(isScrollEnd)
       )
-      .subscribe((_) => dispatch(cocktailListRequest(orderOption)));
+			.subscribe((_) => dispatch(cocktailListRequest(orderOption, offset[orderOption])));
+			
     return () => {
       infiniteScroll.unsubscribe();
     };
-  }, [orderOption, loading]);
+  }, [orderOption, loading, offset[orderOption]]);
 
-  useEffect(() => {
-    !cocktailList[orderOption] && dispatch(cocktailListRequest(orderOption));
-  }, []);
+
   
   const optionHandler = useCallback(
     (optionName: keyof ICocktailList) => () => {
-      if (optionName !== 'nameList') {
-        alert('아직 준비중이지렁');
-        return;
-      }
+      if(optionName === POPULAR_LIST) return alert('아직 준비 중이지렁');
       setOrderOption(optionName);
+      dispatch(removeOffset(optionName));
       if (cocktailList[optionName] === null) {
-        dispatch(cocktailListRequest(optionName));
+        dispatch(cocktailListRequest(optionName, offset[optionName]));
       }
     },
     [cocktailList]
@@ -112,20 +108,20 @@ const IndexPage = () => {
       <Carousel ItemComponent={Banner} infos={dummy.banner} />
       <FilterTab filters={dummy.filterTab} />
       <ListOptionWrapper {...theme}>
-        <ul className="list_option">
-          <li className={`option_item ${orderOption === 'randomList' ? 'active' : ''}`}
-            onClick={optionHandler('randomList')}>
-            #랜덤순
-          </li>
-          <li className={`option_item ${orderOption === 'nameList' ? 'active' : ''}`}
-            onClick={optionHandler('nameList')}>
+        <div className="order_btns">
+          <button className={`order_btn ${orderOption === NAME_LIST ? 'active' : ''}`}
+            onClick={optionHandler(NAME_LIST)}>
             #이름순
-          </li>
-          <li className={`option_item ${orderOption === 'popularList' ? 'active' : ''}`}
-            onClick={optionHandler('popularList')}>
+          </button>
+          <button className={`order_btn ${orderOption === ALCOHOL_LIST ? 'active' : ''}`}
+            onClick={optionHandler(ALCOHOL_LIST)}>
+            #도수순
+          </button>
+          <button className={`order_btn ${orderOption === POPULAR_LIST ? 'active' : ''}`}
+            onClick={optionHandler(POPULAR_LIST)}>
             #인기순
-          </li>
-        </ul>
+          </button>
+        </div>
       </ListOptionWrapper>
       <CocktailCardList cocktailList={cocktailList[orderOption]} loading={loading || !cocktailList[orderOption]} />
     </>

@@ -13,6 +13,7 @@ interface IProps {
 
 const CardContainer = styled.li`
   overflow: hidden;
+  width: 140px;
   margin: 14px 0;
   padding-bottom: 8px;
   border-radius: 4px;
@@ -20,7 +21,6 @@ const CardContainer = styled.li`
 
   .image_link {
     display: block;
-    width: 140px;
   }
   .image_wrapper {
     position: relative;
@@ -72,11 +72,9 @@ const CardContainer = styled.li`
   }
 
   @media (min-width: 768px) {
+    width: 200px;
     padding-bottom: 10px;
     
-    .image_link {
-      width: 200px;
-    }
     .image_wrapper {
       height: 250px;
     }
