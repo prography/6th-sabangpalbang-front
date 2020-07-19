@@ -2,7 +2,7 @@ import 'swiper/css/swiper.css';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { AppProps } from 'next/app';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import {
   applyMiddleware,
   compose,
@@ -13,13 +13,14 @@ import {
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import jwtDecode from 'jwt-decode';
 
 import Header from '../components/Header';
 import { globalStyle, resetCSS, theme } from '../config/style';
 import rootEpic from '../src/epics';
 import rootReducer from '../src/reducers';
 import { useEffect } from 'react';
-import { checkSessionRequest } from '../src/reducers/user';
+import { checkSession } from '../src/reducers/user';
 
 interface IProps extends AppProps {
   store: Store;
@@ -42,6 +43,22 @@ const App = ({ store, Component, pageProps }: IProps) => {
       </ThemeProvider>
     </Provider>
   );
+};
+
+App.getInitialProps = async (context) => {
+  const { ctx, Component } = context;
+  let pageProps = {};
+  const state = ctx.store.getState();
+  const cookie = ctx.isServer ? ctx.req.headers.cookie : document.cookie;
+  const sessionData = cookie && jwtDecode(cookie).data;
+
+  if (ctx.isServer && sessionData && !state.user.userInfo.email) {
+    ctx.store.dispatch(checkSession(sessionData));
+  }
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx) || {};
+  }
+  return { pageProps };
 };
 
 export default withRedux((initialState, options) => {

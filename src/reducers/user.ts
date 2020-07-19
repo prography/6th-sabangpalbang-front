@@ -1,9 +1,7 @@
 import { ILikeCard } from '../interfaces/likeCard';
 import { IUser } from "../interfaces/user";
 
-export const CHECK_SESSION_REQUEST = 'user/CHECK_SESSION_REQUEST' as const;
-export const CHECK_SESSION_SUCCESS = 'user/CHECK_SESSION_SUCCESS' as const;
-export const CHECK_SESSION_FAILURE = 'user/CHECK_SESSION_FAILURE' as const;
+export const CHECK_SESSION = 'user/CHECK_SESSION' as const;
 
 export const LOGIN_REQUEST = 'user/LOGIN_REQUEST' as const;
 export const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS' as const;
@@ -21,9 +19,7 @@ export const UPDATE_LIKE_ORDER_REQUEST = 'user/DELETE_LIKE_ORDER_REQUEST' as con
 export const UPDATE_LIKE_ORDER_SUCCESS = 'user/DELETE_LIKE_ORDER_SUCCESS' as const;
 export const UPDATE_LIKE_ORDER_FAILURE = 'user/DELETE_LIKE_ORDER_FAILURE' as const;
 
-export const checkSessionRequest = () => ({type: CHECK_SESSION_REQUEST});
-export const checkSessionSuccess = (payload: IUser) => ({type: CHECK_SESSION_SUCCESS, payload});
-export const checkSessionFailure = (error: Error) => ({type: CHECK_SESSION_FAILURE, error});
+export const checkSession = (sessionData: IUser) => ({type: CHECK_SESSION, payload: { sessionData }});
 
 export const loginRequest = () => ({type: LOGIN_REQUEST});
 export const loginSuccess = (payload: IState['userInfo']) => ({type: LOGIN_SUCCESS, payload});
@@ -42,9 +38,7 @@ export const updateLikeOrderSuccess = () => ({type: UPDATE_LIKE_ORDER_SUCCESS});
 export const updateLikeOrderFailure = (error: Error) => ({type: UPDATE_LIKE_ORDER_FAILURE, error});
 
 export type IAction =
-  | ReturnType<typeof checkSessionRequest>
-  | ReturnType<typeof checkSessionSuccess>
-  | ReturnType<typeof checkSessionFailure>
+  | ReturnType<typeof checkSession>
   | ReturnType<typeof loginRequest>
   | ReturnType<typeof loginSuccess>
   | ReturnType<typeof loginFailure>
@@ -60,9 +54,12 @@ export type IAction =
 
 const initialState: IState = {
     userInfo: {
-        email: null,
-        username: null,
-        profileImage: null
+      idx: null,
+      name: null,
+      profileURL: null,
+      email: null,
+      createdAt: null,
+      updatedAt: null
     },
     reviewCnt: null,
     likeList: null,
@@ -70,11 +67,7 @@ const initialState: IState = {
 };
 
 export interface IState {
-    userInfo: {
-        email: string | null;
-        username: string | null;
-        profileImage: string | null;
-    };
+    userInfo: IUser;
     reviewCnt: number | null,
     likeList: ILikeCard[] | null;
     error: null | Error;
@@ -82,16 +75,10 @@ export interface IState {
 
 export default function reducer(state: IState = initialState, action: IAction): IState {
     switch (action.type) {
-        case CHECK_SESSION_SUCCESS: {
+        case CHECK_SESSION: {
           return {
             ...state,
-            userInfo: action.payload
-          }
-        }
-        case CHECK_SESSION_FAILURE: {
-          return {
-            ...state,
-            error: action.error
+            userInfo: action.payload.sessionData
           }
         }
         case LOGIN_SUCCESS: {
