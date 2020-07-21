@@ -18,19 +18,22 @@ const Container = styled.div`
             align-items: center;
             max-width: 968px;
             margin: 0 auto;
-            padding: 30px 0;
+            padding: 17px 0;
 
         }
 
         .profile {
-            width: 80px;
-            margin-left: 10%;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            width: 160px;
+            margin-left: 5%;
             
             .img_wrapper {
                 overflow: hidden;
-                width: 50px;
-                height: 50px;
-                margin: 0 auto;
+                flex: 0 0 80px;
+                height: 80px;
+                margin-right: 16px;
                 border-radius: 50%;
                 background: url(./mask.png) no-repeat;
                 background-size: 50px;
@@ -40,45 +43,45 @@ const Container = styled.div`
                 height: 100%;
             }
             .user_name {
-                text-align: center;
+                flex: 1;
+                text-align: left;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
-                width: 100%;
-                max-height: 36px;
-                margin-top: 8px;
+                max-height: 56px;
                 font-family: sans-serif;
-                font-weight: 500;
-                font-size: 12px;
-                line-height: 18px;
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 28px;
                 word-break: break-all;
             }
         }
 
         .num_cnt_area {
-            flex: 1;
+            flex-basis: 120px;
             text-align: center;
+            font-weight: 600;
+            font-size: 18px;
 
             .review {
                 display: inline-block;
-                font-weight: 500;
-                font-size: 18px;
+                text-align: center;
             }
             .like {
                 display: inline-block;
-                margin-left: 8%;
-                font-weight: 500;
-                font-size: 18px;
+                text-align: center;
+                margin-left: 20px;
             }
             .cnt {
                 margin-bottom: 5px;
             }
         }
-
         .update_btn_area {
-            margin-right: 10%;
+            flex: 1;
+            margin-right: 5%;
+            text-align: right;
         }
         .update_btn::before {
             display: inline-block;
@@ -117,18 +120,14 @@ const Container = styled.div`
     }
     @media screen and (min-width: 768px) {
         .profile_area {
-            .profile {
-                width: 160px;
-                .user_name {
-                    max-height: 40px;
-                    font-size: 16px;
-                    line-height: 20px;
-                }
-            }
             .num_cnt_area {
-                .review, .like {
-                    font-size: 20px;
-                    line-height: 26px;
+                .like, .review {
+                    font-size: 19px;
+                    line-height: 27px;
+                }
+                .cnt {
+                    font-size: 22px;
+                    line-height: 30px;
                 }
             }
         }
@@ -140,13 +139,21 @@ const Container = styled.div`
                 line-height: 32px;
             }
         }
-        .update_btn_area {
-            width: 160px;
-            text-align: center;
-        }
     }
-    @media screen and (max-width: 320px) {
+    @media screen and (max-width: 430px) {
         .profile_area {
+            .profile {
+                .img_wrapper {
+                    flex-basis: 60px;
+                    height: 60px;
+                }
+                .user_name {
+                    max-height: 54px;
+                    font-size: 14px;
+                    line-height: 18px;
+                    -webkit-line-clamp: 3;
+                }
+            }
             .num_cnt_area {
                 .review {
                     display: block;
@@ -164,8 +171,10 @@ const MyPage = () => {
     const { userInfo } = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
-        if(userInfo.email === null) router.push('/');
+        if(userInfo.email === null) router.push('/login');
     }, [userInfo.email]);
+
+    if(!userInfo.email) return null;
 
     return (
         <>
@@ -175,9 +184,9 @@ const MyPage = () => {
                     <div className="inner">
                         <div className="profile">
                             <div className="img_wrapper">
-                                <img src={userInfo.profileImage} alt="프로필 이미지" className="img" />
+                                <img src={userInfo.profileURL} alt="프로필 이미지" className="img" />
                             </div>
-                            <span className="user_name">{userInfo.username}</span>
+                            <span className="user_name">{userInfo.name}</span>
                         </div>
 
                         <div className="num_cnt_area">
@@ -203,5 +212,6 @@ const MyPage = () => {
         </>
     )
 };
+
 
 export default MyPage;

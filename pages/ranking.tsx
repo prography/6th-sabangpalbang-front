@@ -9,6 +9,8 @@ const Ranking = () => {
     useEffect(() => {
         if(userInfo.email === null) router.push('/login');
     }, [userInfo.email]);
+    
+    if(!userInfo.email) return null;
 
     return (
         <div>ranking</div>

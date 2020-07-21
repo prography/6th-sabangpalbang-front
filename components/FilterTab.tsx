@@ -7,7 +7,7 @@ import { ITheme } from '../config/style';
 const TabContainer = styled.div`
   background: #fff;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
+  margin: -1px 0 20px;
 
   @media screen and (min-width: 768px) {
     box-shadow: none;

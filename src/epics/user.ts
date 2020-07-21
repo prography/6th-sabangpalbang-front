@@ -3,19 +3,15 @@ import { from, of, race } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
 import * as dummy from '../../config/dummy';
-import { IAction, LOGIN_FAILURE, LOGIN_REQUEST, loginSuccess, CHECK_SESSION_REQUEST, checkSessionSuccess, checkSessionFailure } from '../reducers/user';
-import { ajax } from 'rxjs/ajax';
-
-const checkSessionEpic = (action$: ActionsObservable<IAction>) => 
-  action$.pipe(
-    ofType(CHECK_SESSION_REQUEST)
-  )
+import { IAction, LOGIN_FAILURE, LOGIN_REQUEST, loginSuccess } from '../reducers/user';
+import * as ajax from '../lib/ajax';
 
 // const checkSessionEpic = (action$: ActionsObservable<IAction>) => 
 //   action$.pipe(
 //     ofType(CHECK_SESSION_REQUEST),
 //     mergeMap((action$: any) =>
-//       race(ajax.getJSON('/cocktails')
+//       race(of(dummy.user))
+//       // race(ajax.getJSON('/check')
 //         .pipe(
 //           map((data: any) => checkSessionSuccess(data)),
 //           catchError(error => of(checkSessionFailure(error)))
@@ -24,10 +20,10 @@ const checkSessionEpic = (action$: ActionsObservable<IAction>) =>
 //     )
 //   );
 
-const loginEpic = (action$: ActionsObservable<IAction>) => action$.pipe(
-    ofType(LOGIN_REQUEST),
-    map(action$ => loginSuccess(dummy.user))
-);
+// const loginEpic = (action$: ActionsObservable<IAction>) => action$.pipe(
+//     ofType(LOGIN_REQUEST),
+//     map(action$ => loginSuccess(dummy.user))
+// );
 
 // const loginEpic = (action$: ActionsObservable<IAction>) =>
 //   action$.pipe(
@@ -42,4 +38,5 @@ const loginEpic = (action$: ActionsObservable<IAction>) => action$.pipe(
 //     )
 //   );
   
-  export default combineEpics(loginEpic, checkSessionEpic);
+  // export default combineEpics(loginEpic, checkSessionEpic);
+  export default combineEpics();
