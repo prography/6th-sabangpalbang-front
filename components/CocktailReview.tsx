@@ -143,36 +143,36 @@ const WriteForm = styled.form`
 
 interface IProps {
   reviews: {
-    profile: { src: string; alt: string };
-    name: string;
-    isFavorite: boolean;
-    text: string;
-    day: string;
+    idx:number;
+    comment:string;
+    createdAt:string;
+    updatedAt:string;
+    user:any;
   }[];
 }
 
-const CocktailSummary = ({ reviews }: IProps) => {
+const CocktailSummary = ({reviews }: IProps) => {
   const [formDisplay, setFormDisplay] = useState(false);
   return (
     <StyledDiv>
       <h2>리뷰</h2>
-      {reviews.length === 0 ? (
+      {reviews === null ? (
         <div className='lock'>
           <img src='/lock.svg' alt='lock icon' />
           로그인 후 리뷰를 볼 수 있습니다.
         </div>
-      ) : (
+      ) : reviews.length !== 0 ? (
         <>
           <div className='reviews'>
             {reviews.map((review, i) => (
               <div className='review' key={i}>
                 <div className='profile'>
-                  <img src={review.profile.src} alt={review.profile.alt} />
-                  <span>{review.name}</span>
+                  <img src={"/account.svg"} alt={"profile icon"} />
+                  <span>{"user"}</span>
                 </div>
                 <div className='review-text'>
-                  {review.text}
-                  <span>{review.day}</span>
+                  {review.comment}
+                  <span>{review.createdAt==review.updatedAt?review.createdAt.slice(0,10):review.updatedAt.slice(0,10)+"(수정됨)"}</span>
                 </div>
               </div>
             ))}
@@ -207,6 +207,10 @@ const CocktailSummary = ({ reviews }: IProps) => {
             </div>
           </WriteForm>
         </>
+      ):(
+        <div className='lock'>
+          작성된 리뷰가 없습니다.
+        </div>
       )}
     </StyledDiv>
   );

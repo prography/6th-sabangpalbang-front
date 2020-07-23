@@ -172,6 +172,9 @@ const HeaderContainer = styled.header`
     .search_logo {
       margin-left: auto;
     }
+    .filter_div {
+      top:64px;
+    }
 
     &::after {
       content: none;
@@ -313,6 +316,7 @@ const Header = () => {
           <span className='type'>베이스</span>
           <div className='tag-list'>
             {baseTagStyleList.map((tag, i) => {
+              if(i==0) return;
               const params = {
                 textColor: selectedBaseTag.includes(i) ? undefined : '#aeaeae',
                 borderColor: selectedBaseTag.includes(i)

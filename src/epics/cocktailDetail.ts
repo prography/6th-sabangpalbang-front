@@ -1,10 +1,12 @@
 import { ActionsObservable, combineEpics, ofType } from 'redux-observable';
-import { of } from 'rxjs';
-import { delay, map, mergeMap } from 'rxjs/operators';
+import { of, race } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import * as dummy from '../../config/dummy';
+import * as ajax from '../lib/ajax';
+
 import {
   COCKTAIL_DETAIL_REQUEST,
+  COCKTAIL_DETAIL_FAILURE,
   cocktailDetailSuccess,
   IAction,
 } from '../reducers/cocktailDetail';
@@ -12,13 +14,13 @@ import {
 const cocktailListEpic = (action$: ActionsObservable<IAction>) =>
   action$.pipe(
     ofType(COCKTAIL_DETAIL_REQUEST),
-    mergeMap((action$) =>
-      of(action$).pipe(
-        delay(1000),
-        map((action$: any) =>
-          cocktailDetailSuccess({
-            cocktailDetail: dummy.cocktailDetailData,
-          })
+    mergeMap((action$: any) =>
+      race(ajax.getJSON(`/cocktails/${action$.idx}`)
+        .pipe(
+          map((data: any) => cocktailDetailSuccess({
+            cocktailDetail: data
+          })),
+          catchError(error => of({ type: COCKTAIL_DETAIL_FAILURE, error }))
         )
       )
     )

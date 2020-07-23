@@ -1,10 +1,12 @@
+import { IAbvClassification } from "../interfaces/abvClassification";
+
 export const COCKTAIL_DETAIL_REQUEST = 'cocktail/COCKTAIL_DETAIL_REQUEST' as const;
 export const COCKTAIL_DETAIL_SUCCESS = 'cocktial/COCKTAIL_DETAIL_SUCCESS' as const;
 export const COCKTAIL_DETAIL_FAILURE = 'cocktail/COCKTAIL_DETAIL_FAILURE' as const;
 
-export const cocktailDetailRequest = (cocktailIdx: number | string) => ({
+export const cocktailDetailRequest = (idx: number | string) => ({
   type: COCKTAIL_DETAIL_REQUEST,
-  cocktailIdx,
+  idx,
 });
 export const cocktailDetailSuccess = (payload: { cocktailDetail: any }) => ({
   type: COCKTAIL_DETAIL_SUCCESS,
@@ -15,36 +17,49 @@ export const cocktailDetailFailure = (error: Error) => ({
   error,
 });
 
-export interface IImgInfo {
-  src: string;
-  alt: string;
-}
 export interface ITagInfo {
   name: string;
   idx: number;
+  textColor: string;
 }
 export interface IReviewInfo {
-  profile: IImgInfo;
-  name: string;
-  isFavorite: boolean;
-  text: string;
-  day: string;
+  idx:number;
+  comment:string;
+  createdAt:string;
+  updatedAt:string;
+  user:any;
 }
 
-export interface IState {
-  cocktailName: null | string;
-  cocktailIdx: null | number;
-  backgroundImg: null | IImgInfo;
-  cocktailImg: null | IImgInfo;
-  favoriteCount: null | number;
+export interface IFlavorInfo {
+  idx:number;
+  name:string;
+  description:string;
+}
+
+export interface IBaseInfo {
+  idx:number;
+  imgUrl:string;
+  name:string;
+  abv:number;
+  description:string;
+  textColor:string;
+  backgroundColor:string;
+}
+
+export interface IState {  
+  idx: null | number;
+  name: null | string;
+  imgUrl: null | string;
+  backgroundImgUrl: null | string;
+  abv: null | number;
+  nonAbv: null | boolean;
+  ingredients: null | string;
   description: null | string;
   tags: null | ITagInfo[];
-  abv: null | number;
-  abvMin: null | number;
-  abvMax: null | number;
-  base: null | number;
-  ingredients: null | string[];
-  flavor: null | string;
+  flavors: null | IFlavorInfo[];
+  base: null | IBaseInfo;
+  abvClassification:null| IAbvClassification;
+  likes: null | any[];
   reviews: null | IReviewInfo[];
   loading: boolean;
   error: null | Error;
@@ -56,22 +71,22 @@ export type IAction =
   | ReturnType<typeof cocktailDetailFailure>;
 
 const initialState = {
-  cocktailName: null,
-  cocktailIdx: null,
-  backgroundImg: null,
-  cocktailImg: null,
-  favoriteCount: null,
+  idx: null,
+  name: null,
+  imgUrl: null,
+  backgroundImgUrl: null,
+  abv: null,
+  nonAbv: null ,
+  ingredients: null ,
   description: null,
   tags: null,
-  abv: null,
-  abvMin: null,
-  abvMax: null,
+  flavors: null ,
   base: null,
-  ingredients: null,
-  flavor: null,
-  reviews: null,
+  abvClassification:null,
+  likes: null ,
+  reviews: null ,
   loading: false,
-  error: null,
+  error: null
 };
 
 export default function reducer(
