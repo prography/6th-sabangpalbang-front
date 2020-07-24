@@ -73,11 +73,13 @@ export const globalStyle = css`
 `;
 
 export const baseTagStyleList = [
-  { idx: 0, name: '데킬라', backgroundColor: '#499399', borderColor: '#fff' },
-  { idx: 1, name: '럼', backgroundColor: '#DCCA00', borderColor: '#fff' },
-  { idx: 2, name: '진', backgroundColor: '#AF8C60', borderColor: '#fff' },
-  { idx: 3, name: '리큐어', backgroundColor: '#D452D9', borderColor: '#fff' },
-  { idx: 4, name: '보드카', backgroundColor: '#2E82F7', borderColor: '#fff' },
-  { idx: 5, name: '브랜디', backgroundColor: '#FF7900', borderColor: '#fff' },
-  { idx: 6, name: '기타' },
+  null,
+  { idx:1, name:'없음'},
+  { idx: 2, name: '데킬라', backgroundColor: '#499399', borderColor: '#fff' },
+  { idx: 3, name: '럼', backgroundColor: '#DCCA00', borderColor: '#fff' },
+  { idx: 4, name: '진', backgroundColor: '#AF8C60', borderColor: '#fff' },
+  { idx: 5, name: '리큐어', backgroundColor: '#D452D9', borderColor: '#fff' },
+  { idx: 6, name: '보드카', backgroundColor: '#2E82F7', borderColor: '#fff' },
+  { idx: 7, name: '브랜디', backgroundColor: '#FF7900', borderColor: '#fff' },
+  { idx: 8, name: '기타' },
 ];

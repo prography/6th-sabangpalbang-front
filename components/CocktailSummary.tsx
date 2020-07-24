@@ -92,9 +92,21 @@ interface IProps {
   abv: number;
   abvMin: number;
   abvMax: number;
-  base: number;
-  ingredients: string[];
-  flavor: string;
+  base: {
+    idx:number;
+    imgUrl:string;
+    name:string;
+    abv:number;
+    description:string;
+    textColor:string;
+    backgroundColor:string;
+  };
+  ingredients: string;
+  flavors: {
+    idx:number;
+    name:string;
+    description:string;
+  }[];
 }
 
 const CocktailSummary = ({
@@ -103,7 +115,7 @@ const CocktailSummary = ({
   abvMax,
   base,
   ingredients,
-  flavor,
+  flavors,
 }: IProps) => {
   return (
     <StyledDiv>
@@ -133,8 +145,8 @@ const CocktailSummary = ({
         </div>
         <Content>
           <Tag
-            name={baseTagStyleList[base].name}
-            backgroundColor={baseTagStyleList[base].backgroundColor}
+            name={baseTagStyleList[base.idx].name}
+            backgroundColor={baseTagStyleList[base.idx].backgroundColor}
             fontSize={13}
           />
         </Content>
@@ -145,9 +157,7 @@ const CocktailSummary = ({
           <span>재료</span>
         </div>
         <Content>
-          {ingredients.map((name, i) => (
-            <Tag key={i} name={name} fontSize={13} />
-          ))}
+          {ingredients}
         </Content>
       </div>
       <div className='row'>
@@ -155,7 +165,10 @@ const CocktailSummary = ({
           <img src='/cutlery.svg' alt='맛' />
           <span>맛</span>
         </div>
-        <Content>{flavor}</Content>
+        <Content>{flavors.map((f, i) => (
+            <Tag key={i} name={f.name} fontSize={13} />
+          ))}
+          </Content>
       </div>
     </StyledDiv>
   );

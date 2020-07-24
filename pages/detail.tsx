@@ -63,6 +63,8 @@ const DetailPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.cocktailDetail);
+  const user = useSelector((state: RootState) => state.user);
+
   useEffect(() => {
     dispatch(
       cocktailDetailRequest(
@@ -70,9 +72,10 @@ const DetailPage = () => {
       )
     );
   }, []);
+
   return (
     <GridDiv>
-      {data.loading || !data.cocktailName ? (
+      {data.loading || !data.name ? (
         <>
           <InfoLoader />
           <SummaryLoader />
@@ -81,22 +84,22 @@ const DetailPage = () => {
       ) : (
         <>
           <CocktailInfo
-            backgroundImg={data.backgroundImg}
-            cocktailImg={data.cocktailImg}
-            cocktailName={data.cocktailName}
-            favoriteCount={data.favoriteCount}
+            backgroundImg={{src:data.backgroundImgUrl, alt:"cocktail background image"}}
+            cocktailImg={{src:data.imgUrl, alt:"cocktail image"}}
+            cocktailName={data.name}
+            favoriteCount={data.likes.length}
             description={data.description}
             tags={data.tags}
           />
           <CocktailSummary
             abv={data.abv}
-            abvMin={data.abvMin}
-            abvMax={data.abvMax}
+            abvMin={data.abvClassification.minAbv}
+            abvMax={data.abvClassification.maxAbv}
             base={data.base}
             ingredients={data.ingredients}
-            flavor={data.flavor}
+            flavors={data.flavors}
           />
-          <CocktailReview reviews={data.reviews} />
+          <CocktailReview reviews={user.userInfo.idx?data.reviews:null} />
           {/* <div>추천 칵테일</div> */}
         </>
       )}

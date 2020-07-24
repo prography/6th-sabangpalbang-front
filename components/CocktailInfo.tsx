@@ -10,6 +10,7 @@ const StyledDiv = styled.div`
     filter: blur(1px);
   }
   .cocktail-img {
+    z-index:20;
     position: absolute;
     top: calc(28vw + 40px);
     left: 4vw;
@@ -44,6 +45,19 @@ const StyledDiv = styled.div`
     border-top: 1px solid #ddd;
     font-size: 14px;
   }
+  @media screen and (min-width: 768px) {
+    .background-img {
+      height:20vw;
+    }
+    .cocktail-img {
+      top:20vw;
+      width: 25vw;
+      height:38vw;
+    }
+    .cocktail-info {
+      padding-left:32vw;
+    }
+  }
 `;
 
 interface IImageInfo {
@@ -60,6 +74,7 @@ interface IProps {
   tags?: {
     name: string;
     idx: number;
+    textColor: string;
   }[];
 }
 

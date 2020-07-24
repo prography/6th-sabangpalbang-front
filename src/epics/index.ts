@@ -5,8 +5,9 @@ import cocktail from './cocktail';
 import cocktailDetail from './cocktailDetail';
 import tag from './tag';
 import user from './user';
+import list from './list';
 
-const epics: Epic[] = [cocktail, tag, cocktailDetail, user];
+const epics: Epic[] = [cocktail, tag, cocktailDetail, user, list];
 
 const rootEpic = (
   action$: ActionsObservable<any>,
