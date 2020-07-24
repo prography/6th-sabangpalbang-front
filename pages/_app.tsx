@@ -63,7 +63,7 @@ App.getInitialProps = async (context) => {
       ctx.req.headers.cookie.split('; ').map(v => v.split('='))
         .reduce((acc, [key, value]) => ({...acc, [key]: value }), {});
 
-    if(cookies.userToken) {
+    if(cookies && cookies.userToken) {
       const sessionData = jwtDecode(cookies.userToken).data;
       ctx.store.dispatch(checkSession(sessionData));
     }
