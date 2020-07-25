@@ -34,8 +34,9 @@ const App = ({ store, Component, pageProps }: IProps) => {
   useEffect(() => {
     const userToken = localStorage.getItem('userToken');
     const userInfo = userToken && jwtDecode(userToken);
+
     if(userInfo) {
-      store.dispatch(checkSession(userInfo));
+      store.dispatch(checkSession(userInfo.data));
     }
   }, []);
   useEffect(() => {

@@ -10,7 +10,7 @@ const Token = ({ userToken }) => {
   useEffect(() => {
     localStorage.setItem('userToken', userToken);
     const sessionData = jwtDecode(userToken);
-    dispatch(checkSession(sessionData));
+    dispatch(checkSession(sessionData.data));
     Router.push('/');
   }, []);
 
