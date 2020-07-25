@@ -1,9 +1,16 @@
 import { useEffect } from "react";
 import Router from "next/router";
+import jwtDecode from 'jwt-decode';
+import { checkSession } from "../src/reducers/user";
+import { useDispatch } from "react-redux";
 
 const Token = ({ userToken }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     localStorage.setItem('userToken', userToken);
+    const sessionData = jwtDecode(userToken);
+    dispatch(checkSession(sessionData));
     Router.push('/');
   }, []);
 
@@ -14,11 +21,6 @@ Token.getInitialProps = async (ctx) => {
   const query = ctx.query;
   const userToken = query && query.accessToken;
   const pageProps = { userToken: null };
-  
-  if(!ctx.isServer) {
-    localStorage.setItem('userToken', userToken);
-    Router.push('/');
-  }
 
   if(ctx.isServer && userToken) {
     pageProps.userToken = userToken;

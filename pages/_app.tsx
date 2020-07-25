@@ -32,12 +32,20 @@ const GlobalStyle = createGlobalStyle`${globalStyle}`;
 
 const App = ({ store, Component, pageProps }: IProps) => {
   useEffect(() => {
+    const userToken = localStorage.getItem('userToken');
+    const userInfo = userToken && jwtDecode(userToken);
+    if(userInfo) {
+      store.dispatch(checkSession(userInfo));
+    }
+  }, []);
+  useEffect(() => {
     if (!window["GA_INITIALIZED"]) {
       initGA();
       window["GA_INITIALIZED"] = true;
     }
     logPageView()
   }, [Component]);
+
   return (
     <Provider store={store}>
       <Head>
