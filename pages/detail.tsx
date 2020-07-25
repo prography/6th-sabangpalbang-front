@@ -84,7 +84,6 @@ const DetailPage = () => {
       ) : (
         <>
           <CocktailInfo
-            backgroundImg={{src:data.backgroundImgUrl, alt:"cocktail background image"}}
             cocktailImg={{src:data.imgUrl, alt:"cocktail image"}}
             cocktailName={data.name}
             favoriteCount={data.likes.length}

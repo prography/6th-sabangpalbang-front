@@ -2,12 +2,15 @@ import styled from 'styled-components';
 import Tag from './Tag';
 
 const StyledDiv = styled.div`
+  position: relative;
   background-color: white;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-  .background-img {
-    width: 100vw;
-    height: 47vw;
-    filter: blur(1px);
+
+  .bg {
+    position: relative;
+  }
+  .bg_img {
+    width: 100%;
   }
   .cocktail-img {
     z-index:20;
@@ -45,6 +48,15 @@ const StyledDiv = styled.div`
     border-top: 1px solid #ddd;
     font-size: 14px;
   }
+  .like_btn {
+    position: absolute;
+    right: 13px;
+    top: 13px;
+    width: 23px;
+    height: 24px;
+    background: url(/star_fill.png);
+    background-size: 23px 24px;
+  }
   @media screen and (min-width: 768px) {
     .background-img {
       height:20vw;
@@ -66,7 +78,6 @@ interface IImageInfo {
 }
 
 interface IProps {
-  backgroundImg: IImageInfo;
   cocktailImg: IImageInfo;
   cocktailName: string;
   favoriteCount: number | string;
@@ -79,7 +90,6 @@ interface IProps {
 }
 
 const CocktailInfo = ({
-  backgroundImg,
   cocktailImg,
   cocktailName,
   favoriteCount,
@@ -88,11 +98,13 @@ const CocktailInfo = ({
 }: IProps) => {
   return (
     <StyledDiv>
-      <img
-        className='background-img'
-        src={backgroundImg.src}
-        alt={backgroundImg.alt}
-      />
+      <div className="bg">
+        <img
+          className='bg_img'
+          src="/cocktail_bg.jpg"
+          alt=""
+        />
+      </div>
       <img
         className='cocktail-img'
         src={cocktailImg.src}
@@ -108,6 +120,7 @@ const CocktailInfo = ({
         </div>
       </div>
       <div className='description'>{description}</div>
+      <button type="button" className="like_btn" />
     </StyledDiv>
   );
 };
