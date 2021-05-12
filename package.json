@@ -40,7 +40,7 @@
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.5",
     "styled-components": "^5.1.0",
-    "swiper": "^5.4.1"
+    "swiper": "^6.5.1"
   },
   "devDependencies": {
     "@types/node": "^13.13.5",
